@@ -13,7 +13,7 @@ Epic:
 As <Role> i want <feauture>, to <use case>.
 
 **Priority**: (either low middle or high)
-**Story points**: (please only fibonaccy numbers, one story point equals one man hour)
+**Story points**: (please only fibonaccy numbers, one story point equals one human hour)
 ### Tasks
 -[ ] Task 1
 -[ ] Task 2
