@@ -1,8 +1,8 @@
 ---
 name: User Story
 about: Issues for user stories
-title: ''
-labels: ''
+title: '[User story] '
+labels: 'user story'
 assignees: ''
 
 ---
@@ -10,11 +10,11 @@ assignees: ''
 Epic:
 
 ### Description
+As <Role> i want <feauture>, to <use case>.
 
+**Priority**: (either low middle or high)
+**Story points**: (please only fibonaccy numbers, one story point equals one man hour)
 ### Tasks
-I want this concrete feature because [ ... ] so that I can [ ... ]. 
-These are the following criteria:
-
 -[ ] Task 1
 -[ ] Task 2
 -[ ] Task 3

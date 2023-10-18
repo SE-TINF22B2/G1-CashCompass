@@ -1,8 +1,8 @@
 ---
 name: Epic
 about: Issue for Epics
-title: ''
-labels: ''
+title: '[Epic]'
+labels: 'epic'
 assignees: ''
 
 ---
