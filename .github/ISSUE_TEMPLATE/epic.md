@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<Please create the epic as a label and assign it to every user story>
+
 ### Description
 This project should provide [big feature] so that [functions]. 
 These are the main acceptance criterias:
