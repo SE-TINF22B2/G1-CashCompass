@@ -9,7 +9,6 @@ assignees: ''
 ### Description
 As a user, I want <feauture>, to <use case>.
 
-**Priority**: (either low, medium or high)
 **Story points**: (please only fibonaccy numbers, one story point equals one human hour)
 ### Acceptance criteria
 - [ ] Task 1
