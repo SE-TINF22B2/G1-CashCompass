@@ -6,18 +6,15 @@ labels: 'user story'
 assignees: ''
 
 ---
-
-Epic: <Please write the epic here and add it as a label>
-
 ### Description
 As <Role> i want <feauture>, to <use case>.
 
 **Priority**: (either low middle or high)
 **Story points**: (please only fibonaccy numbers, one story point equals one human hour)
 ### Acceptance criterias
--[ ] Task 1
--[ ] Task 2
--[ ] Task 3
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
 
 ### Risks
 <What could go wrong here?>
