@@ -15,6 +15,3 @@ As <Role> i want <feauture>, to <use case>.
 - [ ] Task 1
 - [ ] Task 2
 - [ ] Task 3
-
-### Risks
-<What could go wrong here?>
