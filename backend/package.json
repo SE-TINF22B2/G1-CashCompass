@@ -33,6 +33,7 @@
     "@nestjs/swagger": "^7.1.14",
     "@prisma/client": "latest",
     "nestjs-prisma": "^0.22.0",
+    "prisma-class-generator": "^0.2.8",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.0"
