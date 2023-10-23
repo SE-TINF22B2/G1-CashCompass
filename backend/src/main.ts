@@ -3,12 +3,17 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaModel } from './_gen/prisma-class';
 import { PrismaClientExceptionFilter } from 'nestjs-prisma';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //Global exception filter
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+
+  //Validation and transformation of inputs
+  app.useGlobalPipes(new ValidationPipe());
 
   //Swagger
   const config = new DocumentBuilder()
