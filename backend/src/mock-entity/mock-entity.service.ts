@@ -12,7 +12,7 @@ export class MockEntityService {
   }
 
   findAll() {
-    return `This action returns all mockEntity`;
+    return this.prismaService.mockEntity.findMany();
   }
 
   findOne(id: number) {
