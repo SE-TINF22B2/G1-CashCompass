@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { MockEntityService } from './mock-entity.service';
 import { CreateMockEntityDto, UpdateMockEntityDto } from './dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -17,8 +17,8 @@ export class MockEntityController {
 
   @Get(':id')
   @ApiOkResponse({ type: PrismaModel.MockEntity })
-  findOne(@Param('id') id: string) {
-    return this.mockEntityService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.mockEntityService.findOne(id);
   }
 
   @Post()
@@ -29,12 +29,12 @@ export class MockEntityController {
 
   @Patch(':id')
   @ApiOkResponse({ type: PrismaModel.MockEntity })
-  update(@Param('id') id: string, @Body() updateMockEntityDto: UpdateMockEntityDto) {
-    return this.mockEntityService.update(+id, updateMockEntityDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateMockEntityDto: UpdateMockEntityDto) {
+    return this.mockEntityService.update(id, updateMockEntityDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.mockEntityService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.mockEntityService.remove(id);
   }
 }
