@@ -8,7 +8,11 @@ export class MockEntityService {
   constructor(private prismaService: PrismaService) { }
 
   create(createMockEntityDto: CreateMockEntityDto) {
-    return 'This action adds a new mockEntity';
+    return this.prismaService.mockEntity.create({
+      data: {
+        ...createMockEntityDto
+      }
+    })
   }
 
   findAll() {
@@ -16,14 +20,27 @@ export class MockEntityService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} mockEntity`;
+    return this.prismaService.mockEntity.findUniqueOrThrow({
+      where: {
+        id
+      }
+    });
   }
 
   update(id: number, updateMockEntityDto: UpdateMockEntityDto) {
-    return `This action updates a #${id} mockEntity`;
+    return this.prismaService.mockEntity.update({
+      data: updateMockEntityDto,
+      where: {
+        id
+      }
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} mockEntity`;
+    return this.prismaService.mockEntity.delete({
+      where: {
+        id
+      }
+    });
   }
 }
