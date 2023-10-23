@@ -1,29 +1,29 @@
 version: '3.8'
 services:
-  nest-api:
+  cashcompass-api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nest-api
+    container_name: cashcompass-api
     restart: always
     ports:
       - '3000:3000'
     depends_on:
-      - nest-postgres
+      - cashcompass-postgres
     env_file:
       - .env
 
-  nest-postgres:
+  cashcompass-postgres:
     image: postgres:14
-    container_name: nest-postgres
+    container_name: cashcompass-postgres
     restart: always
     ports:
       - '5432:5432'
     env_file:
       - .env
     volumes:
-      - nest-postgres:/var/lib/postgresql/data
+      - cashcompass-postgres:/var/lib/postgresql/data
 
 volumes:
-  nest-postgres:
-    name: nest-postgres-db
+  cashcompass-postgres:
+    name: cashcompass-postgres-db
