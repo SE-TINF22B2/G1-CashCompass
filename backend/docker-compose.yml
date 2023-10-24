@@ -26,4 +26,4 @@ services:
 
 volumes:
   cashcompass-postgres:
-    name: cashcompass-postgres-db
+    name: nest-postgres-db

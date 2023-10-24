@@ -9,4 +9,7 @@ export class MockEntity {
 
   @ApiPropertyOptional({ type: String })
   name?: string;
+
+  @ApiPropertyOptional({ type: String })
+  test?: string;
 }
