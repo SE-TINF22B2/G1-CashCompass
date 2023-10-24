@@ -23,7 +23,10 @@
     "migrate:deploy": "npx prisma migrate deploy",
     "prisma:generate": "npx prisma generate",
     "prisma:studio": "npx prisma studio",
-    "prisma:seed": "npx prisma db seed"
+    "prisma:seed": "npx prisma db seed",
+    "start:docker": "npx prisma generate && docker-compose up && npx prisma db push && npm run prisma:seed",
+    "start:docker:bg": "npx prisma generate && docker-compose up -d && npx prisma db push && npm run prisma:seed",
+    "start:db": "npx prisma generate && docker-compose up cashcompass-postgres -d && npx prisma db push && npm run prisma:seed"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

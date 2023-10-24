@@ -11,7 +11,7 @@ services:
     depends_on:
       - cashcompass-postgres
     env_file:
-      - .env
+      - .env.docker
 
   cashcompass-postgres:
     image: postgres:14
@@ -20,7 +20,7 @@ services:
     ports:
       - '5432:5432'
     env_file:
-      - .env
+      - .env.docker
     volumes:
       - cashcompass-postgres:/var/lib/postgresql/data
 
