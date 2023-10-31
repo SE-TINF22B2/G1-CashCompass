@@ -4,7 +4,7 @@ CashCompass is a financial application designed to empower users to manage their
 ## Repository structure
 - [frontend](./frontend/) - Contains all frontend specific code
 - [backend](./backend/) -  Contains all backend specific code
-- [backend documentation](https://github.com/SE-TINF22B2/G1-CashCompass/wiki/Backend) - Contains the documenation of the backend as well as how to start it
+- [backend documentation](https://github.com/SE-TINF22B2/G1-CashCompass/wiki/Backend) - Contains the documentation of the backend as well as how to start it
 - [wiki](https://github.com/SE-TINF22B2/G5-DuoGradus/wiki) - Contains the documentation
 - [big picture](https://github.com/SE-TINF22B2/G1-CashCompass/wiki/Big-picture) - Contains a wider description of the goal of our application
 - [user stories](https://github.com/SE-TINF22B2/G1-CashCompass/discussions/categories/user-stories) - Contains all user stories for a detailed description of the applications functions
