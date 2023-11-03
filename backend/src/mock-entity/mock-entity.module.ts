@@ -7,4 +7,4 @@ import { MailService } from '../mail/mail.service';
   controllers: [MockEntityController],
   providers: [MockEntityService, MailService],
 })
-export class MockEntityModule { }
+export class MockEntityModule {}

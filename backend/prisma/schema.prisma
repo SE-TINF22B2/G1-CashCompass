@@ -34,6 +34,6 @@ model MockEntity {
 
 model User {
   id           Int    @id @default(autoincrement())
-  email        String
+  email        String @unique
   passwordHash String
 }

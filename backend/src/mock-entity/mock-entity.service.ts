@@ -4,15 +4,14 @@ import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class MockEntityService {
-
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   create(createMockEntityDto: CreateMockEntityDto) {
     return this.prismaService.mockEntity.create({
       data: {
-        ...createMockEntityDto
-      }
-    })
+        ...createMockEntityDto,
+      },
+    });
   }
 
   findAll() {
@@ -22,8 +21,8 @@ export class MockEntityService {
   findOne(id: number) {
     return this.prismaService.mockEntity.findUniqueOrThrow({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
@@ -31,16 +30,16 @@ export class MockEntityService {
     return this.prismaService.mockEntity.update({
       data: updateMockEntityDto,
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
   remove(id: number) {
     return this.prismaService.mockEntity.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 }
