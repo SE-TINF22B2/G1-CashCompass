@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MockEntityController } from './mock-entity.controller';
 import { MockEntityService } from './mock-entity.service';
 import { PrismaService } from 'nestjs-prisma';
+import { MailService } from '../mail/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('MockEntityController', () => {
   let controller: MockEntityController;
@@ -9,7 +11,7 @@ describe('MockEntityController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MockEntityController],
-      providers: [MockEntityService, PrismaService],
+      providers: [MockEntityService, PrismaService, MailService, ConfigService],
     }).compile();
 
     controller = module.get<MockEntityController>(MockEntityController);
