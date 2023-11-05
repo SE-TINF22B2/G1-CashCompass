@@ -98,6 +98,14 @@ describe('AuthService', () => {
     expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'your_secret_key' });
   });
 
+  it('should sign a token with the signToken function', async () => {
+
+    const result = await service.signToken(1, 'test@example.com');
+
+    expect(result).toEqual({ access_token: 'jwt_token' });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: 'test@example.com' }, { expiresIn: '15m', secret: 'your_secret_key' });
+  })
+
   it('should throw ForbiddenException for signin with incorrect password', async () => {
     const authDto = {
       email: 'test@example.com',
