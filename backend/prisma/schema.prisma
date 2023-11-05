@@ -31,3 +31,9 @@ model MockEntity {
   name  String?
   test  String?
 }
+
+model User {
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  passwordHash String
+}

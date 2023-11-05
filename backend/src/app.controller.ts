@@ -3,11 +3,11 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get('health')
   getHealthCheck() {
-    return { status: 200, "text": "Healthy" }
+    return { status: 200, text: 'Healthy' };
   }
 
   @Get()
