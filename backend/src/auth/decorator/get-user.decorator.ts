@@ -2,6 +2,7 @@ import {
     createParamDecorator,
     ExecutionContext,
 } from '@nestjs/common';
+import * as Express from 'express';
 
 export const GetUser = createParamDecorator(
     (
