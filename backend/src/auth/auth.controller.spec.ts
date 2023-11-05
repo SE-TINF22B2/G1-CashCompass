@@ -98,4 +98,20 @@ describe('AuthService', () => {
     expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'your_secret_key' });
   });
 
+  it('should throw ForbiddenException for signin with incorrect password', async () => {
+    const authDto = {
+      email: 'test@example.com',
+      password: 'wrong_password',
+    };
+
+    try {
+      const result = await service.signin(authDto);
+      expect(result).toBe(undefined); //just to make the test fail in case no exception is thrown
+    } catch (error) {
+      expect(error).toBeInstanceOf(ForbiddenException);
+      expect(error.message).toBe('Credentials incorrect');
+    }
+  });
+
+
 });
