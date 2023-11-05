@@ -1,56 +1,101 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { ForbiddenException } from '@nestjs/common';
+import { PrismaService } from 'nestjs-prisma';
+import * as argon2 from 'argon2'; // Importieren Sie das Argon2-Modul
 
-const mockAuthService = {
-  signup: jest.fn(),
-  signin: jest.fn(),
+jest.mock('argon2');
+(argon2.hash as jest.Mock).mockResolvedValue("hashed_password");
+(argon2.verify as jest.Mock).mockImplementation((hash, password) => hash === 'hashed_password' && password === 'password123');
+
+const prismaServiceMock = {
+  user: {
+    findUnique: jest.fn().mockResolvedValue({
+      id: 1,
+      email: "test@example.com",
+      passwordHash: 'hashed_password',
+    }),
+    create: jest.fn().mockResolvedValue({
+      id: 1,
+      email: 'test@example.com',
+      passwordHash: 'hashed_password',
+    }),
+  }
 };
 
-describe('AuthController', () => {
-  let controller: AuthController;
-  let authService: AuthService;
+const configServiceMock = {
+  get: jest.fn().mockReturnValue('your_secret_key'),
+};
+
+const jwtServiceMock = {
+  signAsync: jest.fn().mockResolvedValue('jwt_token'),
+};
+
+describe('AuthService', () => {
+  let service: AuthService;
 
   beforeEach(async () => {
-
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
       providers: [
+        AuthService,
         {
-          provide: AuthService,
-          useValue: mockAuthService,
+          provide: PrismaService,
+          useValue: prismaServiceMock,
+        },
+        {
+          provide: ConfigService,
+          useValue: configServiceMock,
+        },
+        {
+          provide: JwtService,
+          useValue: jwtServiceMock,
         },
       ],
     }).compile();
 
-    controller = module.get<AuthController>(AuthController);
-    authService = module.get<AuthService>(AuthService);
+    service = module.get<AuthService>(AuthService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
-  it('should call authService.signup with the provided dto', async () => {
-    const authDto: AuthDto = {
+  it('should create a new user and sign a token for signup', async () => {
+    const authDto = {
       email: 'test@example.com',
       password: 'password123',
     };
 
-    await controller.signup(authDto);
+    const result = await service.signup(authDto);
 
-    expect(authService.signup).toHaveBeenCalledWith(authDto);
+    expect(result).toEqual({ access_token: 'jwt_token' });
+    expect(prismaServiceMock.user.create).toHaveBeenCalledWith({
+      data: {
+        email: authDto.email,
+        passwordHash: 'hashed_password',
+      },
+    });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'your_secret_key' });
   });
 
-  it('should call authService.signin with the provided dto', async () => {
-    const authDto: AuthDto = {
+  it('should sign a token for signin with correct credentials', async () => {
+    const authDto = {
       email: 'test@example.com',
       password: 'password123',
     };
 
-    await controller.signin(authDto);
+    prismaServiceMock.user.findUnique.mockResolvedValue({
+      id: 1,
+      email: authDto.email,
+      passwordHash: 'hashed_password',
+    });
 
-    expect(authService.signin).toHaveBeenCalledWith(authDto);
+    const result = await service.signin(authDto);
+
+    expect(result).toEqual({ access_token: 'jwt_token' });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'your_secret_key' });
   });
+
 });

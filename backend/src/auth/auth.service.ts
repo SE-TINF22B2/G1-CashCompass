@@ -12,7 +12,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signin(dto: AuthDto) {
     // find the user by email
@@ -22,7 +22,7 @@ export class AuthService {
       },
     });
     // if user does not exist throw exception
-    if (!user) throw new ForbiddenException('Credentials incorrect');
+    if (!user) throw new ForbiddenException('User not found');
 
     // compare password
     const pwMatches = await argon.verify(user.passwordHash, dto.password);
