@@ -7,14 +7,16 @@ import { PrismaService } from 'nestjs-prisma';
 import * as argon2 from 'argon2';
 
 jest.mock('argon2');
-(argon2.hash as jest.Mock).mockResolvedValue("hashed_password");
-(argon2.verify as jest.Mock).mockImplementation((hash, password) => hash === 'hashed_password' && password === 'password123');
+(argon2.hash as jest.Mock).mockResolvedValue('hashed_password');
+(argon2.verify as jest.Mock).mockImplementation(
+  (hash, password) => hash === 'hashed_password' && password === 'password123',
+);
 
 const prismaServiceMock = {
   user: {
     findUnique: jest.fn().mockResolvedValue({
       id: 1,
-      email: "test@example.com",
+      email: 'test@example.com',
       passwordHash: 'hashed_password',
     }),
     create: jest.fn().mockResolvedValue({
@@ -22,7 +24,7 @@ const prismaServiceMock = {
       email: 'test@example.com',
       passwordHash: 'hashed_password',
     }),
-  }
+  },
 };
 
 const configServiceMock = {
@@ -77,7 +79,10 @@ describe('AuthService', () => {
         passwordHash: 'hashed_password',
       },
     });
-    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'jwt_secret' });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
+      { sub: 1, email: authDto.email },
+      { expiresIn: '15m', secret: 'jwt_secret' },
+    );
   });
 
   it('should sign a token for signin with correct credentials', async () => {
@@ -95,16 +100,21 @@ describe('AuthService', () => {
     const result = await authService.signin(authDto);
 
     expect(result).toEqual({ access_token: 'jwt_token' });
-    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: authDto.email }, { expiresIn: '15m', secret: 'jwt_secret' });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
+      { sub: 1, email: authDto.email },
+      { expiresIn: '15m', secret: 'jwt_secret' },
+    );
   });
 
   it('should sign a token with the signToken function', async () => {
-
     const result = await authService.signToken(1, 'test@example.com');
 
     expect(result).toEqual({ access_token: 'jwt_token' });
-    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith({ sub: 1, email: 'test@example.com' }, { expiresIn: '15m', secret: 'jwt_secret' });
-  })
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
+      { sub: 1, email: 'test@example.com' },
+      { expiresIn: '15m', secret: 'jwt_secret' },
+    );
+  });
 
   it('should throw ForbiddenException for signin with incorrect password', async () => {
     const authDto = {
@@ -124,7 +134,7 @@ describe('AuthService', () => {
   it('should throw ForbiddenException for signin if user not found', async () => {
     const authDto = {
       email: 'notfound@example.com',
-      password: 'password123'
+      password: 'password123',
     };
 
     //mock that no user is found
@@ -138,6 +148,4 @@ describe('AuthService', () => {
       expect(error.message).toBe('User not found');
     }
   });
-
-
 });

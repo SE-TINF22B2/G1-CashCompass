@@ -12,7 +12,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async signin(dto: AuthDto) {
     // find the user by email
