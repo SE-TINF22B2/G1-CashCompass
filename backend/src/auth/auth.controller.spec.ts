@@ -113,5 +113,23 @@ describe('AuthService', () => {
     }
   });
 
+  it('should throw ForbiddenException for signin if user not found', async () => {
+    const authDto = {
+      email: 'notfound@example.com',
+      password: 'password123'
+    };
+
+    //mock that no user is found
+    prismaServiceMock.user.findUnique.mockResolvedValue(undefined);
+
+    try {
+      const result = await service.signin(authDto);
+      expect(result).toBe(undefined); //just to make the test fail in case no exception is thrown
+    } catch (error) {
+      expect(error).toBeInstanceOf(ForbiddenException);
+      expect(error.message).toBe('User not found');
+    }
+  });
+
 
 });
