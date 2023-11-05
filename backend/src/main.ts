@@ -20,7 +20,7 @@ async function bootstrap() {
     .setTitle('CashCompass')
     .setDescription('The CashCompass API description')
     .setVersion('0.1')
-    .addBearerAuth()
+    .addBearerAuth({ in: 'header', type: 'http' })
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
