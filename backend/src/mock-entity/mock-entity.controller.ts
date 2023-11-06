@@ -11,7 +11,12 @@ import {
 } from '@nestjs/common';
 import { MockEntityService } from './mock-entity.service';
 import { CreateMockEntityDto, UpdateMockEntityDto } from './dto';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PrismaModel } from '../_gen/prisma-class';
 import { MailService } from '../mail/mail.service';
 import { GetUser } from '../auth/decorator';
@@ -23,7 +28,7 @@ export class MockEntityController {
   constructor(
     private readonly mockEntityService: MockEntityService,
     private readonly mailSerive: MailService,
-  ) { }
+  ) {}
 
   @Get()
   @ApiCreatedResponse({ type: PrismaModel.MockEntity, isArray: true })
@@ -33,6 +38,7 @@ export class MockEntityController {
 
   @UseGuards(JwtGuard)
   @ApiBearerAuth()
+  @ApiOkResponse({ type: PrismaModel.User })
   @Get('user')
   getCurrentUser(@GetUser() user: any) {
     return user;
@@ -68,5 +74,4 @@ export class MockEntityController {
   sendTestMail(@Param('adress') adress: string) {
     return this.mailSerive.sendTestMail(adress);
   }
-
 }
