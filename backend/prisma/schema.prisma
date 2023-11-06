@@ -20,6 +20,10 @@ generator erd {
   provider = "prisma-erd-generator"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -33,7 +37,71 @@ model MockEntity {
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
-  email        String @unique
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
   passwordHash String
+  account      Account[]
+  myFriends    Friendship[] @relation("myFriends")
+  friendsWith  Friendship[] @relation("friendsWith")
+}
+
+model Account {
+  id                           Int                    @id @default(autoincrement())
+  category                     Category?
+  FriendAccount                FriendAccount?
+  name                         String
+  user                         User                   @relation(fields: [userId], references: [id])
+  userId                       Int
+  activeBookings               Booking[]              @relation("activeAccount")
+  passiveBookings              Booking[]              @relation("passiveAccount")
+  activeRecurringTransactions  RecurringTransaction[] @relation("activeRecurringAccount")
+  passiveRecurringTransactions RecurringTransaction[] @relation("passiveRecurringAccount")
+}
+
+model Booking {
+  id               Int      @id @default(autoincrement())
+  amount           Float
+  activeAccount    Account  @relation("activeAccount", fields: [activeAccountId], references: [id])
+  activeAccountId  Int
+  passiveAccount   Account  @relation("passiveAccount", fields: [passiveAccountId], references: [id])
+  passiveAccountId Int
+  timestamp        DateTime
+}
+
+model Category {
+  id        Int     @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId Int     @unique
+  color     String
+  budget    Int
+}
+
+model FriendAccount {
+  id           Int        @id @default(autoincrement())
+  account      Account    @relation(fields: [accountId], references: [id])
+  accountId    Int        @unique
+  nickName     String
+  friendship   Friendship @relation(fields: [friendshipId], references: [id])
+  friendshipId Int        @unique
+}
+
+model Friendship {
+  id            Int            @id @default(autoincrement())
+  user1         User           @relation("myFriends", fields: [user1Id], references: [id])
+  user1Id       Int
+  user2         User           @relation("friendsWith", fields: [user2Id], references: [id])
+  user2Id       Int
+  FriendAccount FriendAccount?
+}
+
+model RecurringTransaction {
+  id               Int       @id @default(autoincrement())
+  amount           Float
+  startDate        DateTime
+  endDate          DateTime?
+  interval         String //this is in the cron format
+  activeAccount    Account   @relation("activeRecurringAccount", fields: [activeAccountId], references: [id])
+  activeAccountId  Int
+  passiveAccount   Account   @relation("passiveRecurringAccount", fields: [passiveAccountId], references: [id])
+  passiveAccountId Int
 }

@@ -1,0 +1,100 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table MockEntity {
+  id Int [pk, increment]
+  email String [unique, not null]
+  name String
+  test String
+}
+
+Table User {
+  id Int [pk, increment]
+  email String [unique, not null]
+  passwordHash String [not null]
+  account Account [not null]
+  myFriends Friendship [not null]
+  friendsWith Friendship [not null]
+}
+
+Table Account {
+  id Int [pk, increment]
+  category Category
+  FriendAccount FriendAccount
+  name String [not null]
+  user User [not null]
+  userId Int [not null]
+  activeBookings Booking [not null]
+  passiveBookings Booking [not null]
+  activeRecurringTransactions RecurringTransaction [not null]
+  passiveRecurringTransactions RecurringTransaction [not null]
+}
+
+Table Booking {
+  id Int [pk, increment]
+  amount Float [not null]
+  activeAccount Account [not null]
+  activeAccountId Int [not null]
+  passiveAccount Account [not null]
+  passiveAccountId Int [not null]
+  timestamp DateTime [not null]
+}
+
+Table Category {
+  id Int [pk, increment]
+  account Account [not null]
+  accountId Int [unique, not null]
+  color String [not null]
+  budget Int [not null]
+}
+
+Table FriendAccount {
+  id Int [pk, increment]
+  account Account [not null]
+  accountId Int [unique, not null]
+  nickName String [not null]
+  friendship Friendship [not null]
+  friendshipId Int [unique, not null]
+}
+
+Table Friendship {
+  id Int [pk, increment]
+  user1 User [not null]
+  user1Id Int [not null]
+  user2 User [not null]
+  user2Id Int [not null]
+  FriendAccount FriendAccount
+}
+
+Table RecurringTransaction {
+  id Int [pk, increment]
+  amount Float [not null]
+  startDate DateTime [not null]
+  endDate DateTime
+  interval String [not null]
+  activeAccount Account [not null]
+  activeAccountId Int [not null]
+  passiveAccount Account [not null]
+  passiveAccountId Int [not null]
+}
+
+Ref: Account.userId > User.id
+
+Ref: Booking.activeAccountId > Account.id
+
+Ref: Booking.passiveAccountId > Account.id
+
+Ref: Category.accountId - Account.id
+
+Ref: FriendAccount.accountId - Account.id
+
+Ref: FriendAccount.friendshipId - Friendship.id
+
+Ref: Friendship.user1Id > User.id
+
+Ref: Friendship.user2Id > User.id
+
+Ref: RecurringTransaction.activeAccountId > Account.id
+
+Ref: RecurringTransaction.passiveAccountId > Account.id
