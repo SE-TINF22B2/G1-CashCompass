@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { AuthDto } from './dto';
 import { PrismaService } from 'nestjs-prisma';
 import * as argon from 'argon2';
@@ -12,7 +12,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signin(dto: AuthDto) {
     // find the user by email
@@ -22,7 +22,7 @@ export class AuthService {
       },
     });
     // if user does not exist throw exception
-    if (!user) throw new ForbiddenException('User not found');
+    if (!user) throw new NotFoundException('User not found');
 
     // compare password
     const pwMatches = await argon.verify(user.passwordHash, dto.password);
@@ -40,6 +40,40 @@ export class AuthService {
         data: {
           email: dto.email,
           passwordHash: hash,
+        },
+      });
+
+      return this.signToken(user.id, user.email);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Credentials taken');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async googleSignIn(mail: string) {
+    // find the user by email
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: mail,
+      },
+    });
+    // if user does not exist throw exception
+    if (!user) throw new NotFoundException('User not found');
+
+    return this.signToken(user.id, user.email);
+  }
+
+  async googleSignup(mail: string) {
+    // save the new user in the db
+    try {
+      const user = await this.prismaService.user.create({
+        data: {
+          email: mail,
+          passwordHash: "leer",
         },
       });
 
