@@ -3,9 +3,11 @@ name: CashCompass CI
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-  test_pull_request:
+  run_backend_tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  cd:
+  deploy_to_render:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
