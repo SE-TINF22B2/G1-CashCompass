@@ -4,3 +4,8 @@
 /frontend/cashcompass/macos/* linguist-generated=true
 /frontend/cashcompass/web/* linguist-generated=true
 /frontend/cashcompass/windows/* linguist-generated=true
+*.cpp linguist-generated=true
+**/CMakeLists.txt linguist-generated=true
+*.cmake linguist-generated=true
+*.swift linguist-generated=true
+*.h linguist-generated=true
