@@ -1,0 +1,1 @@
+MockUp related explanations were moved to their wiki page. This can be found [right here](https://github.com/SE-TINF22B2/G1-CashCompass/wiki/Mockups)!
