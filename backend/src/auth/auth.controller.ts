@@ -1,4 +1,14 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, NotFoundException, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -7,7 +17,7 @@ import { GoogleOauthGuard } from './guard';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
   signup(@Body() dto: AuthDto) {
@@ -23,7 +33,7 @@ export class AuthController {
   @Get('google')
   @UseGuards(GoogleOauthGuard)
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async auth() { }
+  async auth() {}
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
@@ -47,5 +57,4 @@ export class AuthController {
 
     return response;
   }
-
 }

@@ -1,10 +1,17 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AuthDto } from './dto';
 import { PrismaService } from 'nestjs-prisma';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@prisma/client';
+import { AccessTokenType } from './types';
 
 @Injectable()
 export class AuthService {
@@ -12,17 +19,10 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
-  async signin(dto: AuthDto) {
-    // find the user by email
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        email: dto.email,
-      },
-    });
-    // if user does not exist throw exception
-    if (!user) throw new NotFoundException('User not found');
+  async signin(dto: AuthDto): Promise<AccessTokenType> {
+    const user = await this.findUserOrThrow(dto.email);
 
     // compare password
     const pwMatches = await argon.verify(user.passwordHash, dto.password);
@@ -31,9 +31,10 @@ export class AuthService {
     return this.signToken(user.id, user.email);
   }
 
-  async signup(dto: AuthDto) {
+  async signup(dto: AuthDto): Promise<AccessTokenType> {
     // generate the password hash
     const hash = await argon.hash(dto.password);
+
     // save the new user in the db
     try {
       const user = await this.prismaService.user.create({
@@ -47,7 +48,7 @@ export class AuthService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Credentials taken');
+          throw new ConflictException('Credentials taken');
         }
       }
       throw error;
@@ -73,7 +74,7 @@ export class AuthService {
       const user = await this.prismaService.user.create({
         data: {
           email: mail,
-          passwordHash: "leer",
+          passwordHash: 'leer',
         },
       });
 
@@ -106,5 +107,19 @@ export class AuthService {
     return {
       access_token: token,
     };
+  }
+
+  private async findUserOrThrow(mail: string): Promise<User> {
+    // find the user by email
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: mail,
+      },
+    });
+
+    // if user does not exist throw exception
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
   }
 }
