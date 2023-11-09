@@ -1,6 +1,11 @@
-/frontend/cashcompass/android/* linguist-generated=true
-/frontend/cashcompass/ios/* linguist-generated=true
-/frontend/cashcompass/linux/* linguist-generated=true
-/frontend/cashcompass/macos/* linguist-generated=true
-/frontend/cashcompass/web/* linguist-generated=true
-/frontend/cashcompass/windows/* linguist-generated=true
+/frontend/cashcompass/android/* linguist-detectable=false
+/frontend/cashcompass/ios/* linguist-detectable=false
+/frontend/cashcompass/linux/* linguist-detectable=false
+/frontend/cashcompass/macos/* linguist-detectable=false
+/frontend/cashcompass/web/* linguist-detectable=false
+/frontend/cashcompass/windows/* linguist-detectable=false
+*.cpp linguist-detectable=false
+**/CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
+*.swift linguist-detectable=false
+*.h linguist-detectable=false
