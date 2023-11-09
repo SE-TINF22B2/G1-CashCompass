@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import * as argon2 from 'argon2';
 
@@ -144,7 +144,7 @@ describe('AuthService', () => {
       const result = await authService.signin(authDto);
       expect(result).toBe(undefined); //just to make the test fail in case no exception is thrown
     } catch (error) {
-      expect(error).toBeInstanceOf(ForbiddenException);
+      expect(error).toBeInstanceOf(NotFoundException);
       expect(error.message).toBe('User not found');
     }
   });
