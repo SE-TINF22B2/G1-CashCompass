@@ -85,6 +85,29 @@ describe('AuthService', () => {
     );
   });
 
+  it('should create a new user and sign a token for signup with google', async () => {
+
+    const mail = "test@example.com";
+
+    prismaServiceMock.user.create.mockResolvedValue({
+      id: 1,
+      email: mail
+    });
+
+    const result = await authService.googleSignup(mail);
+
+    expect(result).toEqual({ access_token: 'jwt_token' });
+    expect(prismaServiceMock.user.create).toHaveBeenCalledWith({
+      data: {
+        email: mail,
+      },
+    });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
+      { sub: 1, email: mail },
+      { expiresIn: '15m', secret: 'jwt_secret' },
+    );
+  });
+
   it('should sign a token for signin with correct credentials', async () => {
     const authDto = {
       email: 'test@example.com',
@@ -102,6 +125,24 @@ describe('AuthService', () => {
     expect(result).toEqual({ access_token: 'jwt_token' });
     expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
       { sub: 1, email: authDto.email },
+      { expiresIn: '15m', secret: 'jwt_secret' },
+    );
+  });
+
+  it('should sign a token for signin with correct credentials with google', async () => {
+
+    const mail = "test@example.com";
+
+    prismaServiceMock.user.findUnique.mockResolvedValue({
+      id: 1,
+      email: mail,
+    });
+
+    const result = await authService.googleSignIn(mail);
+
+    expect(result).toEqual({ access_token: 'jwt_token' });
+    expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
+      { sub: 1, email: mail },
       { expiresIn: '15m', secret: 'jwt_secret' },
     );
   });
