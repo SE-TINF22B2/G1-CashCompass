@@ -86,12 +86,11 @@ describe('AuthService', () => {
   });
 
   it('should create a new user and sign a token for signup with google', async () => {
-
-    const mail = "test@example.com";
+    const mail = 'test@example.com';
 
     prismaServiceMock.user.create.mockResolvedValue({
       id: 1,
-      email: mail
+      email: mail,
     });
 
     const result = await authService.googleSignup(mail);
@@ -130,8 +129,7 @@ describe('AuthService', () => {
   });
 
   it('should sign a token for signin with correct credentials with google', async () => {
-
-    const mail = "test@example.com";
+    const mail = 'test@example.com';
 
     prismaServiceMock.user.findUnique.mockResolvedValue({
       id: 1,
