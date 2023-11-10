@@ -22,7 +22,7 @@ import { AccessTokenType } from './types';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   /**
    * This is the route to sign a user in.
@@ -51,17 +51,19 @@ export class AuthController {
   @Get('google')
   @UseGuards(GoogleOauthGuard)
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async auth() { }
+  async auth() {}
 
   /**
    * This is the callback to which google redirects.
-   * It creates a signed token by signing the user in or up. 
+   * It creates a signed token by signing the user in or up.
    * @param {Express.Request} req - The express request object
    * @returns {Promise<AccessTokenType>} - The signed access token
    */
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(@Req() req: Express.Request): Promise<AccessTokenType> {
+  async googleAuthCallback(
+    @Req() req: Express.Request,
+  ): Promise<AccessTokenType> {
     console.log(req.user);
 
     //please add type here

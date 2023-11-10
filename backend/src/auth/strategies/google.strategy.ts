@@ -3,8 +3,15 @@ import { ConfigService, ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth2';
 
+/**
+ * The strategy to authenticate users with google.
+ */
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  /**
+   * This creates a GoogleStrategy with the given services.
+   * @param {ConfigService} configService - The service to access .env files
+   */
   constructor(readonly configService: ConfigService) {
     super({
       clientID: configService.get('clientID'),
@@ -14,6 +21,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     });
   }
 
+  /**
+   * This function validates a user and extracts the needed information from the google user.
+   * @param {string} _accessToken - The access token (not used)
+   * @param {string}  _refreshToken - The refresh token (not used)
+   * @param  {any} profile - The profile of the user
+   * @param {VerifyCallback} done - The callback to be called when finished
+   *
+   */
   async validate(
     _accessToken: string,
     _refreshToken: string,

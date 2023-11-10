@@ -5,6 +5,10 @@ import { PrismaModel } from './_gen/prisma-class';
 import { PrismaClientExceptionFilter } from 'nestjs-prisma';
 import { ValidationPipe } from '@nestjs/common';
 
+/**
+ * This function bootstraps the nest application.
+ * It registers global exception filters, global pipes for validation and transformation and the Swagger UI.
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
