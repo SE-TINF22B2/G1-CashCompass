@@ -20,10 +20,9 @@ import { AccessTokenType } from './types';
  */
 @Injectable()
 export class AuthService {
-
   /**
    * This function creates an AuthService and takes all required services for dependency injection.
-   * 
+   *
    * @param prismaService The service to access prisma.
    * @param config The service to access .env files
    * @param jwtService The service to sign JWTs.
@@ -32,7 +31,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   /**
    * With this function, the user can sign in and get a signed access token.
@@ -77,11 +76,11 @@ export class AuthService {
 
   /**
    * With this function, a user that has signed in with google gets his access_token.
-   * 
+   *
    * @param {string} mail - The mail of the google user
-   * 
+   *
    * @returns {Promise<AccessTokenType>} - Promise with the signed access token
-   * 
+   *
    * @throws {NotFoundException} - If the user was not found by mail
    */
   async googleSignIn(mail: string): Promise<AccessTokenType> {
@@ -91,12 +90,12 @@ export class AuthService {
   }
 
   /**
-   * 
+   *
    * With this function, a user that has signed up with google gets his access token.
-   * 
+   *
    * @param {string} mail - The mail of the google user
    * @returns {Promise<AccessTokenType>} - Promise with the signed access token
-   * 
+   *
    * @throws {ForbiddenException} - If a user with the given mail already exists.
    */
   async googleSignup(mail: string): Promise<AccessTokenType> {
@@ -106,9 +105,9 @@ export class AuthService {
   }
 
   /**
-   * 
+   *
    * This function creates a token and signs it.
-   * 
+   *
    * @param {string} userId - The id of the user to sign.
    * @param {string} email - The email that is written in the access token
    * @returns {Promise<AccessTokenType>} - The signed access_token
@@ -133,10 +132,10 @@ export class AuthService {
 
   /**
    * This function searches the database for a user.
-   * 
+   *
    * @param {string} mail - The mail of the user to find
    * @returns {Promise<User>} - The found user
-   * 
+   *
    * @throws {NotFoundException} - If the user is not found
    */
   private async findUserOrThrow(mail: string): Promise<User> {
@@ -158,7 +157,7 @@ export class AuthService {
    * @param {string} mail - The mail of the user
    * @param {string} passwordhash - The hash of the password
    * @returns {Promise<User>} - The created user
-   * 
+   *
    * @throws {ForbiddenException} - If the credentials are already taken
    */
   private async createUserOrThrow(
