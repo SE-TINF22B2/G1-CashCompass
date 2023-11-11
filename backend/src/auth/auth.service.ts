@@ -26,12 +26,15 @@ export class AuthService {
    * @param prismaService The service to access prisma.
    * @param config The service to access .env files
    * @param jwtService The service to sign JWTs.
+   * 
+   * @constructor
+   * 
    */
   constructor(
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   /**
    * With this function, the user can sign in and get a signed access token.

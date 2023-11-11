@@ -19,6 +19,8 @@ export class MailService {
   /**
    * This creates a MailService and the transporter with the secrets.
    * @param {ConfigService} config - The service to access .env files.
+   * 
+   * @constructor
    */
   constructor(private readonly config: ConfigService) {
     this.transporter = nodemailer.createTransport({
