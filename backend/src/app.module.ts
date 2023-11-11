@@ -23,4 +23,4 @@ import { join } from 'path';
   ],
   controllers: [HealthController],
 })
-export class AppModule { }
+export class AppModule {}

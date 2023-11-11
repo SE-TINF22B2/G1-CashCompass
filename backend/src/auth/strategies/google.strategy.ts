@@ -11,7 +11,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   /**
    * This creates a GoogleStrategy with the given services.
    * @param {ConfigService} configService - The service to access .env files
-   * 
+   *
    * @constructor
    */
   constructor(readonly configService: ConfigService) {

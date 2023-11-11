@@ -22,14 +22,13 @@ import { AccessTokenType } from './types';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-
   /**
    * Creates an AuthController with the required services.
    * @param {AuthService} authService - The Authservice
-   * 
+   *
    * @constructor
    */
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   /**
    * This is the route to sign a user in.
@@ -58,7 +57,7 @@ export class AuthController {
   @Get('google')
   @UseGuards(GoogleOauthGuard)
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async auth() { }
+  async auth() {}
 
   /**
    * This is the callback to which google redirects.

@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
    * This creates a JwtStrategy with the required services.
    * @param {ConfigService} config - The service to access .env files
    * @param {PrismaService} prisma - The service to access the DB
-   * 
+   *
    * @constructor
    */
   constructor(

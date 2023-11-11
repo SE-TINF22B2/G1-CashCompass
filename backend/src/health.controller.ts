@@ -6,13 +6,12 @@ import { Controller, Get } from '@nestjs/common';
  */
 @Controller()
 export class HealthController {
-
   /**
    * Created a HealthController.
-   * 
+   *
    * @constructor
    */
-  constructor() { }
+  constructor() {}
 
   /**
    * This is the health check endpoint.
