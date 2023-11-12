@@ -10,7 +10,7 @@ defaults:
   run:
     working-directory: ./backend
 jobs:
-  integrateciw_backend:
+  run_backend_tests:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
