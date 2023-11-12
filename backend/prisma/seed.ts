@@ -2,9 +2,14 @@
 
 import { PrismaClient } from '@prisma/client';
 
-// initialize Prisma Client
+/**
+ * The prisma client to access the DB.
+ */
 const prisma = new PrismaClient();
 
+/**
+ * The main seed function. This upserts some data in the DB.
+ */
 async function main() {
     // create two dummy articles
     const mockUser1 = await prisma.mockEntity.upsert({

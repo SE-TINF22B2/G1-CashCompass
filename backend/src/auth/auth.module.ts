@@ -4,6 +4,9 @@ import { AuthService } from './auth.service';
 import { JwtStrategy, GoogleStrategy } from './strategies';
 import { JwtModule } from '@nestjs/jwt';
 
+/**
+ * This is the module that contains all the auth related things..
+ */
 @Module({
   imports: [JwtModule.register({})],
   controllers: [AuthController],
