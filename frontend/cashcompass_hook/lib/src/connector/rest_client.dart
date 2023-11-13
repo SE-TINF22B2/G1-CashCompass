@@ -6,7 +6,7 @@ class RestClient {
   final String? port;
   RestClient({required this.baseUrl, this.port});
 
-  String get _basetUrl => baseUrl + (port ?? "");
+  String get _basetUrl => baseUrl + (port != null ? ":$port" : "");
 
   Future<http.Response> get(String path,
       {Map<String, String>? headers, ErrorHandler? errorHandler}) async {
