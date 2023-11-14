@@ -12,7 +12,6 @@ body:
       description: "List out the key activities that took place this week."
       value: |
         1.
-      render: markdown
     validations:
       required: true
   - type: markdown
@@ -26,7 +25,6 @@ body:
       description: "List out the planned activities for the next week."
       value: |
         1.
-      render: markdown
     validations:
       required: true
   - type: markdown
@@ -40,7 +38,6 @@ body:
       description: "Describe the challenges that were faced during the week."
       value: |
         1.
-      render: markdown
     validations:
       required: true
   - type: markdown
@@ -54,6 +51,5 @@ body:
       description: "Describe the key learnings from this week."
       value: |
         1.
-      render: markdown
     validations:
       required: true
