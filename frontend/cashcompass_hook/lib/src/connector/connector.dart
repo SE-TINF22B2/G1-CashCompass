@@ -5,7 +5,9 @@ import 'package:cashcompass_hook/src/connector/specialized_connectors/transactio
 // one connector reprents the connection to one User's data.
 
 abstract class Connector with AccountConnector, TransactionConnector {
-  final String userId;
-  Connector({required this.userId});
+  final String hostname;
+  final String? port;
+  String get url => "$hostname ${port != null ? ':$port' : ''}";
+  const Connector(this.hostname, this.port);
   Future<List<Account>> getAllAccounts();
 }
