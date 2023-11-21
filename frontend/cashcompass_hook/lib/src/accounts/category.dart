@@ -1,5 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/passive_account.dart';
-import 'package:cashcompass_hook/src/connector/connectorImpl.dart';
+import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class Category extends PassiveAccount {

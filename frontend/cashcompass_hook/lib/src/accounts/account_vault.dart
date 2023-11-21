@@ -1,4 +1,4 @@
-import 'package:cashcompass_hook/src/connector/connectorImpl.dart';
+import 'package:cashcompass_hook/src/connector/connector.dart';
 
 abstract class AccountVault {
   final Connector connector;
