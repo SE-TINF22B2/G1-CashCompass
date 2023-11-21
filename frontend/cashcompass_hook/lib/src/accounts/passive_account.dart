@@ -11,7 +11,7 @@ class PassiveAccount extends Account {
   }
 
   @override
-  Future<AccountDTO> getDTO(ConnectorImpl connector) {
+  Future<AccountDTO> getDTO(Connector connector) {
     // TODO: implement getDTO
     throw UnimplementedError();
   }

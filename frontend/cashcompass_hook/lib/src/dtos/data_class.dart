@@ -5,5 +5,5 @@ abstract class DataClass<T extends BaseDTO> {
   late T _dto;
   T get dto => _dto;
   bool get isUploaded => dto.isUploaded;
-  Future<T> getDTO(ConnectorImpl connector);
+  Future<T> getDTO(Connector connector);
 }

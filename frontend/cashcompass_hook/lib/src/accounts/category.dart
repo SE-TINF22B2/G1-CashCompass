@@ -11,7 +11,7 @@ class Category extends PassiveAccount {
   String get colorString => _color;
 
   @override
-  Future<AccountDTO> getDTO(ConnectorImpl connector) {
+  Future<AccountDTO> getDTO(Connector connector) {
     throw UnimplementedError();
   }
 }
