@@ -1,7 +1,6 @@
 library cashcompass_hook;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:cashcompass_hook/src/accounts/account_vault.dart'
+    show AccountVault;
+export 'package:cashcompass_hook/src/connector/api_exception.dart'
+    show ApiException;
