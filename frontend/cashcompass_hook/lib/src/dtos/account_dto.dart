@@ -11,4 +11,9 @@ class AccountDTO extends BaseDTO {
   Future<String> changeName(String newName) {
     return connector.changeAccountName(this, newName);
   }
+
+  @override
+  Future<String> upload() {
+    return connector.createAccount(name: data.name);
+  }
 }

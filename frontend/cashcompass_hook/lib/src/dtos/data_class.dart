@@ -9,5 +9,8 @@ abstract class DataClass<T extends BaseDTO> {
   Future<T> getDTO(Connector connector);
   DataClass({required T dto}) {
     _dto = dto;
+    if (!dto.isUploaded) {
+      dto.upload();
+    }
   }
 }

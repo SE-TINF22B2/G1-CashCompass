@@ -12,6 +12,16 @@ class RecurringTransactionDTO extends BaseDTO {
       {required super.connector});
   Future<double> changeAmount(double newAmount) {
     return connector.changeRecurringTransactionAmount(data, newAmount);
-    
+  }
+
+  @override
+  Future<String> upload() {
+    return connector.createRecurringTransaction(
+        soll: data.soll,
+        haben: data.haben,
+        amount: data.amount,
+        startTimestamp: data.startDate,
+        endTimestamp: data.endDate,
+        interval: data.interval);
   }
 }
