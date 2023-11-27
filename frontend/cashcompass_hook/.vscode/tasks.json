@@ -7,6 +7,16 @@
             "label": "create UML file",
             "type": "shell",
             "command": "dcdg --output=./out/classes.uml"
+        },
+        {
+            "label": "test:runCoverage",
+            "type": "shell",
+            "command": "flutter test --coverage; genhtml coverage/Icov.info -o coverage/html"
+        },
+        {
+            "label": "test:run",
+            "type": "shell",
+            "command": "flutter test"
         }
     ]
 }
