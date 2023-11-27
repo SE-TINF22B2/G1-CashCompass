@@ -1,5 +1,6 @@
 import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/connector/specialized_connectors/connector_spez.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions.dart';
 import 'package:cashcompass_hook/src/transactions/transaction.dart';
 
 mixin TransactionConnector implements ConnectorSpez {
@@ -9,5 +10,8 @@ mixin TransactionConnector implements ConnectorSpez {
       required double amount,
       required DateTime timestamp,
       required int transactionNumber});
-  Future<double> changeAmount(Transaction transaction, double newAmount);
+  Future<double> changeTransactionAmount(
+      Transaction transaction, double newAmount);
+  Future<double> changeRecurringTransactionAmount(
+      RecurringTransactions recurringTransactions, double newAmount);
 }
