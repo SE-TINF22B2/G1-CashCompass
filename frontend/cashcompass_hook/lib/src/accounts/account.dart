@@ -6,7 +6,7 @@ abstract class Account extends DataClass {
   final List<Transaction> sollT = [];
   final List<Transaction> habenT = [];
   final String name;
-  Account({required this.name});
+  Account({required super.dto, required this.name});
 
   void appendTransaction(Transaction transaction) {
     if (transaction.soll == this) {

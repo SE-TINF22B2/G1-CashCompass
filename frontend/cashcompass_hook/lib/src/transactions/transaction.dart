@@ -11,7 +11,8 @@ class Transaction extends DataClass {
   late final int _transacionNumber;
   late final DateTime timestamp;
   Transaction(
-      {required int transactionNumber,
+      {required super.dto,
+      required int transactionNumber,
       required this.soll,
       required this.haben,
       required this.amount,
