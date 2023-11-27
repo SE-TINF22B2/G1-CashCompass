@@ -1,6 +1,8 @@
 import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
+import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/dtos/account_dto.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions.dart';
 import 'package:cashcompass_hook/src/transactions/transaction.dart';
 
 class ConnectorImpl extends Connector {
@@ -12,7 +14,8 @@ class ConnectorImpl extends Connector {
   }
 
   @override
-  Future<double> changeAmount(Transaction transaction, double newAmount) {
+  Future<double> changeTransactionAmount(
+      Transaction transaction, double newAmount) {
     throw UnimplementedError();
   }
 
@@ -32,7 +35,20 @@ class ConnectorImpl extends Connector {
   }
 
   @override
-  Future<List<Account>> getAllAccounts() {
+  Future<RestClient> logIn(String username, String email) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> logOut() {
+    // TODO: implement logOut
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<double> changeRecurringTransactionAmount(
+      RecurringTransactions recurringTransactions, double newAmount) {
+    // TODO: implement changeRecurringTransactionAmount
     throw UnimplementedError();
   }
 }
