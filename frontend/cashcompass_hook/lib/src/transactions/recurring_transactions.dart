@@ -7,14 +7,14 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
   late double _amount;
   late DateTime _startDate, _endDate;
   late Duration _interval;
-  late Account _activeAccount;
-  late Account _passiveAccount;
+  late Account _sollAccount;
+  late Account _habenAccount;
 
   double get amount => _amount;
   DateTime get startDate => _startDate;
   DateTime get endDate => _endDate;
-  Account get active => _activeAccount;
-  Account get passve => _passiveAccount;
+  Account get soll => _sollAccount;
+  Account get haben => _habenAccount;
   Duration get interval => _interval;
   RecurringTransactions(
       {required super.dto,
@@ -27,8 +27,8 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
     _amount = amount;
     _startDate = startDate;
     _endDate = endDate;
-    _activeAccount = active;
-    _passiveAccount = passive;
+    _sollAccount = active;
+    _habenAccount = passive;
   }
 
   @override
