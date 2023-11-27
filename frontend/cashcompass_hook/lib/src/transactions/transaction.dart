@@ -10,6 +10,7 @@ class Transaction extends DataClass {
   // TODO create transactionnumber if there is non overgiven
   late final int _transacionNumber;
   late final DateTime timestamp;
+  int get transactionNumber => _transacionNumber;
   Transaction(
       {required super.dto,
       required int transactionNumber,
