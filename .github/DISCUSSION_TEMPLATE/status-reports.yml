@@ -4,11 +4,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## ✅ What happened this week?
+        ## What happened this week?
   - type: textarea
     id: what-happened
     attributes:
-      label: What happened this week?
+      label: ✅ What happened this week?
       description: "List out the key activities that took place this week."
       value: |
         1.
@@ -17,11 +17,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 👣 What are the next steps
+        ## What are the next steps
   - type: textarea
     id: next-steps
     attributes:
-      label: What are the next steps?
+      label: 👣 What are the next steps?
       description: "List out the planned activities for the next week."
       value: |
         1.
@@ -30,11 +30,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 🤺 What were challenges we faced?
+        ##  What were challenges we faced?
   - type: textarea
     id: challenges-faced
     attributes:
-      label: What were challenges we faced?
+      label: 🤺 What were challenges we faced?
       description: "Describe the challenges that were faced during the week."
       value: |
         1.
@@ -43,11 +43,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 💡 What did we learn?
+        ## What did we learn?
   - type: textarea
     id: what-we-learned
     attributes:
-      label: What did we learn?
+      label: 💡 What did we learn?
       description: "Describe the key learnings from this week."
       value: |
         1.
