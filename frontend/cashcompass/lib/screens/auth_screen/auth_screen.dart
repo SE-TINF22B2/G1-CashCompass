@@ -12,6 +12,20 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _passwordIsHidden = true;
   bool _repeatPasswordIsHidden = true;
   bool _isLogin = true;
+  bool _emailIsInvalid = false;
+  bool _passwordIsInvalid = false;
+  bool _repeatPasswordIsInvalid = false;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _repeatPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _repeatPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class _AuthScreenState extends State<AuthScreen> {
       child: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * 0.95,
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           // decoration: BoxDecoration(
           //   border: Border.all(
           //     color: CupertinoColors.black,
@@ -39,20 +53,36 @@ class _AuthScreenState extends State<AuthScreen> {
                 style:
                     const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
                 child: CupertinoTextField(
                   placeholder: "email",
+                  controller: _emailController,
                   autocorrect: false,
                   clearButtonMode: OverlayVisibilityMode.editing,
                   keyboardType: TextInputType.emailAddress,
                 ),
               ),
+              Visibility(
+                visible: _emailIsInvalid,
+                child: const Row(
+                  children: [
+                    Text(
+                      " Invalid email address!",
+                      style: TextStyle(
+                        color: CupertinoColors.systemRed,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: CupertinoTextField(
                   placeholder: "password",
                   autocorrect: false,
+                  controller: _passwordController,
                   obscureText: _passwordIsHidden,
                   suffix: GestureDetector(
                     onTap: _togglePasswordView,
@@ -67,12 +97,27 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
               ),
-              if (!_isLogin)
+              Visibility(
+                visible: _passwordIsInvalid,
+                child: const Row(
+                  children: [
+                    Text(
+                      " Invalid password!",
+                      style: TextStyle(
+                        color: CupertinoColors.systemRed,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (!_isLogin) ...[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: CupertinoTextField(
                     placeholder: "repeat password",
                     autocorrect: false,
+                    controller: _repeatPasswordController,
                     obscureText: _repeatPasswordIsHidden,
                     suffix: GestureDetector(
                       onTap: _toggleRepeatPasswordView,
@@ -87,6 +132,21 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
+                Visibility(
+                  visible: _repeatPasswordIsInvalid,
+                  child: const Row(
+                    children: [
+                      Text(
+                        " Password falsly repeated!",
+                        style: TextStyle(
+                          color: CupertinoColors.systemRed,
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RichText(
@@ -111,7 +171,7 @@ class _AuthScreenState extends State<AuthScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CupertinoButton.filled(
-                  onPressed: () {},
+                  onPressed: () => _handleAuthentication(),
                   child: Text(_isLogin ? "LOGIN" : "SIGN UP"),
                 ),
               )
@@ -138,5 +198,36 @@ class _AuthScreenState extends State<AuthScreen> {
     setState(() {
       _repeatPasswordIsHidden = !_repeatPasswordIsHidden;
     });
+  }
+
+  void _handleAuthentication() {
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
+    final String repeatePassword = _repeatPasswordController.text;
+
+    setState(() {
+      _emailIsInvalid = false;
+      _passwordIsInvalid = false;
+      _repeatPasswordIsInvalid = false;
+    });
+
+    if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {
+      setState(() {
+        _emailIsInvalid = true;
+      });
+      return;
+    }
+    if (password.isEmpty) {
+      setState(() {
+        _passwordIsInvalid = true;
+      });
+      return;
+    }
+    if (!_isLogin && !(password == repeatePassword)) {
+      setState(() {
+        _repeatPasswordIsInvalid = true;
+      });
+      return;
+    }
   }
 }
