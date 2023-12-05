@@ -5,5 +5,8 @@ import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 abstract class AccountConnector implements ConnectorSpez {
   Future<String> changeCategoryColor(AccountDTO account, String colorCode);
   Future<String> changeAccountName(AccountDTO account, String newName);
-  Future<String> createAccount({String name});
+  Future<String> createAccount(
+      {required String name,
+      required int accountNumber,
+      required bool isActive});
 }

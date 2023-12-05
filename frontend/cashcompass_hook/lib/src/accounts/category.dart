@@ -4,7 +4,11 @@ import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class Category extends PassiveAccount {
   late String _color;
-  Category({required super.dto, required super.name, required String color}) {
+  Category(
+      {required super.dto,
+      required super.name,
+      required String color,
+      required super.accountNumber}) {
     _color = color;
   }
 

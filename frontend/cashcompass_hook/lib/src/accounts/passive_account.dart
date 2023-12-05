@@ -3,7 +3,8 @@ import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class PassiveAccount extends Account {
-  PassiveAccount({required super.dto, required super.name});
+  PassiveAccount(
+      {required super.dto, required super.name, required super.accountNumber});
 
   @override
   double close() {

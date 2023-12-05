@@ -1,9 +1,9 @@
 import 'package:cashcompass_hook/src/accounts/account.dart';
-import 'package:cashcompass_hook/src/connector/specialized_connectors/connector_spez.dart';
-import 'package:cashcompass_hook/src/dtos/base_dto.dart';
+import 'package:cashcompass_hook/src/connector/connector.dart';
+import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class ActiveAcount extends Account {
-  ActiveAcount({required super.dto, required super.name});
+  ActiveAcount({required super.dto, required super.name, required super.accountNumber});
 
   @override
   double close() {
@@ -11,7 +11,7 @@ class ActiveAcount extends Account {
   }
 
   @override
-  Future<BaseDTO> getDTO(ConnectorSpez connector) {
+  Future<AccountDTO> getDTO(Connector connector) {
     // TODO: implement getDTO
     throw UnimplementedError();
   }

@@ -6,7 +6,11 @@ abstract class Account extends DataClass {
   final List<Transaction> sollT = [];
   final List<Transaction> habenT = [];
   final String name;
-  Account({required super.dto, required this.name});
+
+  // creatable locally and is only dependent on one user
+  final int accountNumber;
+  Account(
+      {required super.dto, required this.name, required this.accountNumber});
 
   void appendTransaction(Transaction transaction) {
     if (transaction.soll == this) {
