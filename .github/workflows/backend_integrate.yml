@@ -6,14 +6,24 @@ on:
   push:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: ./backend
 jobs:
   run_backend_tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Clone repo
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
           node-version: 18
-      - run: cd backend && npm ci
-      - run: cd backend && npm test
-      - run: cd backend && npm run build
+      - name: Clean install
+        run: npm ci
+      - name: Run linter
+        run: npm run lint
+      - name: Run tests
+        run: npm test
+      - name: Run build
+        run: npm run build

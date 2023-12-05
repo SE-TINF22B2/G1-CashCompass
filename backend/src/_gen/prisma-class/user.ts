@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class User {
   @ApiProperty({ type: Number })
@@ -7,6 +7,6 @@ export class User {
   @ApiProperty({ type: String })
   email: string;
 
-  @ApiProperty({ type: String })
-  passwordHash: string;
+  @ApiPropertyOptional({ type: String })
+  passwordHash?: string;
 }
