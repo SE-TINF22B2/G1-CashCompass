@@ -27,9 +27,9 @@ class MockFactory
   Future<Transaction> getTransaction(MockTransaction data) {
     var transaction = Transaction(
         dto: null,
-        transactionNumber: data.transactionNumer,
-        soll: vault.getAccountById(data.sollId),
-        haben: vault.getAccountById(data.habenId),
+        transactionNumber: data.transactionNumber,
+        soll: vault.getAccount(data.sollAccNr),
+        haben: vault.getAccount(data.habenAccNr),
         amount: data.amount);
 
     var dto = TransactionDTO(data.id, transaction, connector: connector);

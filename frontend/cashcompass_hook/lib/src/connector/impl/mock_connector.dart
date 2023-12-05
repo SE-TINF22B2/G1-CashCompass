@@ -16,14 +16,85 @@ import 'package:uuid/uuid.dart' show Uuid;
 const uuid = Uuid();
 
 class MockConnector extends Connector {
-  List<MockAccount> activeAccounts = [];
+  List<MockAccount> activeAccounts = [
+    MockAccount(id: "1", name: "Bank", accountNumber: 1),
+    MockAccount(id: "2", name: "Bar", accountNumber: 2),
+    MockAccount(id: "3", name: "Ich hab keine Ahnung", accountNumber: 3)
+  ];
   List<MockAccount> passiveAccounts = [];
   List<MockCategory> categories = [];
   List<MockTransaction> transactions = [];
   List<MockRecurringTransactions> recurringTransactions = [];
   List<MockAccount> get accounts =>
       activeAccounts + passiveAccounts + categories;
-  MockConnector() : super("", "");
+  MockConnector() : super("", "") {
+    activeAccounts.addAll([
+      MockAccount(
+          id: getUUID(), name: "John Doe's Checking Account", accountNumber: 1),
+      MockAccount(
+          id: getUUID(), name: "John Doe's Savings Account", accountNumber: 2),
+      MockAccount(
+          id: getUUID(), name: "John Doe's Personal Loan", accountNumber: 4),
+      MockAccount(
+          id: getUUID(), name: "Jane Doe's Checking Account", accountNumber: 6),
+      MockAccount(id: getUUID(), name: "Jane's Bakery", accountNumber: 8),
+      MockAccount(
+          id: getUUID(), name: "Jane Doe's Credit Card", accountNumber: 10)
+    ]);
+    passiveAccounts.addAll([
+      MockAccount(id: getUUID(), name: "John's Diner", accountNumber: 3),
+      MockAccount(
+          id: getUUID(), name: "Jane Doe's Savings Account", accountNumber: 7),
+      MockAccount(
+          id: getUUID(), name: "Jane Doe's Personal Loan", accountNumber: 9),
+      MockAccount(
+          id: getUUID(), name: "John Doe's Credit Card", accountNumber: 5),
+    ]);
+    transactions.addAll([
+      MockTransaction(
+          transactionNumber: 1,
+          id: getUUID(),
+          amount: 100.0,
+          habenAccNr: 1,
+          sollAccNr: 1,
+          timestamp: DateTime(2022, 02, 01)),
+      MockTransaction(
+          transactionNumber: 2,
+          id: getUUID(),
+          amount: 200.0,
+          habenAccNr: 2,
+          sollAccNr: 1,
+          timestamp: DateTime(2022, 02, 02)),
+      MockTransaction(
+          transactionNumber: 3,
+          id: getUUID(),
+          amount: 150.0,
+          habenAccNr: 1,
+          sollAccNr: 2,
+          timestamp: DateTime(2022, 02, 03)),
+      MockTransaction(
+          transactionNumber: 4,
+          id: getUUID(),
+          amount: 75.0,
+          habenAccNr: 2,
+          sollAccNr: 1,
+          timestamp: DateTime(2022, 02, 04)),
+      MockTransaction(
+          transactionNumber: 5,
+          id: getUUID(),
+          amount: 300.0,
+          habenAccNr: 1,
+          sollAccNr: 2,
+          timestamp: DateTime(2022, 02, 05)),
+      MockTransaction(
+          transactionNumber: 6,
+          id: getUUID(),
+          amount: 50.0,
+          habenAccNr: 2,
+          sollAccNr: 1,
+          timestamp: DateTime(2022, 02, 06))
+    ]);
+  }
 
   String getUUID() {
     return uuid.v6();
@@ -149,10 +220,10 @@ class MockConnector extends Connector {
     var x = MockTransaction(
         id: getUUID(),
         amount: amount,
-        habenId: haben.dto.id,
-        sollId: soll.dto.id,
+        habenAccNr: haben.accountNumber,
+        sollAccNr: soll.accountNumber,
         timestamp: timestamp,
-        transactionNumer: transactionNumber);
+        transactionNumber: transactionNumber);
     return Future.value(x.id);
   }
 }

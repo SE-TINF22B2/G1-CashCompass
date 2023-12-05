@@ -34,16 +34,16 @@ class MockRecurringTransactions {
 
 class MockTransaction {
   String id;
-  String sollId;
-  String habenId;
+  int sollAccNr;
+  int habenAccNr;
   double amount;
   DateTime timestamp;
-  int transactionNumer;
+  int transactionNumber;
   MockTransaction(
-      {required this.transactionNumer,
+      {required this.transactionNumber,
       required this.id,
       required this.amount,
-      required this.habenId,
-      required this.sollId,
+      required this.habenAccNr,
+      required this.sollAccNr,
       required this.timestamp});
 }
