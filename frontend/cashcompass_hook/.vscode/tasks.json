@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "create UML file",
+            "type": "shell",
+            "command": "dcdg --output=./out/classes.uml"
+        },
+        {
+            "label": "test:runCoverage",
+            "options": {
+                "cwd": "./"
+            },
+            "type": "shell",
+            "command": "flutter test --coverage; genhtml coverage/lcov.info -o coverage/html"
+        },
+        {
+            "label": "test:run",
+            "type": "shell",
+            "command": "flutter test"
+        }
+    ]
+}
