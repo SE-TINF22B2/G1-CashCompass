@@ -17,15 +17,15 @@ class MockCategory extends MockAccount {
 
 class MockRecurringTransactions {
   String id;
-  String sollId;
-  String habenId;
+  int sollNumber;
+  int habenNumber;
   double amount;
   Duration intervall;
   DateTime start, end;
   MockRecurringTransactions(
       {required this.id,
-      required this.sollId,
-      required this.habenId,
+      required this.sollNumber,
+      required this.habenNumber,
       required this.amount,
       required this.end,
       required this.intervall,

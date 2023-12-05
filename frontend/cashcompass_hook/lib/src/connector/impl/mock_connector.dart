@@ -94,6 +94,15 @@ class MockConnector extends Connector {
           sollAccNr: 1,
           timestamp: DateTime(2022, 02, 06))
     ]);
+
+    recurringTransactions.add(MockRecurringTransactions(
+        id: getUUID(),
+        sollNumber: 1,
+        habenNumber: 3,
+        amount: 300,
+        end: DateTime(2022, 6, 1),
+        intervall: const Duration(days: 1),
+        start: DateTime(2022, 5, 1)));
   }
 
   String getUUID() {
@@ -142,8 +151,8 @@ class MockConnector extends Connector {
       required Duration interval}) {
     var x = MockRecurringTransactions(
         id: getUUID(),
-        sollId: soll.dto.id,
-        habenId: haben.dto.id,
+        sollNumber: soll.accountNumber,
+        habenNumber: haben.accountNumber,
         amount: amount,
         end: endTimestamp,
         intervall: interval,

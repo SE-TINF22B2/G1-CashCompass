@@ -73,8 +73,8 @@ class MockFactory
   @override
   Future<RecurringTransactions> createRecurringTransaction(
       MockRecurringTransactions data) async {
-    Account soll = vault.getAccountById(data.sollId);
-    Account haben = vault.getAccountById(data.habenId);
+    Account soll = vault.getAccount(data.sollNumber);
+    Account haben = vault.getAccount(data.habenNumber);
     var reccuringTransction = RecurringTransactions(
         dto: null,
         amount: data.amount,
