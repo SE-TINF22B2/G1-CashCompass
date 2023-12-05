@@ -10,8 +10,11 @@
         },
         {
             "label": "test:runCoverage",
+            "options": {
+                "cwd": "./"
+            },
             "type": "shell",
-            "command": "flutter test --coverage; genhtml coverage/Icov.info -o coverage/html"
+            "command": "flutter test --coverage; genhtml coverage/lcov.info -o coverage/html"
         },
         {
             "label": "test:run",
