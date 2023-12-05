@@ -6,7 +6,7 @@ import 'package:cashcompass_hook/src/transactions/transaction.dart';
 /// This class should contain every function connected to transactions.
 mixin TransactionConnector implements ConnectorSpez {
   /// Creates a transaction with given attributes and returns the transactions Id.
-  Future<Transaction> createTransaction(
+  Future<String> createTransaction(
       {required Account soll,
       required Account haben,
       required double amount,
@@ -22,7 +22,6 @@ mixin TransactionConnector implements ConnectorSpez {
       required DateTime endTimestamp,
       required Duration interval});
 
-  
   Future<double> changeTransactionAmount(
       Transaction transaction, double newAmount);
   Future<double> changeRecurringTransactionAmount(

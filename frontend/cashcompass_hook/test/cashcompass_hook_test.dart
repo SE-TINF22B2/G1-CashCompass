@@ -1,12 +1,23 @@
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:cashcompass_hook/cashcompass_hook.dart';
+import 'package:cashcompass_hook/src/connector/connector.dart';
+import 'package:cashcompass_hook/src/connector/impl/mock_connector.dart';
+import 'package:test/test.dart';
 
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+  Connector connector = MockConnector();
+  group("Hook startup", () {
+    test('Init mock connector', () {});
+
+    test('Init Account Vault', () {
+      AccountVault(connector: connector);
+    });
+  });
+
+  group("Mock connector", () {
+    test('Init Mock connector', () {
+      Connector mockconnector = MockConnector();
+      AccountVault accountVault = AccountVault(connector: mockconnector);
+      mockconnector.getInitialData(accountVault);
+    });
   });
 }

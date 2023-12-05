@@ -18,6 +18,6 @@ class TransactionDTO extends BaseDTO {
         amount: data.amount,
         timestamp: data.timestamp,
         transactionNumber: data.transactionNumber);
-    return ret.dto.id;
+    return ret;
   }
 }

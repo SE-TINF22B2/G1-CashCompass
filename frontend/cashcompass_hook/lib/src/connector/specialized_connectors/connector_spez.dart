@@ -1,3 +1,1 @@
-class ConnectorSpez {
-  
-}
+class ConnectorSpez {}

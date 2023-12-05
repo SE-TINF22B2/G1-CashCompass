@@ -22,13 +22,13 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
       required DateTime startDate,
       required DateTime endDate,
       required Duration interval,
-      required Account active,
-      required Account passive}) {
+      required Account soll,
+      required Account haben}) {
     _amount = amount;
     _startDate = startDate;
     _endDate = endDate;
-    _sollAccount = active;
-    _habenAccount = passive;
+    _sollAccount = soll;
+    _habenAccount = haben;
   }
 
   @override
