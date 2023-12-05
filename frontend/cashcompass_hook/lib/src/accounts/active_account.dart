@@ -3,7 +3,8 @@ import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class ActiveAcount extends Account {
-  ActiveAcount({required super.dto, required super.name, required super.accountNumber});
+  ActiveAcount(
+      {required super.dto, required super.name, required super.accountNumber});
 
   @override
   double close() {
@@ -15,4 +16,7 @@ class ActiveAcount extends Account {
     // TODO: implement getDTO
     throw UnimplementedError();
   }
+
+  @override
+  bool get isActive => true;
 }

@@ -16,4 +16,7 @@ class PassiveAccount extends Account {
     // TODO: implement getDTO
     throw UnimplementedError();
   }
+
+  @override
+  bool get isActive => false;
 }

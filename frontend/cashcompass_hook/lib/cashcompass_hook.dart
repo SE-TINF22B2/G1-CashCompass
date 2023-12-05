@@ -1,6 +1,6 @@
 library cashcompass_hook;
 
-export 'package:cashcompass_hook/src/accounts/account_vault.dart'
-    show AccountVault;
+import 'package:cashcompass_hook/src/hook/cashcompass_hook.dart'
+    show CashCompassHook;
 export 'package:cashcompass_hook/src/connector/api_exception.dart'
     show ApiException;

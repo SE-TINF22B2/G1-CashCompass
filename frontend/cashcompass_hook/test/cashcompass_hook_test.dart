@@ -1,4 +1,4 @@
-import 'package:cashcompass_hook/cashcompass_hook.dart';
+import 'package:cashcompass_hook/src/accounts/account_vault.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/connector/impl/mock_connector.dart';
 import 'package:test/test.dart';

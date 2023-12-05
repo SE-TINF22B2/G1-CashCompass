@@ -22,6 +22,12 @@ class AccountVault {
             _categories.firstWhere((element) => element.dto.id == id));
   }
 
+  Iterable<Account> get activeAccounts =>
+      _accounts.where((element) => element.isActive);
+
+  Iterable<Account> get passiveAccounts =>
+      _accounts.where((element) => !element.isActive);
+
   AccountVault({required this.connector});
   // Future<void> syncToDb() asy;
   Future<void> init() async {}

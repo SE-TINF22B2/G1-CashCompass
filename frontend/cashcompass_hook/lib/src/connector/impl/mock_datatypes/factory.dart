@@ -1,5 +1,5 @@
-import 'package:cashcompass_hook/cashcompass_hook.dart';
 import 'package:cashcompass_hook/src/accounts/account.dart';
+import 'package:cashcompass_hook/src/accounts/account_vault.dart';
 import 'package:cashcompass_hook/src/accounts/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/category.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account.dart';
@@ -56,6 +56,7 @@ class MockFactory
         accountNumber: data.accountNumber);
     var dto = CategoryDTO(data.id, cat, connector: connector);
     cat.setDTO(dto);
+
     return Future.value(cat);
   }
 

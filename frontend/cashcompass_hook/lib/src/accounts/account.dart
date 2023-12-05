@@ -9,6 +9,7 @@ abstract class Account extends DataClass {
 
   // creatable locally and is only dependent on one user
   final int accountNumber;
+  bool get isActive;
   Account(
       {required super.dto, required this.name, required this.accountNumber});
 
