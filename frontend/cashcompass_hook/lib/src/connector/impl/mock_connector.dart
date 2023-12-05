@@ -56,13 +56,13 @@ class MockConnector extends Connector {
           id: getUUID(),
           amount: 100.0,
           habenAccNr: 1,
-          sollAccNr: 1,
+          sollAccNr: 3,
           timestamp: DateTime(2022, 02, 01)),
       MockTransaction(
           transactionNumber: 2,
           id: getUUID(),
           amount: 200.0,
-          habenAccNr: 2,
+          habenAccNr: 7,
           sollAccNr: 1,
           timestamp: DateTime(2022, 02, 02)),
       MockTransaction(
@@ -153,27 +153,35 @@ class MockConnector extends Connector {
   }
 
   @override
-  Future<InitialPullData> getInitialData(AccountVault accountVault) async {
+  Future<InitialPullData> getInitialData() async {
+    AccountVault accountVault = AccountVault(connector: this);
+
     var fac = MockFactory(accountVault, this);
     late List<ActiveAcount> active;
     late List<PassiveAccount> passive;
     late List<Category> catego;
     late List<RecurringTransactions> recurrintTransactions;
     late List<Transaction> transactions;
+
     var activeAccountsF =
         Future.wait(activeAccounts.map((e) => fac.getActiveAccount(e)));
     var passiveAccountsF =
         Future.wait(passiveAccounts.map((e) => fac.getPassiveAccount(e)));
-    var recurringTransactionsF = Future.wait(
-        recurringTransactions.map((e) => fac.createRecurringTransaction(e)));
     var categoriesF = Future.wait(categories.map((e) => fac.getCategory(e)));
-    var transactionsF =
-        Future.wait(this.transactions.map((e) => fac.getTransaction(e)));
 
     await Future.wait([
       activeAccountsF.then((value) => active = value),
       passiveAccountsF.then((value) => passive = value),
       categoriesF.then((value) => catego = value),
+    ]);
+    accountVault.addAccounts(active);
+    accountVault.addAccounts(passive);
+    accountVault.addCategories(catego);
+    var transactionsF =
+        Future.wait(this.transactions.map((e) => fac.getTransaction(e)));
+    var recurringTransactionsF = Future.wait(
+        recurringTransactions.map((e) => fac.createRecurringTransaction(e)));
+    await Future.wait([
       recurringTransactionsF.then((value) => recurrintTransactions = value),
       transactionsF.then((value) => transactions = value)
     ]);

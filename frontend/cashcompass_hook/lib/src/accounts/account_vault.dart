@@ -25,4 +25,12 @@ class AccountVault {
   AccountVault({required this.connector});
   // Future<void> syncToDb() asy;
   Future<void> init() async {}
+
+  void addAccounts(List<Account> accounts) {
+    _accounts.addAll(accounts);
+  }
+
+  void addCategories(List<Category> categories) {
+    _categories.addAll(categories);
+  }
 }

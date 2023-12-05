@@ -15,7 +15,7 @@ abstract class Connector implements AccountConnector, TransactionConnector {
     restClient = SecuredRestClient(baseUrl: hostname, port: port);
   }
 
-  Future<InitialPullData> getInitialData(AccountVault accountVault);
+  Future<InitialPullData> getInitialData();
 
   Future<RestClient> logIn(String username, String email);
 

@@ -23,37 +23,53 @@ class ConnectorImpl extends Connector {
   }
 
   @override
-  Future<double> changeRecurringTransactionAmount(RecurringTransactions recurringTransactions, double newAmount) {
+  Future<double> changeRecurringTransactionAmount(
+      RecurringTransactions recurringTransactions, double newAmount) {
     // TODO: implement changeRecurringTransactionAmount
     throw UnimplementedError();
   }
 
   @override
-  Future<double> changeTransactionAmount(Transaction transaction, double newAmount) {
+  Future<double> changeTransactionAmount(
+      Transaction transaction, double newAmount) {
     // TODO: implement changeTransactionAmount
     throw UnimplementedError();
   }
 
   @override
-  Future<String> createAccount({required String name, required int accountNumber, required bool isActive}) {
+  Future<String> createAccount(
+      {required String name,
+      required int accountNumber,
+      required bool isActive}) {
     // TODO: implement createAccount
     throw UnimplementedError();
   }
 
   @override
-  Future<String> createRecurringTransaction({required Account soll, required Account haben, required double amount, required DateTime startTimestamp, required DateTime endTimestamp, required Duration interval}) {
+  Future<String> createRecurringTransaction(
+      {required Account soll,
+      required Account haben,
+      required double amount,
+      required DateTime startTimestamp,
+      required DateTime endTimestamp,
+      required Duration interval}) {
     // TODO: implement createRecurringTransaction
     throw UnimplementedError();
   }
 
   @override
-  Future<String> createTransaction({required Account soll, required Account haben, required double amount, required DateTime timestamp, required int transactionNumber}) {
+  Future<String> createTransaction(
+      {required Account soll,
+      required Account haben,
+      required double amount,
+      required DateTime timestamp,
+      required int transactionNumber}) {
     // TODO: implement createTransaction
     throw UnimplementedError();
   }
 
   @override
-  Future<InitialPullData> getInitialData(AccountVault accountVault) {
+  Future<InitialPullData> getInitialData() {
     // TODO: implement getInitialData
     throw UnimplementedError();
   }

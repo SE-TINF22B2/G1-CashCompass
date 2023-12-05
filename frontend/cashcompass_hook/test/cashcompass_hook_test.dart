@@ -16,8 +16,7 @@ void main() {
   group("Mock connector", () {
     test('Init Mock connector', () {
       Connector mockconnector = MockConnector();
-      AccountVault accountVault = AccountVault(connector: mockconnector);
-      mockconnector.getInitialData(accountVault);
+      mockconnector.getInitialData();
     });
   });
 }
