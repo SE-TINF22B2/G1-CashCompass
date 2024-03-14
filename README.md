@@ -11,3 +11,4 @@ CashCompass is a financial application designed to empower users to manage their
 ![Github Workflow Status Integrate](https://img.shields.io/github/actions/workflow/status/SE-TINF22B2/G1-CashCompass/backend_deploy.yml?label=Backend%20CD)
 ![Render deploy](https://img.shields.io/badge/dynamic/json?label=Backend%20Deploy&url=https%3A%2F%2Fcashcompass-backend.onrender.com%2Fhealth&query=$.text&color=brightgreen)
 
+
