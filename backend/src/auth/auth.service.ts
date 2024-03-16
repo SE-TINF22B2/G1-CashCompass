@@ -33,7 +33,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   /**
    * With this function, the user can sign in and get a signed access token.

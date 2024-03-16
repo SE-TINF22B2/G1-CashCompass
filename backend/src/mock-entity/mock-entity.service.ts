@@ -4,42 +4,26 @@ import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class MockEntityService {
-  constructor(private prismaService: PrismaService) {}
+
+  constructor(private prismaService: PrismaService) { }
 
   create(createMockEntityDto: CreateMockEntityDto) {
-    return this.prismaService.mockEntity.create({
-      data: {
-        ...createMockEntityDto,
-      },
-    });
+    return 'This action adds a new mockEntity';
   }
 
   findAll() {
-    return this.prismaService.mockEntity.findMany();
+    return `This action returns all mockEntity`;
   }
 
   findOne(id: number) {
-    return this.prismaService.mockEntity.findUniqueOrThrow({
-      where: {
-        id,
-      },
-    });
+    return `This action returns a #${id} mockEntity`;
   }
 
   update(id: number, updateMockEntityDto: UpdateMockEntityDto) {
-    return this.prismaService.mockEntity.update({
-      data: updateMockEntityDto,
-      where: {
-        id,
-      },
-    });
+    return `This action updates a #${id} mockEntity`;
   }
 
   remove(id: number) {
-    return this.prismaService.mockEntity.delete({
-      where: {
-        id,
-      },
-    });
+    return `This action removes a #${id} mockEntity`;
   }
 }
