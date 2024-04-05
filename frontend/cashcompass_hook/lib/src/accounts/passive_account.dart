@@ -1,4 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
+import 'package:cashcompass_hook/src/currency/currency.dart';
 
 class PassiveAccount with Bookable {
   PassiveAccount(String name, int accountNumber) {
@@ -7,7 +8,7 @@ class PassiveAccount with Bookable {
   }
 
   @override
-  double close() {
+  Currency close() {
     return getHabenAmount() - getSollAmount();
   }
 }

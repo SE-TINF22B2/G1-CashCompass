@@ -1,6 +1,7 @@
 import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
+import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/dtos/account_dto.dart';
 
 class ActiveAcount with Bookable {
@@ -10,7 +11,7 @@ class ActiveAcount with Bookable {
   }
 
   @override
-  double close() {
+  Currency close() {
     return getSollAmount() - getHabenAmount();
   }
 }

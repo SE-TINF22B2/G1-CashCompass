@@ -1,6 +1,7 @@
 import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
+import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/dtos/data_class.dart';
 import 'package:cashcompass_hook/src/dtos/recurring_transaction_dto.dart';
 
@@ -11,7 +12,7 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
   late Bookable _sollAccount;
   late Bookable _habenAccount;
 
-  double get amount => _amount;
+  Currency get amount => _amount;
   DateTime get startDate => _startDate;
   DateTime get endDate => _endDate;
   Bookable get soll => _sollAccount;

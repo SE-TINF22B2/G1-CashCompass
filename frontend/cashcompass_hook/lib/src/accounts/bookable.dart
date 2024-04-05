@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/transactions/transaction.dart';
 
 mixin Bookable {
@@ -10,7 +11,7 @@ mixin Bookable {
   // creatable locally and is only dependent on one user
   late final int accountNumber;
 
-  double getSollAmount() {
+  Currency getSollAmount() {
     double amount = 0;
     for (var t in sollT) {
       amount += t.amount;
@@ -18,7 +19,7 @@ mixin Bookable {
     return amount;
   }
 
-  double getHabenAmount() {
+  Currency getHabenAmount() {
     double amount = 0;
     for (var t in habenT) {
       amount += t.amount;
@@ -26,7 +27,7 @@ mixin Bookable {
     return amount;
   }
 
-  double close();
+  Currency close();
 
   @override
   String toString() {
