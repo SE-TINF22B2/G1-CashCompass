@@ -1,6 +1,7 @@
 import 'package:cashcompass_hook/cashcompass_hook.dart';
-import 'package:cashcompass_hook/src/accounts/account.dart';
+
 import 'package:cashcompass_hook/src/accounts/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account.dart';
@@ -134,8 +135,8 @@ class MockConnector extends Connector {
 
   @override
   Future<String> createRecurringTransaction(
-      {required Account soll,
-      required Account haben,
+      {required Bookable soll,
+      required Bookable haben,
       required double amount,
       required DateTime startTimestamp,
       required DateTime endTimestamp,
@@ -174,8 +175,8 @@ class MockConnector extends Connector {
       passiveAccountsF.then((value) => passive = value),
       categoriesF.then((value) => catego = value),
     ]);
-    accountVault.addAccounts(active);
-    accountVault.addAccounts(passive);
+    accountVault.addActiveAccounts(active);
+    accountVault.addPassiveAccounts(passive);
     accountVault.addCategories(catego);
     var transactionsF =
         Future.wait(this.transactions.map((e) => fac.getTransaction(e)));
@@ -220,8 +221,8 @@ class MockConnector extends Connector {
 
   @override
   Future<String> createTransaction(
-      {required Account soll,
-      required Account haben,
+      {required Bookable soll,
+      required Bookable haben,
       required double amount,
       required DateTime timestamp,
       required int transactionNumber}) {

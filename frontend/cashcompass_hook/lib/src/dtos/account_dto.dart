@@ -1,4 +1,3 @@
-import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/connector/specialized_connectors/account_connector.dart';
 import 'package:cashcompass_hook/src/dtos/base_dto.dart';
 
