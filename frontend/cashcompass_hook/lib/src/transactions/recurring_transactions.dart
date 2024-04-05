@@ -1,4 +1,3 @@
-import 'package:cashcompass_hook/src/accounts/account.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
