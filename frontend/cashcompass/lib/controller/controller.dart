@@ -1,5 +1,5 @@
-import 'package:cashcompass/screens/homescreen/homescreen.dart';
-import 'package:flutter/material.dart';
+import 'package:cashcompass/screens/my_app/my_app.dart';
+import 'package:flutter/cupertino.dart';
 
 class Controller {
   static late final Controller instance;
