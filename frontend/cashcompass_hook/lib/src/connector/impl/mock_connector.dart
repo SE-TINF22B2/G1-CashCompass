@@ -141,16 +141,17 @@ class MockConnector extends Connector {
       required DateTime startTimestamp,
       required DateTime endTimestamp,
       required Duration interval}) {
-    var x = MockRecurringTransactions(
-        id: getUUID(),
-        sollId: soll.dto.id,
-        habenId: haben.dto.id,
-        amount: amount,
-        end: endTimestamp,
-        intervall: interval,
-        start: startTimestamp);
-    recurringTransactions.add(x);
-    return Future.value(x.id);
+    throw UnimplementedError("Not implemented due to restructure");
+    // var x = MockRecurringTransactions(
+    //     id: getUUID(),
+    //     sollId: soll.id,
+    //     habenId: haben.dto.id,
+    //     amount: amount,
+    //     end: endTimestamp,
+    //     intervall: interval,
+    //     start: startTimestamp);
+    // recurringTransactions.add(x);
+    // return Future.value(x.id);
   }
 
   @override

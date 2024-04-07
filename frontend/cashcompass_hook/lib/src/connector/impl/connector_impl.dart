@@ -1,3 +1,4 @@
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
@@ -45,8 +46,8 @@ class ConnectorImpl extends Connector {
 
   @override
   Future<String> createRecurringTransaction(
-      {required Account soll,
-      required Account haben,
+      {required Bookable soll,
+      required Bookable haben,
       required double amount,
       required DateTime startTimestamp,
       required DateTime endTimestamp,
@@ -57,8 +58,8 @@ class ConnectorImpl extends Connector {
 
   @override
   Future<String> createTransaction(
-      {required Account soll,
-      required Account haben,
+      {required Bookable soll,
+      required Bookable haben,
       required double amount,
       required DateTime timestamp,
       required int transactionNumber}) {
