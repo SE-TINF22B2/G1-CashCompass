@@ -2,7 +2,7 @@
 name: Documentation
 about: Enhance the Documentation 
 title: '[Doc]'
-labels: 'doc'
+labels: 'documentation'
 assignees: ''
 ---
 
