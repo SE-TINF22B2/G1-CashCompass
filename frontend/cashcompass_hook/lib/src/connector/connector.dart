@@ -1,4 +1,3 @@
-import 'package:cashcompass_hook/cashcompass_hook.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/connector/secured_rest_client.dart';

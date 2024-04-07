@@ -1,18 +1,14 @@
-import 'package:cashcompass_hook/src/accounts/account.dart';
-import 'package:cashcompass_hook/src/connector/connector.dart';
-import 'package:cashcompass_hook/src/dtos/account_dto.dart';
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
+import 'package:cashcompass_hook/src/currency/currency.dart';
 
-class ActiveAcount extends Account {
-  ActiveAcount({required super.dto, required super.name, required super.accountNumber});
-
-  @override
-  double close() {
-    return getSollAmount() - getHabenAmount();
+class ActiveAcount with Bookable {
+  ActiveAcount(String name, int accountNumber) {
+    this.accountNumber = accountNumber;
+    this.name = name;
   }
 
   @override
-  Future<AccountDTO> getDTO(Connector connector) {
-    // TODO: implement getDTO
-    throw UnimplementedError();
+  Currency close() {
+    return getSollAmount() - getHabenAmount();
   }
 }

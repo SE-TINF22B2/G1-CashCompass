@@ -1,0 +1,1 @@
+typedef Currency = double;

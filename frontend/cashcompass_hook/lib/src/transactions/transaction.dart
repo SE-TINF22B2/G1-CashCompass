@@ -1,12 +1,13 @@
-import 'package:cashcompass_hook/src/accounts/account.dart';
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/connector/specialized_connectors/transaction_connctor.dart';
+import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/dtos/base_dto.dart';
 import 'package:cashcompass_hook/src/dtos/data_class.dart';
 
 class Transaction extends DataClass {
-  final Account soll;
-  final Account haben;
-  final double amount;
+  final Bookable soll;
+  final Bookable haben;
+  final Currency amount;
   // TODO create transactionnumber if there is non overgiven
   late final int _transacionNumber;
   late final DateTime timestamp;
