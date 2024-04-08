@@ -7,10 +7,14 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^7",
-    "express": "^4"
+    "express": "^4",
+    "jsonwebtoken": "^9.0.2",
+    "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/passport-jwt": "^4.0.1"
   },
   "scripts": {
     "start": "cds-ts watch",

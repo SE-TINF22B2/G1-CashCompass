@@ -1,0 +1,18 @@
+meta {
+  name: Login
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:4004/rest/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "1@1.de",
+    "password": "asdf"
+  }
+}
