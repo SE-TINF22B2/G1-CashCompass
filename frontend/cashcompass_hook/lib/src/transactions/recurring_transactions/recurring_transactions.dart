@@ -1,10 +1,14 @@
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
-import 'package:cashcompass_hook/src/connector/connector.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
-import 'package:cashcompass_hook/src/dtos/data_class.dart';
-import 'package:cashcompass_hook/src/dtos/recurring_transaction_dto.dart';
+import 'package:cashcompass_hook/src/data_storage/database_object.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_serializer.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_updater.dart';
 
-class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
+class RecurringTransactions
+    with
+        DatabaseObject<RecurringTransactions, RecurringTransactionsSerializer,
+            RecurringTransactionsFactory, RecurringTransactionsUpdater> {
   late double _amount;
   late DateTime _startDate, _endDate;
   late Duration _interval;
@@ -18,8 +22,7 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
   Bookable get haben => _habenAccount;
   Duration get interval => _interval;
   RecurringTransactions(
-      {required super.dto,
-      required amount,
+      {required amount,
       required DateTime startDate,
       required DateTime endDate,
       required Duration interval,
@@ -33,7 +36,7 @@ class RecurringTransactions extends DataClass<RecurringTransactionDTO> {
   }
 
   @override
-  Future<RecurringTransactionDTO> getDTO(Connector connector) {
-    throw UnimplementedError();
+  RecurringTransactionsSerializer getSerialiser() {
+    return RecurringTransactionsSerializer(this);
   }
 }
