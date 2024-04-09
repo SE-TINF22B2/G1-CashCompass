@@ -1,9 +1,12 @@
-using {cuid} from '@sap/cds/common';
+using {
+        cuid,
+        managed
+} from '@sap/cds/common';
 
 namespace dhbw.caco.mock;
 
 @assert.unique: {email: [email], }
-entity MockEntity : cuid {
+entity MockEntity : cuid, managed {
         email : String;
         name  : String;
 }

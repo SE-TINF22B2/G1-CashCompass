@@ -2,17 +2,20 @@ import cds, { ApplicationService } from "@sap/cds";
 import { Request } from "@sap/cds";
 import jwt from "jsonwebtoken";
 import { Entity, Users } from "../../lib/types/dhbw.caco.users";
+import * as argon2 from "argon2";
 
 type SignupParameters = {
-  email: String;
-  password: String;
-  username: String;
+  email: string;
+  password: string;
+  username: string;
 };
 
 type LoginParameters = {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 };
+
+const CUSTOM_SALT = process.env.CUSTOM_SALT;
 
 export class AuthService extends ApplicationService {
   async init() {
@@ -32,9 +35,10 @@ export class AuthService extends ApplicationService {
       return;
     }
 
-    if (user.passwordHash !== password) {
-      //TODO: use Hashes
-      req.reject(404, "Wrong password");
+    const passwordMatch = await argon2.verify(user.passwordHash, password + CUSTOM_SALT);
+
+    if (!passwordMatch) {
+      req.reject(404, "Invalid credentials");
       return;
     }
 
@@ -53,7 +57,16 @@ export class AuthService extends ApplicationService {
     //take signup data, write it in the db, and then generate jwt, decode email in it
     const userData: SignupParameters = req.data;
 
-    const insertResult = await INSERT.into(Entity.Users).entries([userData]);
+    const passwordHash = await argon2.hash(userData.password + CUSTOM_SALT);
+    console.log(passwordHash);
+
+    const insertResult = await INSERT.into(Entity.Users).entries([
+      {
+        email: userData.email,
+        passwordHash,
+        username: userData.username,
+      },
+    ]);
 
     if (!insertResult.results || insertResult.results.length !== 1) {
       req.reject(500, "An error occured");
