@@ -1,6 +1,15 @@
 {
   "version": "0.2.0",
   "configurations": [
+  {
+      "command": "cds-ts watch",
+      "name": "cds run",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
     {
       "name": "cds serve",
       "request": "launch",

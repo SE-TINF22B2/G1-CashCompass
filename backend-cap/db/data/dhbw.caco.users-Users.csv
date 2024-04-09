@@ -1,0 +1,2 @@
+email;username;passwordHash;
+1@1.de;Simi;$argon2id$v=19$m=65536,t=3,p=4$lWuRGO7SXTKzvRRuK3rPYQ$AbHxCMnoVB1TtkiNzkBF4b9XANMRUoANfPhFuInMFBs;

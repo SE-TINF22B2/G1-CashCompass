@@ -1,0 +1,17 @@
+meta {
+  name: Update Mockentity
+  type: http
+  seq: 2
+}
+
+patch {
+  url: http://localhost:4004/rest/mock/MockEntity/08b12136-591d-43dd-a08d-54f3f88a1a10
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Mock 22"
+  }  
+}

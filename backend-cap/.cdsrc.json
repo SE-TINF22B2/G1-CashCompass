@@ -1,1 +1,7 @@
-{}
+{
+  "requires": {
+    "auth": {
+      "impl": "srv/auth-service/custom-auth.ts" 
+    }
+  }
+}
