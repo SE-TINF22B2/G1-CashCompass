@@ -1,40 +1,34 @@
-# compiled output
-/dist
-/node_modules
+# CAP backend-cap
+_out
+*.db
+*.sqlite
+connection.properties
+default-*.json
+.cdsrc-private.json
+gen/
+node_modules/
+target/
 
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+# Web IDE, App Studio
+.che/
+.gen/
 
-# OS
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+
+# Other
 .DS_Store
+*.orig
+*.log
 
-# Tests
-/coverage
-/.nyc_output
+*.iml
+*.flattened-pom.xml
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# IDEs
+# .vscode
+# .idea
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-.env
-.env.docker
-
-/documentation
+# @cap-js/cds-typer
+@cds-models
