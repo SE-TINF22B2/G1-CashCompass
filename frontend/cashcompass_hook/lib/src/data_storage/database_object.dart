@@ -1,5 +1,3 @@
-import 'package:cashcompass_hook/src/connector/connector.dart';
-
 /// Serializers are used for serializing objects in the app for storing it on the devide or sending it to the servers
 abstract class Serializer<DatabaseObject> {
   DatabaseObject obj;
@@ -22,9 +20,10 @@ abstract class Updater<DataBaseObject> {
   Updater(this.connector);
 }
 
-mixin DatabaseObject<T, S extends Serializer<T>, F extends Factory<T>,
-    U extends Updater<T>> {
+mixin DatabaseObject<T extends DatabaseObject<T, S, F, U>,
+    S extends Serializer<T>, F extends Factory<T>, U extends Updater<T>> {
   S getSerialiser();
+  String getPath();
   String? id;
   bool get isUploaded => id != null;
 }

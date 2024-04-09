@@ -48,5 +48,8 @@ mixin Bookable {
 
 abstract class LocaleBookable with Bookable {}
 
-abstract class RemoteBookable<T, S extends Serializer<T>, F extends Factory<T>,
+abstract class RemoteBookable<
+    T extends DatabaseObject<T, S, F, U>,
+    S extends Serializer<T>,
+    F extends Factory<T>,
     U extends Updater<T>> with Bookable, DatabaseObject<T, S, F, U> {}

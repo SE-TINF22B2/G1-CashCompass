@@ -1,4 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction_updater.dart';
@@ -37,5 +38,10 @@ class Transaction
   @override
   TransactionsSerializer getSerialiser() {
     return TransactionsSerializer(this);
+  }
+
+  @override
+  String getPath() {
+    return EntityPaths.transaction.path;
   }
 }

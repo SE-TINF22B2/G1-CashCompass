@@ -1,6 +1,7 @@
 // one connector reprents the connection to one User's data.
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/connector/LocaleStorage.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/remote_storage.dart';
 import 'package:cashcompass_hook/src/connector/secured_rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
@@ -20,7 +21,7 @@ class Serialiser implements DataAdapter {
   }
 
   @override
-  Future<T> load<T extends Factory>(String path, id) {
+  Future<T> load<T extends Factory>(EntityPaths path, id) {
     // TODO: implement load
     throw UnimplementedError();
   }
@@ -37,5 +38,5 @@ abstract class DataAdapter {
   Future<InitialPullData> getInitialPull();
 
   Future store(String path, DatabaseObject obj);
-  Future<T> load<T extends Factory>(String path, id);
+  Future<T> load<T extends Factory>(EntityPaths path, id);
 }

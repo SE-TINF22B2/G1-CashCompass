@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/active_account/active_account_fact
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_serializer.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_updater.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
@@ -24,5 +25,10 @@ class ActiveAcount extends RemoteBookable<ActiveAcount, ActiveAccountSerializer,
   @override
   ActiveAccountSerializer getSerialiser() {
     return ActiveAccountSerializer(this);
+  }
+
+  @override
+  String getPath() {
+    return EntityPaths.activeaccount.path;
   }
 }

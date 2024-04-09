@@ -5,7 +5,7 @@ class TransactionsFactory extends Factory<Transaction> {
   TransactionsFactory(super.connector);
 
   @override
-  DatabaseObject<dynamic, Serializer, Factory, Updater> build() {
+  DatabaseObject<DatabaseObject, Serializer, Factory, Updater> build() {
     // TODO: implement build
     throw UnimplementedError();
   }

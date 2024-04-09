@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_serializer.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_updater.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
@@ -23,5 +24,10 @@ class PassiveAccount extends RemoteBookable<PassiveAccount,
   @override
   PassiveAccountSerializer getSerialiser() {
     return PassiveAccountSerializer(this);
+  }
+
+  @override
+  String getPath() {
+    return EntityPaths.passiveaccount.path;
   }
 }

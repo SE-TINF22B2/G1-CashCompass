@@ -1,4 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
@@ -38,5 +39,10 @@ class RecurringTransactions
   @override
   RecurringTransactionsSerializer getSerialiser() {
     return RecurringTransactionsSerializer(this);
+  }
+
+  @override
+  String getPath() {
+    return EntityPaths.recurringtransations.path;
   }
 }

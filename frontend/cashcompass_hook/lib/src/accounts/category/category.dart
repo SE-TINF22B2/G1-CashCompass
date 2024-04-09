@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_serializer.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_updater.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 
 class Category extends RemoteBookable<Category, CategorySerializer,
@@ -22,5 +23,10 @@ class Category extends RemoteBookable<Category, CategorySerializer,
   @override
   CategorySerializer getSerialiser() {
     return CategorySerializer(this);
+  }
+
+  @override
+  String getPath() {
+    return EntityPaths.category.path;
   }
 }
