@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:cashcompass_hook/src/currency/currency.dart';
-import 'package:cashcompass_hook/src/transactions/transaction.dart';
+import 'package:cashcompass_hook/src/data_storage/database_object.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
 mixin Bookable {
   final List<Transaction> sollT = [];
@@ -44,3 +45,11 @@ mixin Bookable {
     }
   }
 }
+
+abstract class LocaleBookable with Bookable {}
+
+abstract class RemoteBookable<
+    T extends DatabaseObject<T, S, F, U>,
+    S extends Serializer<T>,
+    F extends Factory<T>,
+    U extends Updater<T>> with Bookable, DatabaseObject<T, S, F, U> {}

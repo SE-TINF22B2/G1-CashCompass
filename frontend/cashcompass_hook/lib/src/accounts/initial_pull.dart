@@ -1,8 +1,8 @@
-import 'package:cashcompass_hook/src/accounts/active_account.dart';
-import 'package:cashcompass_hook/src/accounts/category.dart';
-import 'package:cashcompass_hook/src/accounts/passive_account.dart';
-import 'package:cashcompass_hook/src/transactions/recurring_transactions.dart';
-import 'package:cashcompass_hook/src/transactions/transaction.dart';
+import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/category/category.dart';
+import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
 /// This class represents all Account related data conneted to the initial pull of data.
 class InitialPullData {
