@@ -15,7 +15,8 @@
   "devDependencies": {
     "@cap-js/sqlite": "^1",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/passport-jwt": "^4.0.1"
+    "@types/passport-jwt": "^4.0.1",
+    "cds-swagger-ui-express": "^0.8.0"
   },
   "scripts": {
     "start": "cds-ts watch",
