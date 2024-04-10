@@ -21,22 +21,30 @@ class Serialiser implements DataAdapter {
   }
 
   @override
-  Future<T> load<T extends Factory>(EntityPaths path, id) {
+  Future<T> load<T extends Factory>(EntityPaths path, String id, T factory) {
     // TODO: implement load
     throw UnimplementedError();
   }
 
   @override
-  Future store(
-      String path, DatabaseObject<dynamic, Serializer, Factory, Updater> obj) {
+  Future store(DatabaseObject obj) {
     // TODO: implement store
     throw UnimplementedError();
   }
 }
 
 abstract class DataAdapter {
+  /*
+    get initial data returns all the data from a medium by reading everything and loading it into a InitialPullData object which gets returned from this function.
+   */
   Future<InitialPullData> getInitialPull();
 
-  Future store(String path, DatabaseObject obj);
-  Future<T> load<T extends Factory>(EntityPaths path, id);
+  /*
+    Stores the overgiven object in the given medium. It is identified by the obj.getPath() and obj.id.
+  */
+  Future store(DatabaseObject obj);
+  /*
+    Loads a 
+  */
+  Future<T> load<T extends Factory>(EntityPaths path, String id, T factory);
 }
