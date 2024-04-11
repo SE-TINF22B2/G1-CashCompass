@@ -1,40 +1,24 @@
+import { Response, NextFunction } from "express";
+import { auth } from '../../lib';
 import cds from "@sap/cds";
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-type Req = Request & { user: cds.User; tenant: string };
 
 export default function custom_auth(
-  req: Req,
+  req: auth.types.AuthRequestType,
   res: Response,
   next: NextFunction
 ) {
+  //the auth routes (login and signup) do not need auth
   if (req.baseUrl === "/rest/auth") {
     next();
     return;
   }
 
-  const authHeader = req.headers["authorization"];
+  try {
+    req.user = auth.Shared.strategies.jwtStrategy.createUser(req);
 
-  if (!authHeader || authHeader.split(" ").length !== 2) {
-    return res.status(403).send({ auth: false, message: "No token provided." });
+    next();
+  } catch (e) {
+    return res.status(401).send().send();
   }
 
-  const token = authHeader.split(" ")[1];
-
-  jwt.verify(token, process.env.JWT_SECRET, function (error, decoded) {
-    if (error) {
-      cds
-        .log("auth")
-        .error("Failed to authenticate Token with error: " + error.message);
-
-      return res.status(500).send("Failed to authenticate Token.");
-    }
-
-    if (!decoded["userName"]) {
-      return res.status(403).send("No username saved in token.");
-    }
-
-    req.user = new cds.User(decoded["userName"]);
-    next();
-  });
 }

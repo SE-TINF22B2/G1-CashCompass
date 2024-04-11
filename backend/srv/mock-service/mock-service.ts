@@ -1,4 +1,4 @@
-import cds, { ApplicationService } from "@sap/cds";
+import cds, { ApplicationService, Request } from "@sap/cds";
 import { SanitizedEntity, MockEntity } from '../../lib/types/dhbw.caco.mock';
 
 export class MockService extends ApplicationService {
@@ -9,7 +9,7 @@ export class MockService extends ApplicationService {
 		await super.init();
 	}
 
-	handleAfterMockRead(res: MockEntity[], req) {
+	handleAfterMockRead(res: MockEntity[], req: Request) {
 		cds.log("mock").log(req.user.id);
 		for (const mockEntity of res) {
 			mockEntity.name += " !";

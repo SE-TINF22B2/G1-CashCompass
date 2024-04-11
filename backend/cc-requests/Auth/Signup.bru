@@ -5,7 +5,15 @@ meta {
 }
 
 post {
-  url: http://localhost:4004/rest/auth/login
-  body: none
+  url: http://localhost:4004/rest/auth/signup
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email": "2@1.de",
+    "password": "1234",
+    "username": "Simi2"
+  }
 }
