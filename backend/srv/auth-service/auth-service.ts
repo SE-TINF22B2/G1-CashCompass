@@ -1,19 +1,9 @@
-import cds, { ApplicationService } from "@sap/cds";
+import { ApplicationService } from "@sap/cds";
 import { Request } from "@sap/cds";
 import jwt from "jsonwebtoken";
 import { Entity, Users } from "../../lib/types/dhbw.caco.users";
 import * as argon2 from "argon2";
-
-type SignupParameters = {
-  email: string;
-  password: string;
-  username: string;
-};
-
-type LoginParameters = {
-  email: string;
-  password: string;
-};
+import { LoginParameters, SignupParameters } from "../../lib/auth/types";
 
 const CUSTOM_SALT = process.env.CUSTOM_SALT;
 
