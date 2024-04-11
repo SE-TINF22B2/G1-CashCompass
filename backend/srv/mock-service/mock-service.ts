@@ -10,6 +10,7 @@ export class MockService extends ApplicationService {
 	}
 
 	handleAfterMockRead(res: MockEntity[], req: Request) {
+		cds.log("mock").log(req.user.id);
 		for (const mockEntity of res) {
 			mockEntity.name += " !";
 		}
