@@ -3,11 +3,15 @@ import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/data_storage/datastorage.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
 class Accountmanager {
   //final Connector connector;
   final Datastorage _data = Datastorage();
   Future<void> init() async {}
+
+  int get nextAccountNumber => _data.getNewAccountNumber();
+  int get nextTransactionNumber => _data.getNewTransactionNumber();
 
   Bookable? getAccount(int accountNr) {
     // ignore: unnecessary_cast
@@ -23,6 +27,12 @@ class Accountmanager {
     return _data.allRemoteAccounts.firstWhere((element) => element.id == id,
         orElse: () =>
             _data.categories.firstWhere((element) => element.id == id));
+  }
+
+  Transaction? getTransactionById(String id) {
+    // ignore: unnecessary_cast
+    return (_data.transactions as Iterable<Transaction?>)
+        .firstWhere((element) => element?.id == id);
   }
 
   void addActiveAccounts(Iterable<ActiveAcount> acc) {

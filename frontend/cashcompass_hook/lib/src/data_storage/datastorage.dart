@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
@@ -18,5 +20,17 @@ class Datastorage {
     l.addAll(passiveAccounts);
     l.addAll(categories);
     return l;
+  }
+
+  int getNewAccountNumber() {
+    var allNumbers = allRemoteAccounts.map((e) => e.accountNumber);
+    return allNumbers.reduce((value, element) => max(value, element)) + 1;
+  }
+
+  int getNewTransactionNumber() {
+    return transactions
+            .map((e) => e.transactionNumber)
+            .reduce((value, element) => max(value, element)) +
+        1;
   }
 }

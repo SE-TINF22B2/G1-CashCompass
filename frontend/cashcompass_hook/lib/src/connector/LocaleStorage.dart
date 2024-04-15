@@ -11,7 +11,11 @@ class LocaleStorage implements DataAdapter {
   }
 
   @override
-  Future<T> load<T extends Factory>(EntityPaths path, String id, T factory) {
+  Future<F> load<
+      F extends Factory<T, S, F, U>,
+      T extends DatabaseObject<T, S, F, U>,
+      S extends Serializer<T>,
+      U extends Updater<T>>(EntityPaths path, String id, T factory) {
     // TODO: implement load
     throw UnimplementedError();
   }

@@ -34,6 +34,7 @@ class RecurringTransactions
     _endDate = endDate;
     _sollAccount = soll;
     _habenAccount = haben;
+    _interval = interval;
   }
 
   @override
