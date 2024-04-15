@@ -24,6 +24,19 @@ mixin DatabaseObject<T extends DatabaseObject<T, S, F, U>,
     S extends Serializer<T>, F extends Factory<T>, U extends Updater<T>> {
   S getSerialiser();
   String getPath();
-  String? id;
-  bool get isUploaded => id != null;
+  String? _id;
+  set localId(String id) {
+    this._localId = id;
+  }
+
+  set remoteId(String id) {
+    this._id = id;
+  }
+
+  // this id can change, when a object gets uploaded to the server. Can cause problems lol. But i guess i need to figgure this out later. Access this field after checking if its is uploaded or not.
+  String get id => _id ?? _localId;
+  late String _localId;
+  String? locale;
+  String? localeId;
+  bool get isUploaded => _id != null;
 }
