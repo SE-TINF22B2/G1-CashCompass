@@ -44,6 +44,12 @@ mixin Bookable {
       log("$transaction does not include $name($this)");
     }
   }
+
+  void appendTransactions(Iterable<Transaction> transactions) {
+    for (var t in transactions) {
+      appendTransaction(t);
+    }
+  }
 }
 
 abstract class LocaleBookable with Bookable {}
@@ -51,5 +57,5 @@ abstract class LocaleBookable with Bookable {}
 abstract class RemoteBookable<
     T extends DatabaseObject<T, S, F, U>,
     S extends Serializer<T>,
-    F extends Factory<T>,
+    F extends Factory<T, S, F, U>,
     U extends Updater<T>> with Bookable, DatabaseObject<T, S, F, U> {}
