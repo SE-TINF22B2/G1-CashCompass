@@ -25,7 +25,7 @@ class Serialiser implements DataAdapter {
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
-      U extends Updater<T>>(EntityPaths path, String id, T factory) {
+      U extends Updater<T>>(EntityPaths path, String id, F factory) {
     // TODO: implement load
     throw UnimplementedError();
   }
@@ -47,6 +47,7 @@ abstract class DataAdapter {
     Stores the overgiven object in the given medium. It is identified by the obj.getPath() and obj.id.
   */
   Future store(DatabaseObject obj);
+
   /*
     Loads a 
   */
@@ -54,5 +55,5 @@ abstract class DataAdapter {
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
-      U extends Updater<T>>(EntityPaths path, String id, T factory);
+      U extends Updater<T>>(EntityPaths path, String id, F factory);
 }
