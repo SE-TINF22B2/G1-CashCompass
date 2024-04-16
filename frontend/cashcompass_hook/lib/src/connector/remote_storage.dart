@@ -18,7 +18,7 @@ class RemoteStorage implements DataAdapter {
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
-      U extends Updater<T>>(EntityPaths path, String id, T factory) {
+      U extends Updater<T>>(EntityPaths path, String id, F factory) {
     // TODO: implement load
     throw UnimplementedError();
   }
