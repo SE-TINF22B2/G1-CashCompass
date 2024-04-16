@@ -7,8 +7,8 @@ using dhbw.caco.accounts as accounts from '../accounts';
 namespace dhbw.caco.transactions;
 
 aspect BaseTransaction : cuid, managed {
-        activeAccount  : Association to accounts.Accounts;
-        passiveAccount : Association to accounts.Accounts;
+        activeAccount  : Association to one accounts.Accounts;
+        passiveAccount : Association to one accounts.Accounts;
         amount         : Double;
 }
 

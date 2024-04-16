@@ -6,3 +6,8 @@ entity Users {
         username     : String @mandatory;
         passwordHash : String @mandatory;
 }
+
+entity Friendships {
+    user1 : Association to Users;
+    user2 : Association to Users;
+}
