@@ -6,12 +6,13 @@ import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 class ActiveAccountFactory extends Factory<ActiveAcount,
         ActiveAccountSerializer, ActiveAccountFactory, ActiveAccountUpdater>
-    with BaseAccountTwoSetDeserialiserFactory
+    with BaseAccountTwoSetDeserialiserFactory, DataclassDeserialiser
     implements TwoStepDesserialisationFactory {
   ActiveAccountFactory(super.accountManager);
   late List<String> soll, haben;
-  create(String name) {
+  ActiveAccountFactory create(String name) {
     obj = ActiveAcount(name, accountManager.nextAccountNumber);
+    return this;
   }
 
   @override
@@ -23,9 +24,12 @@ class ActiveAccountFactory extends Factory<ActiveAcount,
   }
 
   @override
-  deserialise(Map<String, dynamic> data) {
+  ActiveAccountFactory deserialise(
+      {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = ActiveAcount(data["name"], data["account_number"]);
     soll = data["soll"];
     haben = data["haben"];
+    deserialiseDbObj(id ?? data["id"], !isRemote);
+    return this;
   }
 }

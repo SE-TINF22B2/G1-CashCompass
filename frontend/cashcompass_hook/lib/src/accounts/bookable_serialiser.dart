@@ -6,8 +6,8 @@ mixin BaseBookableSerializer {
     map.addAll({
       "name": book.name,
       "account_number": book.accountNumber,
-      "soll": book.sollT.map((e) => e.id),
-      "haben": book.habenT.map((e) => e.id)
+      "soll": book.sollT.map((e) => e.id).toList(),
+      "haben": book.habenT.map((e) => e.id).toList()
     });
   }
 }
