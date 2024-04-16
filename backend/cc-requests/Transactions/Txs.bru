@@ -1,0 +1,20 @@
+meta {
+  name: Txs
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:4004/odata/v4/data/Transactions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "activeAccount_ID": "b2b97b50-a0ed-4884-a3b3-5603f660b86f",
+    "passiveAccount_ID": "d688110f-ecbe-4e57-a134-7f86cae77a18",
+    "amount": 3.14,
+    "timestamp": "2017-04-13T15:51:04.0000000Z"
+  }
+}

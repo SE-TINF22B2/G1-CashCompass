@@ -1,7 +1,5 @@
 import { ApplicationService } from "@sap/cds";
 import { Request } from "@sap/cds";
-import jwt from "jsonwebtoken";
-import { Entity, Users } from "../../lib/types/dhbw.caco.users";
 import { LoginParameters, SignupParameters } from "../../lib/auth/types";
 import { auth } from "../../lib";
 

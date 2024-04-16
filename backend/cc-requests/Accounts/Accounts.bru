@@ -1,0 +1,18 @@
+meta {
+  name: Accounts
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:4004/odata/v4/data/Accounts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "accountType": 0,
+    "name": "Passive Account 1"
+  }
+}
