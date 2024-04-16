@@ -1,5 +1,9 @@
 export interface MockEntity {
     ID: string;
+    createdAt?: Date;
+    createdBy?: string;
+    modifiedAt?: Date;
+    modifiedBy?: string;
     email: string;
     name: string;
 }

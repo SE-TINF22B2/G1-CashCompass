@@ -1,5 +1,5 @@
 import cds, { insert } from "@sap/cds";
-import { Entity, Users } from "../../types/dhbw.caco.users";
+import { Entity, Users } from "../../types/dhbw.caco.schema";
 import { LoginParameters, LoginReturn, SignupParameters, SignupReturn } from "../types";
 import { IAuthValidator } from "./IAuthValidator";
 import * as argon2 from "argon2";

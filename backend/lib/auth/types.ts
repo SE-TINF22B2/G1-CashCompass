@@ -1,7 +1,7 @@
 
 import cds from '@sap/cds';
 import { Request } from "express";
-import { Users } from '../types/dhbw.caco.users';
+import { Users } from '../types/dhbw.caco.schema';
 
 export type AuthRequestType = Request & { user: cds.User; tenant: string };
 
