@@ -53,3 +53,16 @@ body:
         1.
     validations:
       required: true
+ - type: markdown
+    attributes:
+      value: |
+        ## Which Pull Requests did we merge?
+  - type: textarea
+    id: which-pr
+    attributes:
+      label: 🏷️ Which Pull Requests did we merge?
+      description: "List out the Pull Requests that merged this week."
+      value: |
+        1.
+    validations:
+      required: true
