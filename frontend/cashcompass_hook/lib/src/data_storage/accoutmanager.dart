@@ -4,15 +4,17 @@ import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/data_storage/datastorage.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
+import 'package:uuid/uuid.dart';
 
 class Accountmanager {
   //final Connector connector;
   final Datastorage _data = Datastorage();
+  final Uuid _uuid = const Uuid();
   Future<void> init() async {}
 
   int get nextAccountNumber => _data.getNewAccountNumber();
   int get nextTransactionNumber => _data.getNewTransactionNumber();
-
+  String get nextUuid => _uuid.v1();
   Bookable? getAccount(int accountNr) {
     // ignore: unnecessary_cast
     return (_data.allRemoteAccounts as List<Bookable?>).firstWhere(

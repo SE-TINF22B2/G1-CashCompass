@@ -8,16 +8,17 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cron: ^0.6.0
   flutter:
     sdk: flutter
   http: ^1.1.0
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
   test: ^1.24.9
-  uuid: ^4.2.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

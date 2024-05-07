@@ -24,13 +24,17 @@ class Datastorage {
 
   int getNewAccountNumber() {
     var allNumbers = allRemoteAccounts.map((e) => e.accountNumber);
+    if (allNumbers.isEmpty) {
+      return 1;
+    }
     return allNumbers.reduce((value, element) => max(value, element)) + 1;
   }
 
   int getNewTransactionNumber() {
-    return transactions
-            .map((e) => e.transactionNumber)
-            .reduce((value, element) => max(value, element)) +
-        1;
+    var allNumbers = transactions.map((e) => e.transactionNumber);
+    if (allNumbers.isEmpty) {
+      return 1;
+    }
+    return allNumbers.reduce((value, element) => max(value, element)) + 1;
   }
 }

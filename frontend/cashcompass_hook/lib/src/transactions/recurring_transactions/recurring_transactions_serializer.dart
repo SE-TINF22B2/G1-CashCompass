@@ -14,7 +14,7 @@ class RecurringTransactionsSerializer extends Serializer<RecurringTransactions>
       "amount": obj.amount,
       "start": obj.startDate.toIso8601String(),
       "end": obj.endDate.toIso8601String(),
-      "interval": obj.interval.inMilliseconds
+      "interval": obj.interval.toString()
     };
     serialiseDbObj(ret, obj);
     return ret;

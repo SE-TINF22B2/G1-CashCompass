@@ -6,12 +6,13 @@ import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 class CategoryFactory extends Factory<Category, CategorySerializer,
         CategoryFactory, CategoryUpdater>
-    with BaseAccountTwoSetDeserialiserFactory
+    with BaseAccountTwoSetDeserialiserFactory, DataclassDeserialiser
     implements TwoStepDesserialisationFactory {
   CategoryFactory(super.accountManager);
   late List<String> soll, haben;
-  create(String name, String color) {
+  CategoryFactory create(String name, String color) {
     obj = Category(name, accountManager.nextAccountNumber, color);
+    return this;
   }
 
   @override
@@ -23,9 +24,12 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
   }
 
   @override
-  deserialise(Map<String, dynamic> data) {
+  CategoryFactory deserialise(
+      {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = Category(data["name"], data["account_number"], data["color"]);
     soll = data["soll"];
     haben = data["haben"];
+    deserialiseDbObj(id ?? data["id"], !isRemote);
+    return this;
   }
 }
