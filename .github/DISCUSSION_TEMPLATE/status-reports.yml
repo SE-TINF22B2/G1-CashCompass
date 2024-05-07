@@ -66,3 +66,8 @@ body:
         1.
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |
+        ## Timetracking
+        [Here you can find our time tracking discussion](https://github.com/SE-TINF22B2/G1-CashCompass/discussions/144)
