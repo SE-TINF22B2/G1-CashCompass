@@ -70,4 +70,10 @@ body:
     attributes:
       value: |
         ## Timetracking
-        [Here you can find our time tracking discussion](https://github.com/SE-TINF22B2/G1-CashCompass/discussions/144)
+  - type: textarea
+    id: which-prs
+    attributes:
+      label: ⏰ Timetracking
+      description: "As our Timetracking is done in a separate discussion, you can have a look there."
+      value: |
+        [Timetracking discussion](https://github.com/SE-TINF22B2/G1-CashCompass/discussions/144)
