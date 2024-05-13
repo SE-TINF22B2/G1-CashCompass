@@ -1,4 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
