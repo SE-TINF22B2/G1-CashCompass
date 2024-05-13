@@ -1,6 +1,8 @@
 // one connector reprents the connection to one User's data.
+// ignore_for_file: unused_field
+
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
-import 'package:cashcompass_hook/src/connector/LocaleStorage.dart';
+import 'package:cashcompass_hook/src/connector/locale_storage.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/remote_storage.dart';
 import 'package:cashcompass_hook/src/connector/secured_rest_client.dart';
