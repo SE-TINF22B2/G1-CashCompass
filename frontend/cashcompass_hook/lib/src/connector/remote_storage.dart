@@ -5,7 +5,8 @@ import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 class RemoteStorage implements DataAdapter {
-  RestClient _client;
+  // ignore: unused_field
+  final RestClient _client;
   RemoteStorage(this._client);
   @override
   Future<InitialPullData> getInitialPull() {
