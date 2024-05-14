@@ -1,3 +1,4 @@
+import 'package:cashcompass/widgets/balance_overview/balance_overview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cashcompass/screens/auth_screen/auth_screen.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
     return const CupertinoApp(
       title: 'Flutter Demo',
       theme: CupertinoThemeData(),
-      home: AuthScreen(),
+      home: BalanceOverview(),
     );
   }
 }
