@@ -1,3 +1,4 @@
+import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/data_storage/accoutmanager.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
@@ -54,6 +55,8 @@ class _TransactionsListState extends State<TransactionsList> {
                 ),
               ),
               ...widget.transactions.map((transaction) {
+                _InterpretedTransaction interpretedTransaction =
+                    _interpretTransaction(transaction);
                 return CupertinoListTile(
                   title: Row(
                     children: [
@@ -69,20 +72,20 @@ class _TransactionsListState extends State<TransactionsList> {
                       ),
                       Expanded(
                         flex: 6,
-                        child: Text(transaction.soll.name),
+                        child: Text("Transaction Name"),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(transaction.haben.name),
+                        child: Text(interpretedTransaction.walletName),
                       ),
                     ],
                   ),
                   leading: Icon(
-                    CupertinoIcons.plus,
+                    interpretedTransaction.signIcon,
                     color: CupertinoColors.black,
                   ),
                   trailing: Icon(
-                    CupertinoIcons.briefcase_fill,
+                    interpretedTransaction.categoryIcon,
                     color: CupertinoColors.black,
                   ),
                 );
@@ -95,20 +98,81 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   void handleAddTransaction() {}
+
+  _InterpretedTransaction _interpretTransaction(Transaction transaction) {
+    final soll = transaction.soll;
+    final haben = transaction.haben;
+    var walletName;
+    var categoryIcon;
+    var signIcon;
+    if (soll.runtimeType == PassiveAccount &&
+        haben.runtimeType == PassiveAccount) {
+      print('Transaction between two passive accounts not yet managed!');
+    } else if (soll.runtimeType == ActiveAcount &&
+        haben.runtimeType == ActiveAcount) {
+      print('Transfer not yet implemented!');
+    } else if (soll.runtimeType == ActiveAcount &&
+        haben.runtimeType == PassiveAccount) {
+      walletName = soll.name;
+      signIcon = CupertinoIcons.minus;
+    } else if (soll.runtimeType == PassiveAccount &&
+        haben.runtimeType == ActiveAcount) {
+      walletName = haben.name;
+      signIcon = CupertinoIcons.plus;
+    } else {
+      throw TypeError();
+    }
+    return new _InterpretedTransaction(
+        walletName: walletName, categoryIcon: categoryIcon, signIcon: signIcon);
+  }
 }
 
 class MockTransactions {
   static Accountmanager manager = Accountmanager();
   static generateTransactions() {
     var fac = TransactionsFactory(manager);
-    var soll = PassiveAccount("mockSoll", 1);
-    var haben = PassiveAccount("mockHaben", 1);
     return [
-      fac.create(amount: 100.00, soll: soll, haben: haben).build(),
-      fac.create(amount: 6.50, soll: soll, haben: haben).build(),
-      fac.create(amount: 25.00, soll: soll, haben: haben).build(),
-      fac.create(amount: 50.00, soll: soll, haben: haben).build(),
-      fac.create(amount: 450.00, soll: soll, haben: haben).build(),
+      fac
+          .create(
+              amount: 100.00,
+              soll: PassiveAccount("Geschenk", 1),
+              haben: ActiveAcount("ING", 2))
+          .build(),
+      fac
+          .create(
+              amount: 6.50,
+              soll: ActiveAcount("Sprakasse", 3),
+              haben: PassiveAccount("Food", 4))
+          .build(),
+      fac
+          .create(
+              amount: 25.00,
+              soll: ActiveAcount("ING", 5),
+              haben: PassiveAccount("Mobilität", 6))
+          .build(),
+      fac
+          .create(
+              amount: 50.00,
+              soll: PassiveAccount("Geschenk", 7),
+              haben: ActiveAcount("BAR", 8))
+          .build(),
+      fac
+          .create(
+              amount: 450.00,
+              soll: PassiveAccount("Arbeit", 9),
+              haben: ActiveAcount("ING", 10))
+          .build(),
     ];
   }
+}
+
+class _InterpretedTransaction {
+  var walletName;
+  var categoryIcon;
+  var signIcon;
+
+  _InterpretedTransaction(
+      {required this.walletName,
+      required this.categoryIcon,
+      required this.signIcon});
 }
