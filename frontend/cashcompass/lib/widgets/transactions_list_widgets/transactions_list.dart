@@ -1,7 +1,12 @@
+import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
+import 'package:cashcompass_hook/src/data_storage/accoutmanager.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 import 'package:flutter/cupertino.dart';
 
 class TransactionsList extends StatefulWidget {
-  const TransactionsList({super.key});
+  final List<Transaction> transactions;
+  const TransactionsList({super.key, required this.transactions});
 
   @override
   State<TransactionsList> createState() => _TransactionsListState();
@@ -48,166 +53,40 @@ class _TransactionsListState extends State<TransactionsList> {
                   ),
                 ),
               ),
-              const CupertinoListTile(
-                title: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "100.00€",
-                        textAlign: TextAlign.right,
+              ...widget.transactions.map((transaction) {
+                return CupertinoListTile(
+                  title: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          "${transaction.amount}€",
+                          textAlign: TextAlign.right,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Text("Geschenk"),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text("ING"),
-                    ),
-                  ],
-                ),
-                leading: Icon(
-                  CupertinoIcons.plus,
-                  color: CupertinoColors.black,
-                ),
-                trailing: Icon(
-                  CupertinoIcons.gift,
-                  color: CupertinoColors.black,
-                ),
-              ),
-              const CupertinoListTile(
-                title: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "6.50€",
-                        textAlign: TextAlign.right,
+                      const SizedBox(
+                        width: 8,
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Text("Döner"),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text("Sparkasse"),
-                    ),
-                  ],
-                ),
-                leading: Icon(
-                  CupertinoIcons.minus,
-                  color: CupertinoColors.black,
-                ),
-                trailing: Icon(
-                  CupertinoIcons.shopping_cart,
-                  color: CupertinoColors.black,
-                ),
-              ),
-              const CupertinoListTile(
-                title: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "25.00€",
-                        textAlign: TextAlign.right,
+                      Expanded(
+                        flex: 6,
+                        child: Text(transaction.soll.name),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Text("Fahrkosten für Rudi"),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text("ING"),
-                    ),
-                  ],
-                ),
-                leading: Icon(
-                  CupertinoIcons.minus,
-                  color: CupertinoColors.black,
-                ),
-                trailing: Icon(
-                  CupertinoIcons.car,
-                  color: CupertinoColors.black,
-                ),
-              ),
-              const CupertinoListTile(
-                title: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "50.00€",
-                        textAlign: TextAlign.right,
+                      Expanded(
+                        flex: 2,
+                        child: Text(transaction.haben.name),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Text("Putzen bei Omi"),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text("BAR"),
-                    ),
-                  ],
-                ),
-                leading: Icon(
-                  CupertinoIcons.plus,
-                  color: CupertinoColors.black,
-                ),
-                trailing: Icon(
-                  CupertinoIcons.briefcase_fill,
-                  color: CupertinoColors.black,
-                ),
-              ),
-              const CupertinoListTile(
-                title: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "450.00€",
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Text("Gehalt"),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text("ING"),
-                    ),
-                  ],
-                ),
-                leading: Icon(
-                  CupertinoIcons.plus,
-                  color: CupertinoColors.black,
-                ),
-                trailing: Icon(
-                  CupertinoIcons.briefcase_fill,
-                  color: CupertinoColors.black,
-                ),
-              ),
+                    ],
+                  ),
+                  leading: Icon(
+                    CupertinoIcons.plus,
+                    color: CupertinoColors.black,
+                  ),
+                  trailing: Icon(
+                    CupertinoIcons.briefcase_fill,
+                    color: CupertinoColors.black,
+                  ),
+                );
+              }).toList(),
             ],
           ),
         ],
@@ -216,4 +95,20 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   void handleAddTransaction() {}
+}
+
+class MockTransactions {
+  static Accountmanager manager = Accountmanager();
+  static generateTransactions() {
+    var fac = TransactionsFactory(manager);
+    var soll = PassiveAccount("mockSoll", 1);
+    var haben = PassiveAccount("mockHaben", 1);
+    return [
+      fac.create(amount: 100.00, soll: soll, haben: haben).build(),
+      fac.create(amount: 6.50, soll: soll, haben: haben).build(),
+      fac.create(amount: 25.00, soll: soll, haben: haben).build(),
+      fac.create(amount: 50.00, soll: soll, haben: haben).build(),
+      fac.create(amount: 450.00, soll: soll, haben: haben).build(),
+    ];
+  }
 }
