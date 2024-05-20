@@ -9,9 +9,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
-      title: 'Flutter Demo',
-      theme: CupertinoThemeData(),
-      home: BalanceOverview(),
-    );
+        title: 'Flutter Demo',
+        theme: CupertinoThemeData(),
+        home: CupertinoPageScaffold(
+          child: SafeArea(
+            child: BalanceOverview(
+              totalValue: 69.420,
+            ),
+          ),
+        ));
   }
 }
