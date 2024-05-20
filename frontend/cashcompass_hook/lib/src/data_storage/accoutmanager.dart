@@ -37,7 +37,7 @@ class Accountmanager {
         .firstWhere((element) => element?.id == id);
   }
 
-  void addActiveAccounts(Iterable<ActiveAcount> acc) {
+  void addActiveAccounts(Iterable<ActiveAccount> acc) {
     _data.activeAccounts.addAll(acc);
   }
 

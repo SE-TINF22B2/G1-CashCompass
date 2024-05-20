@@ -12,11 +12,13 @@ class InitialPullData {
   List<TransactionsFactory> transactions;
   List<CategoryFactory> categories;
   List<RecurringTransactionsFactory> recurringTransactions;
+  DateTime lastsync;
 
   InitialPullData(
       {required this.recurringTransactions,
       required this.activeAccounts,
       required this.passiveAccounts,
       required this.transactions,
-      required this.categories});
+      required this.categories,
+      required this.lastsync});
 }

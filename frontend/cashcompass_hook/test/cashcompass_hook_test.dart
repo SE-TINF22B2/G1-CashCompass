@@ -102,7 +102,7 @@ void main() {
     Accountmanager manager = Accountmanager();
     test("Active Account Create", () {
       var fac = ActiveAccountFactory(manager);
-      ActiveAcount f = fac.create("TestAccount").build();
+      ActiveAccount f = fac.create("TestAccount").build();
       expect(f.name, "TestAccount");
     });
 
@@ -147,7 +147,7 @@ void main() {
     Accountmanager manager = Accountmanager();
     test("Active Account", () {
       var fac = ActiveAccountFactory(manager);
-      ActiveAcount f = fac.create("TestAccount").build();
+      ActiveAccount f = fac.create("TestAccount").build();
       var data = f.getSerialiser().toJson();
       var acc = ActiveAccountFactory(manager).deserialise(data: data).build();
       expect(f.id, acc.id);
