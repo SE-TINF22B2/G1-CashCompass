@@ -3,8 +3,10 @@ import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
 import 'package:cashcompass/widgets/balance_overview/total_display.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'selection.dart';
+import 'package:intl/intl.dart';
 
 class BalanceOverview extends StatefulWidget {
   final double totalValue;
@@ -70,14 +72,42 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   Widget _buildPieChart(List<TransactionItem> items) {
     return Container(
       padding: const EdgeInsets.all(20),
-      child: PieChart(
-        PieChartData(
-          sectionsSpace: 0,
-          sections: _generatePieChartSections(items),
-          centerSpaceRadius: double.infinity,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          PieChart(
+            PieChartData(
+              sectionsSpace: 0,
+              sections: _generatePieChartSections(items),
+              centerSpaceRadius: double.infinity,
+            ),
+            swapAnimationDuration: Duration(milliseconds: 150), // Optional
+            swapAnimationCurve: Curves.linear, // Optional
+          ),
+          _buildCenterButton()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCenterButton() {
+    // Hier den aktuellen Monat ermitteln
+    String currentMonth = DateFormat.MMMM().format(DateTime.now());
+
+    return TextButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<CircleBorder>(
+          CircleBorder(),
         ),
-        swapAnimationDuration: Duration(milliseconds: 150), // Optional
-        swapAnimationCurve: Curves.linear, // Optional
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          EdgeInsets.all(100), // Hier die Größe des Buttons einstellen
+        ),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      ),
+      child: Text(
+        currentMonth,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
