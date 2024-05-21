@@ -16,13 +16,15 @@ class Transaction
   // TODO create transactionnumber if there is non overgiven
   late final int _transacionNumber;
   late final DateTime timestamp;
+  final String label;
   int get transactionNumber => _transacionNumber;
   Transaction(
       {required int transactionNumber,
       required this.soll,
       required this.haben,
       required this.amount,
-      DateTime? timestamp}) {
+      DateTime? timestamp,
+      required this.label}) {
     if (timestamp == null) {
       this.timestamp = DateTime.now();
     } else {
