@@ -1,5 +1,6 @@
-import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
+ximport 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:flutter/cupertino.dart';
@@ -111,6 +112,7 @@ class _TransactionsListState extends State<TransactionsList> {
       print('Transfer not yet implemented!');
     } else if (soll.runtimeType == ActiveAcount &&
         haben.runtimeType == PassiveAccount) {
+      (soll as Category).name;
       walletName = soll.name;
       signIcon = CupertinoIcons.minus;
     } else if (soll.runtimeType == PassiveAccount &&
