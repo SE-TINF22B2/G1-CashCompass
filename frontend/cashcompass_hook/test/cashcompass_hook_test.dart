@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
@@ -40,7 +42,9 @@ void main() {
     });
 
     test('Category Account', () {
-      var acc = CategoryFactory(manager).create("test", "#666666").build();
+      var acc = CategoryFactory(manager)
+          .create("test", "#666666", "StopSign")
+          .build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields([
         "id",
@@ -49,16 +53,22 @@ void main() {
         "haben",
         "name",
         "account_number",
-        "color"
+        "color",
+        "icon"
       ], map));
       assert(map.keys.length == 7);
     });
 
     test('Transaction', () {
-      var acc = CategoryFactory(manager).create("test1", "#666666").build();
-      var acc2 = CategoryFactory(manager).create("test2", "#666666").build();
+      var acc = CategoryFactory(manager)
+          .create("test1", "#666666", "StopSign")
+          .build();
+      var acc2 = CategoryFactory(manager)
+          .create("test2", "#666666", "StopSign")
+          .build();
       var tr = TransactionsFactory(manager)
-          .create(amount: 566.0, soll: acc, haben: acc2)
+          .create(
+              amount: 566.0, soll: acc, haben: acc2, label: "Test Transaction")
           .build();
       var map = tr.getSerialiser().toJson();
       assert(TestHelper.checkFields([
@@ -68,13 +78,18 @@ void main() {
         "haben",
         "amount",
         "timestamp",
-        "transactionNumber"
+        "transactionNumber",
+        "label"
       ], map));
       assert(map.keys.length == 7);
     });
     test('Recurring Transaction', () {
-      var acc = CategoryFactory(manager).create("test1", "#666666").build();
-      var acc2 = CategoryFactory(manager).create("test2", "#666666").build();
+      var acc = CategoryFactory(manager)
+          .create("test1", "#666666", "StopSign")
+          .build();
+      var acc2 = CategoryFactory(manager)
+          .create("test2", "#666666", "StopSign")
+          .build();
       var tr = RecurringTransactionsFactory(manager)
           .create(
               amount: 566.0,
@@ -114,7 +129,7 @@ void main() {
 
     test("Category Create", () {
       var fac = CategoryFactory(manager);
-      Category f = fac.create("Yeet", "#666666").build();
+      Category f = fac.create("Yeet", "#666666", "StopSign").build();
       expect(f.name, "Yeet");
     });
 
@@ -122,7 +137,13 @@ void main() {
       var fac = TransactionsFactory(manager);
       var soll = PassiveAccount("test1", 1);
       var haben = PassiveAccount("test2", 2);
-      var f = fac.create(amount: 566.0, soll: soll, haben: haben).build();
+      var f = fac
+          .create(
+              amount: 566.0,
+              soll: soll,
+              haben: haben,
+              label: "Test Transaction")
+          .build();
       expect(f.amount, 566.0);
     });
 
@@ -166,18 +187,19 @@ void main() {
     });
     test("Category Account", () {
       var fac = CategoryFactory(manager);
-      var f = fac.create("TestAccount", "#666666").build();
+      var f = fac.create("TestAccount", "#666666", "StopSign").build();
       var data = f.getSerialiser().toJson();
       var acc = CategoryFactory(manager).deserialise(data: data).build();
       expect(f.id, acc.id);
       expect(f.accountNumber, acc.accountNumber);
       expect(f.name, acc.name);
       expect(f.colorString, acc.colorString);
+      expect(f.iconString, acc.iconString);
     });
 
     test("Missing id", () {
       var fac = CategoryFactory(manager);
-      var f = fac.create("TestAccount", "#666666").build();
+      var f = fac.create("TestAccount", "#666666", "StopSign").build();
       var data = f.getSerialiser().toJson();
       data.removeWhere((key, value) => key == "id");
       expect(() => CategoryFactory(manager).deserialise(data: data).build(),
