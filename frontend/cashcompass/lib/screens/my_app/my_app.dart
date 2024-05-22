@@ -1,6 +1,5 @@
-import 'package:cashcompass/widgets/transactions_list_widgets/mock_transaction_list.dart';
-import 'package:cashcompass/widgets/transactions_list_widgets/transactions_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:cashcompass/screens/auth_screen/auth_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,12 +7,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       title: 'Flutter Demo',
       theme: CupertinoThemeData(),
-      home: TransactionsList(
-        transactions: MockTransactions.generateTransactions(),
-      ),
+      home: AuthScreen(),
     );
   }
 }
