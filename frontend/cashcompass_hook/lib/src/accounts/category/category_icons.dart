@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum CategoryIconList {
+enum CategoryIcons {
   groceries(CupertinoIcons.cart, "Groceries"),
   diningOut(CupertinoIcons.heart, "Dining Out"),
   transport(CupertinoIcons.car, "Transport"),
@@ -21,10 +21,17 @@ enum CategoryIconList {
   loans(CupertinoIcons.creditcard, "Loans"),
   homeMaintenance(CupertinoIcons.house_alt, "Home Maintenance"),
   pets(CupertinoIcons.paw, "Pets"),
-  miscellaneous(CupertinoIcons.circle_grid_3x3_fill, "Miscellaneous");
+  miscellaneous(CupertinoIcons.circle_grid_3x3_fill, "Miscellaneous"),
+  stopSign(CupertinoIcons.hand_raised, "Stop Sign");
 
-  const CategoryIconList(this.icon, this.name);
+  const CategoryIcons(this.icon, this.name);
 
   final IconData icon;
   final String name;
+
+  static CategoryIcons fromName(String name) {
+    return CategoryIcons.values.firstWhere(
+        (categoryIcon) => categoryIcon.name == name,
+        orElse: () => CategoryIcons.stopSign);
+  }
 }
