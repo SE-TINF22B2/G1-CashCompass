@@ -1,5 +1,6 @@
 import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
@@ -99,30 +100,26 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   InterpretedTransaction _interpretTransaction(Transaction transaction) {
-    final soll = transaction.soll;
-    final haben = transaction.haben;
-    ActiveAcount wallet;
-    Category category;
-    IconData signIcon;
-    if (soll.runtimeType == Category && haben.runtimeType == Category) {
-      print('Transaction between two passive accounts not yet managed!');
-      throw TypeError();
-    } else if (soll.runtimeType == ActiveAcount &&
-        haben.runtimeType == ActiveAcount) {
-      print('Transfer not yet implemented!');
-      throw TypeError();
-    } else if (soll.runtimeType == ActiveAcount &&
-        haben.runtimeType == Category) {
-      category = haben as Category;
-      wallet = soll as ActiveAcount;
+    final Bookable soll = transaction.soll;
+    final Bookable haben = transaction.haben;
+    late ActiveAcount wallet;
+    late Category category;
+    late IconData signIcon;
+
+    if (soll is Category && haben is Category) {
+      throw UnsupportedError("Transaction of two PassiveAccounts not managed!");
+    } else if (soll is ActiveAcount && haben is ActiveAcount) {
+      throw UnsupportedError("Transfer not yet implemented!");
+    } else if (soll is ActiveAcount && haben is Category) {
+      category = haben;
+      wallet = soll;
       signIcon = CupertinoIcons.minus;
-    } else if (soll.runtimeType == Category &&
-        haben.runtimeType == ActiveAcount) {
-      category = soll as Category;
-      wallet = haben as ActiveAcount;
+    } else if (soll is Category && haben is ActiveAcount) {
+      category = soll;
+      wallet = haben;
       signIcon = CupertinoIcons.plus;
     } else {
-      throw TypeError();
+      throw UnsupportedError("Unsupported Account Types!");
     }
     return InterpretedTransaction(
       walletName: wallet.name,
