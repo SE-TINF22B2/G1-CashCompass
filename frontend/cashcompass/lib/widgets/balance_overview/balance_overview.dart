@@ -3,19 +3,15 @@ import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
 import 'package:cashcompass/widgets/balance_overview/total_display.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'selection.dart';
 import 'package:intl/intl.dart';
 
 class BalanceOverview extends StatefulWidget {
-  final double totalValue;
   final List<TransactionItem> incomes;
   final List<TransactionItem> expenses;
 
   const BalanceOverview({
     super.key,
-    required this.totalValue,
     required this.incomes,
     required this.expenses,
   });
@@ -33,6 +29,23 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     _selectedSegment = Selection.balance;
   }
 
+  //Berechnung der total Values für Incomes und Expenses
+  double get totalIncomes =>
+      widget.incomes.fold(0, (sum, item) => sum + item.value);
+  double get totalExpenses =>
+      widget.expenses.fold(0, (sum, item) => sum + item.value);
+
+  double get totalValue {
+    if (_selectedSegment == Selection.income) {
+      return totalIncomes;
+    } else if (_selectedSegment == Selection.expense) {
+      return totalExpenses;
+    } else if (_selectedSegment == Selection.balance) {
+      return totalIncomes - totalExpenses;
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,9 +60,8 @@ class _BalanceOverviewState extends State<BalanceOverview> {
               }
             }),
         const SizedBox(height: 20),
-        TotalDisplay(
-            total: widget.totalValue, selectedSegment: _selectedSegment),
-        Expanded(child: _buildContent()),
+        TotalDisplay(total: totalValue, selectedSegment: _selectedSegment),
+        _buildContent(),
       ],
     );
   }
@@ -60,29 +72,28 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     } else if (_selectedSegment == Selection.expense) {
       return _buildPieChart(widget.expenses);
     } else {
-      return const Center(
-        child: Text(
-          'Balance Overview',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      );
+      return _buildBalanceContainer();
     }
   }
 
   Widget _buildPieChart(List<TransactionItem> items) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          PieChart(
-            PieChartData(
-              sectionsSpace: 0,
-              sections: _generatePieChartSections(items),
-              centerSpaceRadius: double.infinity,
+          AspectRatio(
+            aspectRatio: 1.0,
+            child: PieChart(
+              PieChartData(
+                sectionsSpace: 0,
+                sections: _generatePieChartSections(items),
+                centerSpaceRadius: double.infinity,
+              ),
+              swapAnimationDuration:
+                  const Duration(milliseconds: 150), // Optional
+              swapAnimationCurve: Curves.linear, // Optional
             ),
-            swapAnimationDuration: Duration(milliseconds: 150), // Optional
-            swapAnimationCurve: Curves.linear, // Optional
           ),
           _buildCenterButton()
         ],
@@ -94,20 +105,21 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     // Hier den aktuellen Monat ermitteln
     String currentMonth = DateFormat.MMMM().format(DateTime.now());
 
-    return TextButton(
-      onPressed: () {},
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<CircleBorder>(
-          CircleBorder(),
+    return ClipOval(
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: CupertinoButton(
+          onPressed: () {},
+          child: FittedBox(
+            child: Text(
+              currentMonth,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
-        padding: MaterialStateProperty.all<EdgeInsets>(
-          EdgeInsets.all(100), // Hier die Größe des Buttons einstellen
-        ),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-      ),
-      child: Text(
-        currentMonth,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -119,15 +131,60 @@ class _BalanceOverviewState extends State<BalanceOverview> {
           color: item.color,
           value: item.value,
           showTitle: false,
-          radius: 50.0,
-          titleStyle: const TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
+          radius: 60.0,
           badgeWidget: Icon(
             item.icon,
             color: CupertinoColors.white,
           ));
     }).toList();
+  }
+
+  Widget _buildBalanceContainer() {
+    double total = totalIncomes + totalExpenses;
+    double incomeFraction = totalIncomes / total;
+    double expenseFraction = totalExpenses / total;
+
+    return Container(
+      margin: const EdgeInsets.all(30.0),
+      decoration: BoxDecoration(),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            children: [
+              Container(
+                height: 400 * incomeFraction,
+                color: CupertinoColors.systemGreen.withOpacity(0.8),
+                child: Center(
+                  child: Text(
+                    '+${totalIncomes.toStringAsFixed(2)}€',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 400 * expenseFraction,
+                color: CupertinoColors.systemRed.withOpacity(0.8),
+                child: Center(
+                  child: Text(
+                    '-${totalExpenses.toStringAsFixed(2)}€',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          _buildCenterButton()
+        ],
+      ),
+    );
   }
 }

@@ -1,6 +1,4 @@
-// segmented_control_widget.dart
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'selection.dart';
 
 class SegmentedControlWidget extends StatelessWidget {
@@ -8,10 +6,10 @@ class SegmentedControlWidget extends StatelessWidget {
   final ValueChanged<Selection?> onValueChanged;
 
   const SegmentedControlWidget({
-    Key? key,
+    super.key,
     required this.selectedSegment,
     required this.onValueChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

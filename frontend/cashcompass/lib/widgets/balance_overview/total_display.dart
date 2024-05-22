@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'selection.dart';
 
 class TotalDisplay extends StatelessWidget {
@@ -7,10 +6,10 @@ class TotalDisplay extends StatelessWidget {
   final Selection selectedSegment;
 
   const TotalDisplay({
-    Key? key,
+    super.key,
     required this.total,
     required this.selectedSegment,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

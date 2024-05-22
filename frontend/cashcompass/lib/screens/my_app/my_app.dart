@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
         home: CupertinoPageScaffold(
           child: SafeArea(
             child: BalanceOverview(
-              totalValue: 69.420,
               incomes: incomes,
               expenses: expenses,
             ),
