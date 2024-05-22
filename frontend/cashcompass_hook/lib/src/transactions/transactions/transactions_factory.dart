@@ -15,15 +15,18 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
   late bool isRemote;
   late int transactionNr;
   late double amount;
+  late String label;
   TransactionsFactory create(
       {required double amount,
       required Bookable soll,
-      required Bookable haben}) {
+      required Bookable haben,
+      required String label}) {
     obj = Transaction(
         transactionNumber: accountManager.nextTransactionNumber,
         soll: soll,
         haben: haben,
-        amount: amount);
+        amount: amount,
+        label: label);
     return this;
   }
 
@@ -33,6 +36,7 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
     sollId = data["sollId"];
     habenId = data["habenId"];
     amount = data["amount"];
+    label = data["label"];
     transactionNr = data["transactionNr"];
     this.id = id;
     isRemote = isRemote;
@@ -49,7 +53,8 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
         transactionNumber: transactionNr,
         soll: soll,
         haben: haben,
-        amount: amount);
+        amount: amount,
+        label: label);
     deserialiseDbObj(id, !isRemote);
   }
 }
