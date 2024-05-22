@@ -1,6 +1,9 @@
+import 'package:cashcompass/widgets/balance_overview/date_selector.dart';
 import 'package:cashcompass/widgets/balance_overview/mock_transaction_item.dart';
 import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
 import 'package:cashcompass/widgets/balance_overview/total_display.dart';
+import 'package:cashcompass/widgets/balance_overview/view_option.dart';
+import 'package:cashcompass/widgets/balance_overview/view_segmented_control.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'selection.dart';
@@ -21,13 +24,12 @@ class BalanceOverview extends StatefulWidget {
 }
 
 class _BalanceOverviewState extends State<BalanceOverview> {
-  late Selection _selectedSegment;
+  Selection _selectedSegment = Selection.balance;
+  DateTime _selectedDate = DateTime.now();
+  ViewOption _viewOption = ViewOption.month;
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedSegment = Selection.balance;
-  }
+  //angezeigter String auf dem Button
+  String currentDate = DateFormat.MMMM().format(DateTime.now());
 
   //Berechnung der total Values für Incomes und Expenses
   double get totalIncomes =>
@@ -102,17 +104,14 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   }
 
   Widget _buildCenterButton() {
-    // Hier den aktuellen Monat ermitteln
-    String currentMonth = DateFormat.MMMM().format(DateTime.now());
-
     return ClipOval(
       child: AspectRatio(
         aspectRatio: 1,
         child: CupertinoButton(
-          onPressed: () {},
+          onPressed: () => _selectDate(context),
           child: FittedBox(
             child: Text(
-              currentMonth,
+              currentDate,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -139,14 +138,48 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     }).toList();
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showCupertinoModalPopup<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DateSelectorPopup(
+          initialDate: _selectedDate,
+          initialViewOption: _viewOption,
+          onDateSelected: (newDate, newViewOption) {
+            _selectedDate = newDate;
+            _viewOption = newViewOption;
+          },
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _selectedDate = picked;
+
+        switch (_viewOption) {
+          case ViewOption.day:
+            currentDate = DateFormat.yMMMMd().format(picked);
+            break;
+          case ViewOption.month:
+            currentDate = DateFormat.MMMM().format(picked);
+            break;
+          case ViewOption.year:
+            currentDate = DateFormat.y().format(picked);
+            break;
+        }
+      });
+    }
+  }
+
   Widget _buildBalanceContainer() {
     double total = totalIncomes + totalExpenses;
     double incomeFraction = totalIncomes / total;
     double expenseFraction = totalExpenses / total;
 
     return Container(
-      margin: const EdgeInsets.all(30.0),
-      decoration: BoxDecoration(),
+      margin: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(),
       child: Stack(
         alignment: Alignment.center,
         children: [

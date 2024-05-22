@@ -13,34 +13,37 @@ class SegmentedControlWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<Selection>(
-      backgroundColor: CupertinoColors.systemGrey2,
-      thumbColor: selectedSegment.color,
-      groupValue: selectedSegment,
-      onValueChanged: onValueChanged,
-      children: const <Selection, Widget>{
-        Selection.income: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Incomes',
-            style: TextStyle(color: CupertinoColors.white),
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      child: CupertinoSlidingSegmentedControl<Selection>(
+        backgroundColor: CupertinoColors.systemGrey2,
+        thumbColor: selectedSegment.color,
+        groupValue: selectedSegment,
+        onValueChanged: onValueChanged,
+        children: const <Selection, Widget>{
+          Selection.income: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Incomes',
+              style: TextStyle(color: CupertinoColors.white),
+            ),
           ),
-        ),
-        Selection.balance: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Balance',
-            style: TextStyle(color: CupertinoColors.white),
+          Selection.balance: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Balance',
+              style: TextStyle(color: CupertinoColors.white),
+            ),
           ),
-        ),
-        Selection.expense: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Expenses',
-            style: TextStyle(color: CupertinoColors.white),
+          Selection.expense: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Expenses',
+              style: TextStyle(color: CupertinoColors.white),
+            ),
           ),
-        ),
-      },
+        },
+      ),
     );
   }
 }
