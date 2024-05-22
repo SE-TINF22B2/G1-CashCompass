@@ -3,7 +3,6 @@ import 'package:cashcompass/widgets/balance_overview/mock_transaction_item.dart'
 import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
 import 'package:cashcompass/widgets/balance_overview/total_display.dart';
 import 'package:cashcompass/widgets/balance_overview/view_option.dart';
-import 'package:cashcompass/widgets/balance_overview/view_segmented_control.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'selection.dart';
@@ -187,36 +186,86 @@ class _BalanceOverviewState extends State<BalanceOverview> {
             children: [
               Container(
                 height: 400 * incomeFraction,
-                color: CupertinoColors.systemGreen.withOpacity(0.8),
-                child: Center(
-                  child: Text(
-                    '+${totalIncomes.toStringAsFixed(2)}€',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors.white,
+                decoration: BoxDecoration(
+                  color: CupertinoColors.activeGreen.withOpacity(0.8),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0), // Rundung oben links
+                    topRight: Radius.circular(20.0), // Rundung oben rechts
+                    bottomLeft:
+                        Radius.circular(0.0), // keine Rundung unten links
+                    bottomRight:
+                        Radius.circular(0.0), // keine Rundung unten rechts
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '+${totalIncomes.toStringAsFixed(2)}€',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
               Container(
                 height: 400 * expenseFraction,
-                color: CupertinoColors.systemRed.withOpacity(0.8),
-                child: Center(
-                  child: Text(
-                    '-${totalExpenses.toStringAsFixed(2)}€',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors.white,
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemRed.withOpacity(0.8),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(0.0), // keine Rundung oben links
+                    topRight: Radius.circular(0.0), // keine Rundung oben rechts
+                    bottomLeft: Radius.circular(20.0), // Rundung unten links
+                    bottomRight: Radius.circular(20.0), // Rundung unten rechts
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '-${totalExpenses.toStringAsFixed(2)}€',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-          _buildCenterButton()
+          _buildBalanceCenterButton()
         ],
+      ),
+    );
+  }
+
+  Widget _buildBalanceCenterButton() {
+    return Padding(
+      padding: const EdgeInsets.all(70.0),
+      child: ClipOval(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: CupertinoButton.filled(
+            onPressed: () => _selectDate(context),
+            child: FittedBox(
+              child: Text(
+                currentDate,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: CupertinoColors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
