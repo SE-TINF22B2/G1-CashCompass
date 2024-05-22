@@ -4,7 +4,6 @@
 import 'dart:developer';
 
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
-import 'package:cashcompass_hook/src/accounts/two_step_factory.dart';
 import 'package:cashcompass_hook/src/connector/locale_storage.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/remote_storage.dart';
@@ -18,7 +17,7 @@ class SyncController implements DataAdapter {
   late LocaleStorage _localStorage;
   late RemoteStorage _remoteStorage;
   SecuredRestClient httpClient;
-  List<Future> _lasting_futures = [];
+  final List<Future> _lastingFutures = [];
   SyncController({required this.httpClient}) {
     _localStorage = LocaleStorage();
     _remoteStorage = RemoteStorage(httpClient);
@@ -69,7 +68,7 @@ class SyncController implements DataAdapter {
       S extends Serializer<T>,
       U extends Updater<T>>(EntityPaths path, String id, F factory) async {
     // for now lafter the initial load happens only from the local storage because it is faster
-    var ret;
+    F? ret;
     var storages = [_localStorage, _remoteStorage];
     var i = 0;
     while (ret == null && i < storages.length) {
@@ -92,18 +91,18 @@ class SyncController implements DataAdapter {
   Future store(DatabaseObject obj) {
     var local = _localStorage.store(obj);
     var remote = _remoteStorage.store(obj);
-    _lasting_futures.add(remote);
+    _lastingFutures.add(remote);
     remote.then((val) {
-      _lasting_futures.remove(remote);
+      _lastingFutures.remove(remote);
     }, onError: (e) {
-      _lasting_futures.remove(remote);
+      _lastingFutures.remove(remote);
     });
 
     return local;
   }
 
   Future<void> close() async {
-    for (var i in _lasting_futures) {
+    for (var i in _lastingFutures) {
       await i;
     }
   }
