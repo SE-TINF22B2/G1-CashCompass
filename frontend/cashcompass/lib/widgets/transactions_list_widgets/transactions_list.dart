@@ -1,7 +1,7 @@
-ximport 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
+import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
-import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
+import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -72,7 +72,7 @@ class _TransactionsListState extends State<TransactionsList> {
                       ),
                       Expanded(
                         flex: 6,
-                        child: Text("Transaction Name"),
+                        child: Text(transaction.label),
                       ),
                       Expanded(
                         flex: 2,
@@ -90,7 +90,7 @@ class _TransactionsListState extends State<TransactionsList> {
                   ),
                   onTap: _handleTransactionListTileTapped,
                 );
-              }).toList(),
+              }),
             ],
           ),
         ],
@@ -101,30 +101,32 @@ class _TransactionsListState extends State<TransactionsList> {
   InterpretedTransaction _interpretTransaction(Transaction transaction) {
     final soll = transaction.soll;
     final haben = transaction.haben;
-    var walletName;
-    // var categoryIcon;
-    var signIcon;
-    if (soll.runtimeType == PassiveAccount &&
-        haben.runtimeType == PassiveAccount) {
+    ActiveAcount wallet;
+    Category category;
+    IconData signIcon;
+    if (soll.runtimeType == Category && haben.runtimeType == Category) {
       print('Transaction between two passive accounts not yet managed!');
+      throw TypeError();
     } else if (soll.runtimeType == ActiveAcount &&
         haben.runtimeType == ActiveAcount) {
       print('Transfer not yet implemented!');
+      throw TypeError();
     } else if (soll.runtimeType == ActiveAcount &&
-        haben.runtimeType == PassiveAccount) {
-      (soll as Category).name;
-      walletName = soll.name;
+        haben.runtimeType == Category) {
+      category = haben as Category;
+      wallet = soll as ActiveAcount;
       signIcon = CupertinoIcons.minus;
-    } else if (soll.runtimeType == PassiveAccount &&
+    } else if (soll.runtimeType == Category &&
         haben.runtimeType == ActiveAcount) {
-      walletName = haben.name;
+      category = soll as Category;
+      wallet = haben as ActiveAcount;
       signIcon = CupertinoIcons.plus;
     } else {
       throw TypeError();
     }
-    return new InterpretedTransaction(
-      walletName: walletName,
-      // categoryIcon: categoryIcon,
+    return InterpretedTransaction(
+      walletName: wallet.name,
+      categoryIcon: CategoryIcons.fromName(category.iconString).icon,
       signIcon: signIcon,
     );
   }
