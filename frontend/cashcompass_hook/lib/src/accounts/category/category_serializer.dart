@@ -12,6 +12,7 @@ class CategorySerializer extends Serializer<Category>
     serialiseBaseAccount(ret, obj);
     serialiseDbObj(ret, obj);
     ret["color"] = obj.colorString;
+    ret["icon"] = obj.iconString;
     return ret;
   }
 }
