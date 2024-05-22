@@ -1,4 +1,4 @@
-# Cash Compass
+rte# Cash Compass
 Cash Compass is a financial application designed to empower users to manage their finances comprehensively while safeguarding their data privacy. The application is tailored for individuals seeking a user-friendly platform to oversee their expenditures, income, fixed costs, and various financial accounts.
 
 ## Repository structure
