@@ -131,6 +131,6 @@ class _TransactionsListState extends State<TransactionsList> {
   void handleAddTransaction() {}
 
   void _handleTransactionListTileTapped() {
-    print('Not yet implemented');
+    throw UnsupportedError("Not yet implemented");
   }
 }
