@@ -13,7 +13,8 @@ class TransactionsSerializer extends Serializer<Transaction>
       "haben": obj.haben.accountNumber,
       "amount": obj.amount,
       "timestamp": obj.timestamp.toIso8601String(),
-      "transactionNumber": obj.transactionNumber
+      "transactionNumber": obj.transactionNumber,
+      "label": obj.label
     };
     serialiseDbObj(ret, obj);
     return ret;
