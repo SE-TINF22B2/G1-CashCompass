@@ -10,8 +10,8 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
     implements TwoStepDesserialisationFactory {
   CategoryFactory(super.accountManager);
   late List<String> soll, haben;
-  CategoryFactory create(String name, String color) {
-    obj = Category(name, accountManager.nextAccountNumber, color);
+  CategoryFactory create(String name, String color, String icon) {
+    obj = Category(name, accountManager.nextAccountNumber, color, icon);
     return this;
   }
 
@@ -26,7 +26,8 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
   @override
   CategoryFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
-    obj = Category(data["name"], data["account_number"], data["color"]);
+    obj = Category(
+        data["name"], data["account_number"], data["color"], data["icon"]);
     soll = data["soll"];
     haben = data["haben"];
     deserialiseDbObj(id ?? data["id"], !isRemote);

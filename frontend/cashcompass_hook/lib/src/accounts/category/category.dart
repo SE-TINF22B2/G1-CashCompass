@@ -8,8 +8,10 @@ import 'package:cashcompass_hook/src/currency/currency.dart';
 class Category extends RemoteBookable<Category, CategorySerializer,
     CategoryFactory, CategoryUpdater> {
   late String _color;
-  Category(String name, int accountNumber, String color) {
+  late String _icon;
+  Category(String name, int accountNumber, String color, String icon) {
     _color = color;
+    _icon = icon;
     this.name = name;
     this.accountNumber = accountNumber;
   }
@@ -19,6 +21,7 @@ class Category extends RemoteBookable<Category, CategorySerializer,
   }
 
   String get colorString => _color;
+  String get iconString => _icon;
 
   @override
   CategorySerializer getSerialiser() {
