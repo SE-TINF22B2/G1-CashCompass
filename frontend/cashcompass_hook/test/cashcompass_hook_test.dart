@@ -54,7 +54,7 @@ void main() {
         "color",
         "icon"
       ], map));
-      assert(map.keys.length == 7);
+      assert(map.keys.length == 8);
     });
 
     test('Transaction', () {
@@ -79,7 +79,7 @@ void main() {
         "transactionNumber",
         "label"
       ], map));
-      assert(map.keys.length == 7);
+      assert(map.keys.length == 8);
     });
     test('Recurring Transaction', () {
       var acc = CategoryFactory(manager)
