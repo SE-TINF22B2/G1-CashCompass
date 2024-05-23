@@ -1,6 +1,6 @@
 // Two step factory is used for the creation of accounts and transactions. The trick is to first create every transaction AND account and after that linking them together.
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
-import 'package:cashcompass_hook/src/data_storage/accoutmanager.dart';
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 abstract class TwoStepDesserialisationFactory extends Deserializer {

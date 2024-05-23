@@ -1,4 +1,4 @@
-import 'package:cashcompass_hook/src/data_storage/accoutmanager.dart';
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 
 /// Serializers are used for serializing objects in the app for storing it on the devide or sending it to the servers
 abstract class Serializer<DatabaseObject> {
