@@ -9,61 +9,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    List<CategoryMock> incomes = [
-      CategoryMock(
-          name: 'Salary',
-          icon: CupertinoIcons.money_dollar,
-          color: CupertinoColors.activeBlue,
-          totalValue: 5000),
-      CategoryMock(
-          name: 'Freelance',
-          icon: CupertinoIcons.briefcase,
-          color: CupertinoColors.activeGreen,
-          totalValue: 2000),
-      CategoryMock(
-          name: 'Investment',
-          icon: CupertinoIcons.bitcoin_circle,
-          color: CupertinoColors.black,
-          totalValue: 1500),
-      CategoryMock(
-          name: 'Gift',
-          icon: CupertinoIcons.gift,
-          color: CupertinoColors.systemPurple,
-          totalValue: 300),
-    ];
-
-    List<CategoryMock> expenses = [
-      CategoryMock(
-          name: 'Rent',
-          icon: CupertinoIcons.house,
-          color: CupertinoColors.systemRed,
-          totalValue: 1500),
-      CategoryMock(
-          name: 'Groceries',
-          icon: CupertinoIcons.cart,
-          color: CupertinoColors.activeOrange,
-          totalValue: 300),
-      CategoryMock(
-          name: 'Transport',
-          icon: CupertinoIcons.car,
-          color: CupertinoColors.activeBlue,
-          totalValue: 200),
-      CategoryMock(
-          name: 'Utilities',
-          icon: CupertinoIcons.lightbulb,
-          color: CupertinoColors.systemCyan,
-          totalValue: 150),
-    ];
-
-    return CupertinoApp(
+    return const CupertinoApp(
         title: 'Flutter Demo',
         theme: CupertinoThemeData(),
         home: CupertinoPageScaffold(
           child: SafeArea(
-            child: BalanceOverview(
-              incomes: incomes,
-              expenses: expenses,
-            ),
+            child: AuthScreen(),
           ),
         ));
   }
