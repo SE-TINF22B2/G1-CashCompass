@@ -1,16 +1,18 @@
 import 'package:cashcompass/widgets/balance_overview/date_selector.dart';
-import 'package:cashcompass/widgets/balance_overview/mock_transaction_item.dart';
+import 'package:cashcompass/widgets/balance_overview/mock_transaction.dart';
 import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
 import 'package:cashcompass/widgets/balance_overview/total_display.dart';
 import 'package:cashcompass/widgets/balance_overview/view_option.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'selection.dart';
 import 'package:intl/intl.dart';
 
 class BalanceOverview extends StatefulWidget {
-  final List<TransactionItem> incomes;
-  final List<TransactionItem> expenses;
+  //function that return List of all Categories depending on the selectedDate
+  final List<CategoryMock> incomes;
+  final List<CategoryMock> expenses;
 
   const BalanceOverview({
     super.key,
@@ -24,17 +26,24 @@ class BalanceOverview extends StatefulWidget {
 
 class _BalanceOverviewState extends State<BalanceOverview> {
   Selection _selectedSegment = Selection.balance;
-  DateTime _selectedDate = DateTime.now();
   ViewOption _viewOption = ViewOption.month;
+  DateTime _selectedDate = DateTime.now();
 
   //angezeigter String auf dem Button
-  String currentDate = DateFormat.MMMM().format(DateTime.now());
+  late String buttonText;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    buttonText = DateFormat.MMMM().format(_selectedDate);
+  }
 
   //Berechnung der total Values für Incomes und Expenses
   double get totalIncomes =>
-      widget.incomes.fold(0, (sum, item) => sum + item.value);
+      widget.incomes.fold(0, (sum, item) => sum + item.totalValue);
   double get totalExpenses =>
-      widget.expenses.fold(0, (sum, item) => sum + item.value);
+      widget.expenses.fold(0, (sum, item) => sum + item.totalValue);
 
   double get totalValue {
     if (_selectedSegment == Selection.income) {
@@ -77,7 +86,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     }
   }
 
-  Widget _buildPieChart(List<TransactionItem> items) {
+  Widget _buildPieChart(List<CategoryMock> items) {
     return Container(
       margin: const EdgeInsets.all(20),
       child: Stack(
@@ -110,7 +119,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
           onPressed: () => _selectDate(context),
           child: FittedBox(
             child: Text(
-              currentDate,
+              buttonText,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -123,11 +132,11 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   }
 
   List<PieChartSectionData> _generatePieChartSections(
-      List<TransactionItem> items) {
+      List<CategoryMock> items) {
     return items.map((item) {
       return PieChartSectionData(
           color: item.color,
-          value: item.value,
+          value: item.totalValue,
           showTitle: false,
           radius: 60.0,
           badgeWidget: Icon(
@@ -158,13 +167,13 @@ class _BalanceOverviewState extends State<BalanceOverview> {
 
         switch (_viewOption) {
           case ViewOption.day:
-            currentDate = DateFormat.yMMMMd().format(picked);
+            buttonText = DateFormat.yMMMMd().format(picked);
             break;
           case ViewOption.month:
-            currentDate = DateFormat.MMMM().format(picked);
+            buttonText = DateFormat.MMMM().format(picked);
             break;
           case ViewOption.year:
-            currentDate = DateFormat.y().format(picked);
+            buttonText = DateFormat.y().format(picked);
             break;
         }
       });
@@ -256,7 +265,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
             onPressed: () => _selectDate(context),
             child: FittedBox(
               child: Text(
-                currentDate,
+                buttonText,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

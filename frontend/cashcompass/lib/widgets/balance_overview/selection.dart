@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 enum Selection {
-  income(CupertinoColors.activeGreen, '+'),
-  balance(CupertinoColors.activeBlue, ''),
-  expense(CupertinoColors.destructiveRed, '-');
+  income(CupertinoColors.activeGreen, '+', 'Incomes'),
+  balance(CupertinoColors.activeBlue, '', 'Balance'),
+  expense(CupertinoColors.destructiveRed, '-', 'Expenses');
 
   final Color color;
   final String prefix;
-  const Selection(this.color, this.prefix);
+  final String title;
+  const Selection(this.color, this.prefix, this.title);
 }

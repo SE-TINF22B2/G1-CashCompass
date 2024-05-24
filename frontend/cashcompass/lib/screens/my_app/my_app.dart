@@ -1,5 +1,5 @@
 import 'package:cashcompass/widgets/balance_overview/balance_overview.dart';
-import 'package:cashcompass/widgets/balance_overview/mock_transaction_item.dart';
+import 'package:cashcompass/widgets/balance_overview/mock_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cashcompass/screens/auth_screen/auth_screen.dart';
 
@@ -9,50 +9,50 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    List<TransactionItem> incomes = [
-      TransactionItem(
+    List<CategoryMock> incomes = [
+      CategoryMock(
           name: 'Salary',
           icon: CupertinoIcons.money_dollar,
           color: CupertinoColors.activeBlue,
-          value: 5000),
-      TransactionItem(
+          totalValue: 5000),
+      CategoryMock(
           name: 'Freelance',
           icon: CupertinoIcons.briefcase,
           color: CupertinoColors.activeGreen,
-          value: 2000),
-      TransactionItem(
+          totalValue: 2000),
+      CategoryMock(
           name: 'Investment',
           icon: CupertinoIcons.bitcoin_circle,
           color: CupertinoColors.black,
-          value: 1500),
-      TransactionItem(
+          totalValue: 1500),
+      CategoryMock(
           name: 'Gift',
           icon: CupertinoIcons.gift,
           color: CupertinoColors.systemPurple,
-          value: 300),
+          totalValue: 300),
     ];
 
-    List<TransactionItem> expenses = [
-      TransactionItem(
+    List<CategoryMock> expenses = [
+      CategoryMock(
           name: 'Rent',
           icon: CupertinoIcons.house,
           color: CupertinoColors.systemRed,
-          value: 1500),
-      TransactionItem(
+          totalValue: 1500),
+      CategoryMock(
           name: 'Groceries',
           icon: CupertinoIcons.cart,
           color: CupertinoColors.activeOrange,
-          value: 300),
-      TransactionItem(
+          totalValue: 300),
+      CategoryMock(
           name: 'Transport',
           icon: CupertinoIcons.car,
           color: CupertinoColors.activeBlue,
-          value: 200),
-      TransactionItem(
+          totalValue: 200),
+      CategoryMock(
           name: 'Utilities',
           icon: CupertinoIcons.lightbulb,
           color: CupertinoColors.systemCyan,
-          value: 150),
+          totalValue: 150),
     ];
 
     return CupertinoApp(

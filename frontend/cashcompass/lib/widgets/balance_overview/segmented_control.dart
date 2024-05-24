@@ -20,29 +20,18 @@ class SegmentedControlWidget extends StatelessWidget {
         thumbColor: selectedSegment.color,
         groupValue: selectedSegment,
         onValueChanged: onValueChanged,
-        children: const <Selection, Widget>{
-          Selection.income: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Incomes',
-              style: TextStyle(color: CupertinoColors.white),
+        children: Selection.values.asMap().map(
+              (index, selection) => MapEntry(
+                selection,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    selection.title,
+                    style: const TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+              ),
             ),
-          ),
-          Selection.balance: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Balance',
-              style: TextStyle(color: CupertinoColors.white),
-            ),
-          ),
-          Selection.expense: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Expenses',
-              style: TextStyle(color: CupertinoColors.white),
-            ),
-          ),
-        },
       ),
     );
   }
