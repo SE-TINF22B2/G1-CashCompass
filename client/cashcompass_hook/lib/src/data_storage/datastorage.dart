@@ -9,7 +9,7 @@ import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart'
 
 class Datastorage {
   final List<PassiveAccount> passiveAccounts = [];
-  final List<ActiveAcount> activeAccounts = [];
+  final List<ActiveAccount> activeAccounts = [];
   final List<Category> categories = [];
   final List<Transaction> transactions = [];
   final List<RecurringTransactions> recurringTransactions = [];

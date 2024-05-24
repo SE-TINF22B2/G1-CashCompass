@@ -4,7 +4,7 @@ import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
-import 'package:cashcompass_hook/src/data_storage/accoutmanager.dart';
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 import 'package:cron/cron.dart';
@@ -115,7 +115,7 @@ void main() {
     Accountmanager manager = Accountmanager();
     test("Active Account Create", () {
       var fac = ActiveAccountFactory(manager);
-      ActiveAcount f = fac.create("TestAccount").build();
+      ActiveAccount f = fac.create("TestAccount").build();
       expect(f.name, "TestAccount");
     });
 
@@ -166,7 +166,7 @@ void main() {
     Accountmanager manager = Accountmanager();
     test("Active Account", () {
       var fac = ActiveAccountFactory(manager);
-      ActiveAcount f = fac.create("TestAccount").build();
+      ActiveAccount f = fac.create("TestAccount").build();
       var data = f.getSerialiser().toJson();
       var acc = ActiveAccountFactory(manager).deserialise(data: data).build();
       expect(f.id, acc.id);

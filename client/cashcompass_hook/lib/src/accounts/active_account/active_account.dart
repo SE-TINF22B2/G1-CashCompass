@@ -5,9 +5,9 @@ import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/currency/currency.dart';
 
-class ActiveAcount extends RemoteBookable<ActiveAcount, ActiveAccountSerializer,
-    ActiveAccountFactory, ActiveAccountUpdater> {
-  ActiveAcount(String name, int accountNumber) {
+class ActiveAccount extends RemoteBookable<ActiveAccount,
+    ActiveAccountSerializer, ActiveAccountFactory, ActiveAccountUpdater> {
+  ActiveAccount(String name, int accountNumber) {
     this.accountNumber = accountNumber;
     this.name = name;
   }
