@@ -1,6 +1,7 @@
-import 'package:cashcompass/widgets/balance_overview/view_option.dart';
-import 'package:cashcompass/widgets/balance_overview/view_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'view_option.dart';
+import 'view_segmented_control.dart';
 
 class DateSelectorPopup extends StatefulWidget {
   final DateTime initialDate;

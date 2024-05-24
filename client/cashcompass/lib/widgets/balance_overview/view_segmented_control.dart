@@ -1,4 +1,4 @@
-import 'package:cashcompass/widgets/balance_overview/view_option.dart';
+import 'view_option.dart';
 import 'package:flutter/cupertino.dart';
 
 class ViewOptionSegmentedControl extends StatelessWidget {

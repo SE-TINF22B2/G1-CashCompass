@@ -1,8 +1,8 @@
-import 'package:cashcompass/widgets/balance_overview/date_selector.dart';
-import 'package:cashcompass/widgets/balance_overview/mock_transaction.dart';
-import 'package:cashcompass/widgets/balance_overview/segmented_control.dart';
-import 'package:cashcompass/widgets/balance_overview/total_display.dart';
-import 'package:cashcompass/widgets/balance_overview/view_option.dart';
+import 'date_selector.dart';
+import 'mock_transaction.dart';
+import 'segmented_control.dart';
+import 'total_display.dart';
+import 'view_option.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
