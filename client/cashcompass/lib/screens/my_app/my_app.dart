@@ -1,3 +1,5 @@
+import 'package:cashcompass/widgets/balance_overview/balance_overview.dart';
+import 'package:cashcompass/widgets/balance_overview/mock_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cashcompass/screens/auth_screen/auth_screen.dart';
 
@@ -8,9 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
-      title: 'Flutter Demo',
-      theme: CupertinoThemeData(),
-      home: AuthScreen(),
-    );
+        title: 'Flutter Demo',
+        theme: CupertinoThemeData(),
+        home: CupertinoPageScaffold(
+          child: SafeArea(
+            child: AuthScreen(),
+          ),
+        ));
   }
 }
