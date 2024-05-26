@@ -16,11 +16,15 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
   }
 
   @override
-  firstStep() {}
+  CategoryFactory firstStep() {
+    accountManager.addCategories([obj!]);
+    return this;
+  }
 
   @override
-  secondStep() {
+  CategoryFactory secondStep() {
     appendTransactions(obj!, soll, haben, accountManager);
+    return this;
   }
 
   @override
@@ -28,8 +32,8 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = Category(
         data["name"], data["account_number"], data["color"], data["icon"]);
-    soll = data["soll"];
-    haben = data["haben"];
+    soll = parseDynamicListToStringList(data["soll"]);
+    haben = parseDynamicListToStringList(data["haben"]);
     deserialiseDbObj(id ?? data["id"], !isRemote);
     return this;
   }

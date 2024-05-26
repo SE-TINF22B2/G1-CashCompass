@@ -9,9 +9,9 @@ class Category extends RemoteBookable<Category, CategorySerializer,
     CategoryFactory, CategoryUpdater> {
   late String _color;
   late String _icon;
-  Category(String name, int accountNumber, String color, String icon) {
-    _color = color;
-    _icon = icon;
+  Category(String name, int accountNumber, String? color, String? icon) {
+    _color = color ?? "#000000";
+    _icon = icon ?? "";
     this.name = name;
     this.accountNumber = accountNumber;
   }

@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 class RemoteStorage implements DataAdapter {
@@ -9,7 +10,7 @@ class RemoteStorage implements DataAdapter {
   final RestClient _client;
   RemoteStorage(this._client);
   @override
-  Future<InitialPullData> getInitialPull() {
+  Future<InitialPullData> getInitialPull(Accountmanager accountmanager) {
     // TODO: implement getInitialPull
     throw UnimplementedError();
   }

@@ -8,6 +8,7 @@ import 'package:cashcompass_hook/src/connector/locale_storage.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/remote_storage.dart';
 import 'package:cashcompass_hook/src/connector/secured_rest_client.dart';
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
 /*
@@ -24,10 +25,10 @@ class SyncController implements DataAdapter {
   }
 
   @override
-  Future<InitialPullData> getInitialPull() async {
+  Future<InitialPullData> getInitialPull(Accountmanager accountmanager) async {
     var remote =
-        _remoteStorage.getInitialPull().timeout(const Duration(seconds: 5));
-    var local = _localStorage.getInitialPull();
+        _remoteStorage.getInitialPull(accountmanager).timeout(const Duration(seconds: 5));
+    var local = _localStorage.getInitialPull(accountmanager);
     InitialPullData? localData, remoteData;
     try {
       localData = await local;
@@ -112,7 +113,7 @@ abstract class DataAdapter {
   /*
     get initial data returns all the data from a medium by reading everything and loading it into a InitialPullData object which gets returned from this function.
    */
-  Future<InitialPullData> getInitialPull();
+  Future<InitialPullData> getInitialPull(Accountmanager accountManager);
 
   /*
     Stores the overgiven object in the given medium. It is identified by the obj.getPath() and obj.id.

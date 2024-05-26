@@ -16,19 +16,23 @@ class PassiveAccountFactory extends Factory<PassiveAccount,
   }
 
   @override
-  firstStep() {}
+  PassiveAccountFactory firstStep() {
+    accountManager.addPassiveAccounts([obj!]);
+    return this;
+  }
 
   @override
-  secondStep() {
+  PassiveAccountFactory secondStep() {
     appendTransactions(obj!, soll, haben, accountManager);
+    return this;
   }
 
   @override
   PassiveAccountFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = PassiveAccount(data["name"], data["account_number"]);
-    soll = data["soll"];
-    haben = data["haben"];
+    soll = parseDynamicListToStringList(data["soll"]);
+    haben = parseDynamicListToStringList(data["haben"]);
     deserialiseDbObj(id ?? data["id"], !isRemote);
     return this;
   }

@@ -11,18 +11,21 @@ import 'package:cron/cron.dart';
 import 'package:test/test.dart';
 
 import 'helper.dart';
+import 'mock_classes/mock_data_adapter.dart';
 
 void main() {
   group("Hook startup", () {
-    test('Init mock connector', () {});
+    test('Init mock dataadapter', () {
+      MockDataAdapter();
+    });
 
-    test('Init Account Vault', () {
-      Accountmanager();
+    test('Init Account Vault', () async {
+      await Accountmanager(dataAdapter: MockDataAdapter()).init();
     });
   });
 
   group("Serialiser", () {
-    Accountmanager manager = Accountmanager();
+    Accountmanager manager = Accountmanager(dataAdapter: MockDataAdapter());
     test('Active Account', () {
       var acc = ActiveAccountFactory(manager).create("test1").build();
       var map = acc.getSerialiser().toJson();
@@ -112,7 +115,7 @@ void main() {
     });
   });
   group("Factories", () {
-    Accountmanager manager = Accountmanager();
+    Accountmanager manager = Accountmanager(dataAdapter: MockDataAdapter());
     test("Active Account Create", () {
       var fac = ActiveAccountFactory(manager);
       ActiveAccount f = fac.create("TestAccount").build();
@@ -163,7 +166,7 @@ void main() {
   });
 
   group("Serialise and Deserialise", () {
-    Accountmanager manager = Accountmanager();
+    Accountmanager manager = Accountmanager(dataAdapter: MockDataAdapter());
     test("Active Account", () {
       var fac = ActiveAccountFactory(manager);
       ActiveAccount f = fac.create("TestAccount").build();
