@@ -11,7 +11,7 @@ import 'package:cron/cron.dart';
 import 'package:test/test.dart';
 
 import 'helper.dart';
-import 'mock_classes/mock_data_adapter.dart';
+import '../lib/src/connector/mock_classes/mock_data_adapter.dart';
 
 void main() {
   group("Hook startup", () {
