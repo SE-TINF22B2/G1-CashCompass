@@ -10,7 +10,7 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
     with DataclassDeserialiser
     implements TwoStepDesserialisationFactory {
   TransactionsFactory(super.accountManager);
-  late String sollId, habenId;
+  late int sollNr, habenNr;
   String? id;
   late bool isRemote;
   late int transactionNr;
@@ -31,24 +31,25 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
   }
 
   @override
-  deserialise(
+  TransactionsFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
-    sollId = data["sollId"];
-    habenId = data["habenId"];
-    amount = data["amount"];
+    sollNr = data["soll"];
+    habenNr = data["haben"];
+    amount = 1.0 * data["amount"];
     label = data["label"];
-    transactionNr = data["transactionNr"];
+    transactionNr = data["transactionNumber"];
     this.id = id;
-    isRemote = isRemote;
+    this.isRemote = isRemote;
+    return this;
   }
 
   @override
-  firstStep() {}
+  TransactionsFactory firstStep() => this;
 
   @override
-  secondStep() {
-    var soll = accountManager.getAccountById(sollId);
-    var haben = accountManager.getAccountById(habenId);
+  TransactionsFactory secondStep() {
+    var soll = accountManager.getAccount(sollNr)!;
+    var haben = accountManager.getAccount(habenNr)!;
     obj = Transaction(
         transactionNumber: transactionNr,
         soll: soll,
@@ -56,5 +57,6 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
         amount: amount,
         label: label);
     deserialiseDbObj(id, !isRemote);
+    return this;
   }
 }
