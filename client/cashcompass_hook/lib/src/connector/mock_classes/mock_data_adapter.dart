@@ -19,7 +19,7 @@ class MockDataAdapter extends DataAdapter {
         "account_number": 1,
         "soll": [],
         "haben": []
-      }
+      },
     },
     EntityPaths.category.path: {
       "2": {
@@ -142,7 +142,8 @@ class MockDataAdapter extends DataAdapter {
     if (d == null || d[id] == null) {
       throw Exception();
     }
-    return Future.value(factory.deserialise(data: d[id], id: id, isRemote: true));
+    return Future.value(
+        factory.deserialise(data: d[id], id: id, isRemote: true));
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/data_storage/datastorage.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -74,12 +75,6 @@ class Accountmanager {
         .firstWhere((element) => element?.id == id);
   }
 
-  List<Category> getAllCategories() {
-    List<Category> ret = [];
-    ret.addAll(_data.categories);
-    return ret;
-  }
-
   void addActiveAccounts(Iterable<ActiveAccount> acc) {
     _data.activeAccounts.addAll(acc);
   }
@@ -91,6 +86,19 @@ class Accountmanager {
   void addCategories(List<Category> categories) {
     _data.categories.addAll(categories);
   }
+    Iterable<Category> getAllCategories() => _copyList(_data.categories);
+
+  Iterable<ActiveAccount> getAllActiveAccounts() =>
+      _copyList(_data.activeAccounts);
+
+  Iterable<PassiveAccount> getAllPassiveAccounts() =>
+      _copyList(_data.passiveAccounts);
+
+  Iterable<Transaction> getAllTransactions() => _copyList(_data.transactions);
+
+  Iterable<RecurringTransactions> getAllRecurringTransactions() =>
+      _copyList(_data.recurringTransactions);
+
 
   Future<F> readStorage<
       F extends Factory<T, S, F, U>,
@@ -120,5 +128,11 @@ class Accountmanager {
       case EntityPaths.recurringtransations:
         return RecurringTransactionsFactory(this) as F;
     }
+  }
+
+  Iterable<T> _copyList<T>(Iterable<T> i) {
+    List<T> n = <T>[];
+    n.addAll(i);
+    return n;
   }
 }
