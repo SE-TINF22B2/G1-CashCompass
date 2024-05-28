@@ -6,18 +6,15 @@
 - `flutter run`
 
 
-## Installation
+## Setup and Onboarding
 
-### 1. Install Flutter
-If you haven't installed Flutter yet, follow these steps:
+### Flutter
+If you haven't installed [Flutter](https://github.com/flutter/flutter) yet, follow these steps:
 
-1. **Download Flutter SDK:**
-   - Visit the [Flutter website](https://flutter.dev/docs/get-started/install) and download the SDK for your operating system.
+   - Visit the [Flutter website](https://docs.flutter.dev/get-started/install) and download the SDK for your operating system.
    
-2. **Extract the Flutter SDK:**
    - Extract the downloaded file and place it in the desired installation location
 
-3. **Update your path:**
    - Add the Flutter tool to your path:
      - On Windows: 
        ```sh
@@ -28,12 +25,21 @@ If you haven't installed Flutter yet, follow these steps:
        export PATH="$PATH:`pwd`/flutter/bin"
        ```
 
-4. **Run flutter doctor:**
-   - Open a terminal and run `flutter doctor` to check if you have installed everything correctly
+   - Open a new terminal and run `flutter doctor` to check if you have installed everything correctly
    - Follow any additional setup instructions provided by `flutter doctor`
 
-### 2. Useful VSCode plugins
-We recommend using Visual Studio Code (VS Code) for Flutter development. 
+### IDE and prerequisites
+The recommended IDEs is Visual Studio Code or Android Studio for Flutter development since they both integrate Flutter easily.
+
+- Download VS Code: https://code.visualstudio.com/Download
+- Download Android Studio: https://developer.android.com/studio 
+
+For optimal development, install the following extensions for Flutter language support:
+https://docs.flutter.dev/tools/vs-code
+
 
 ### 3. Useful links
+- [Flutter Repository](https://github.com/flutter/flutter?tab=readme-ov-file)
+- [Flutter documentation](https://docs.flutter.dev/)
+- [Development wiki](https://github.com/flutter/flutter/wiki)
 
