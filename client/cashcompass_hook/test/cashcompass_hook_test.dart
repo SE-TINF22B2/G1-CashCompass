@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
+import 'package:cashcompass_hook/src/accounts/active_account/active_account_serializer.dart';
+import 'package:cashcompass_hook/src/accounts/active_account/active_account_updater.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -14,13 +20,52 @@ import 'helper.dart';
 import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
 
 void main() {
+  group("Chart of Accounts", () {
+    Accountmanager accManager = Accountmanager(dataAdapter: MockDataAdapter());
+    late ChartOfAccounts chart;
+    setUp(() async {
+      await accManager.init();
+      chart = ChartOfAccounts(accManager);
+    });
+
+    test("Get All Categories", () {
+      expect(chart.getCategories().isNotEmpty, true);
+      expect(chart.getCategories(matcher: (p0) => false).isEmpty, true);
+    });
+  });
+
   group("Hook startup", () {
+    Accountmanager accManager = Accountmanager(dataAdapter: MockDataAdapter());
+    setUp(() async {
+      await accManager.init();
+    });
     test('Init mock dataadapter', () {
       MockDataAdapter();
     });
 
     test('Init Account Vault', () async {
       await Accountmanager(dataAdapter: MockDataAdapter()).init();
+    });
+
+    test('insert Sth', () async {
+      var acc = (await accManager.readStorage<
+              ActiveAccountFactory,
+              ActiveAccount,
+              ActiveAccountSerializer,
+              ActiveAccountUpdater>(EntityPaths.activeaccount, "1"))
+          .firstStep()
+          .secondStep()
+          .build();
+      try {
+        var t = await accManager.readStorage<ActiveAccountFactory,
+                ActiveAccount, ActiveAccountSerializer, ActiveAccountUpdater>(
+            EntityPaths.activeaccount, "1efjaefnaefjanefanefane");
+        expect(t, false); // statement must fail
+        // ignore: empty_catches
+      } catch (e) {
+        log("Exception was expected!");
+      }
+      await accManager.writeStorage(acc);
     });
   });
 
