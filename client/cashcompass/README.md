@@ -1,16 +1,39 @@
-# cashcompass
+# Flutter Project
 
-A new Flutter project.
+## Quick Start
+- `git clone https://github.com/SE-TINF22B2/G1-CashCompass.git`
+- `cd client/cashcompass`
+- `flutter run`
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+### 1. Install Flutter
+If you haven't installed Flutter yet, follow these steps:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. **Download Flutter SDK:**
+   - Visit the [Flutter website](https://flutter.dev/docs/get-started/install) and download the SDK for your operating system.
+   
+2. **Extract the Flutter SDK:**
+   - Extract the downloaded file and place it in the desired installation location
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Update your path:**
+   - Add the Flutter tool to your path:
+     - On Windows: 
+       ```sh
+       set PATH=%PATH%;C:\src\flutter\bin
+       ```
+     - On macOS and Linux:
+       ```sh
+       export PATH="$PATH:`pwd`/flutter/bin"
+       ```
+
+4. **Run flutter doctor:**
+   - Open a terminal and run `flutter doctor` to check if you have installed everything correctly
+   - Follow any additional setup instructions provided by `flutter doctor`
+
+### 2. Useful VSCode plugins
+We recommend using Visual Studio Code (VS Code) for Flutter development. 
+
+### 3. Useful links
+
