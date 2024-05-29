@@ -10,6 +10,6 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Categories Overview');
+    return const Center(child: Text('Categories'));
   }
 }

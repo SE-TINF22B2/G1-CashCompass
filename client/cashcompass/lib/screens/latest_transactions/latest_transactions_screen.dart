@@ -11,6 +11,6 @@ class LatestTransactionsScreen extends StatefulWidget {
 class _LatestTransactionsScreenState extends State<LatestTransactionsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Latest Transactions');
+    return const Center(child: Text('Latest Transactions'));
   }
 }
