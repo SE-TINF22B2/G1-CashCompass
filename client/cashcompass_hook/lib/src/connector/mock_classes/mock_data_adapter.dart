@@ -19,7 +19,7 @@ class MockDataAdapter extends DataAdapter {
         "account_number": 1,
         "soll": [],
         "haben": []
-      }
+      },
     },
     EntityPaths.category.path: {
       "2": {
@@ -136,11 +136,14 @@ class MockDataAdapter extends DataAdapter {
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
       U extends Updater<T>>(EntityPaths path, String id, F factory) {
-    var d = db[path.path]![id];
+    var d = db[path.path];
     // two sep factory should somehow be called!!!!
     // TODO
-    var fac = factory.deserialise(data: d, id: id, isRemote: true);
-    return fac.build();
+    if (d == null || d[id] == null) {
+      throw Exception();
+    }
+    return Future.value(
+        factory.deserialise(data: d[id], id: id, isRemote: true));
   }
 
   @override

@@ -5,8 +5,11 @@ import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
+import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
+import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/data_storage/datastorage.dart';
+import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -82,5 +85,54 @@ class Accountmanager {
 
   void addCategories(List<Category> categories) {
     _data.categories.addAll(categories);
+  }
+    Iterable<Category> getAllCategories() => _copyList(_data.categories);
+
+  Iterable<ActiveAccount> getAllActiveAccounts() =>
+      _copyList(_data.activeAccounts);
+
+  Iterable<PassiveAccount> getAllPassiveAccounts() =>
+      _copyList(_data.passiveAccounts);
+
+  Iterable<Transaction> getAllTransactions() => _copyList(_data.transactions);
+
+  Iterable<RecurringTransactions> getAllRecurringTransactions() =>
+      _copyList(_data.recurringTransactions);
+
+
+  Future<F> readStorage<
+      F extends Factory<T, S, F, U>,
+      T extends DatabaseObject<T, S, F, U>,
+      S extends Serializer<T>,
+      U extends Updater<T>>(EntityPaths path, String id) async {
+    return await _dataAdapter.load<F, T, S, U>(
+        path, id, _getFac<F, T, S, U>(path));
+  }
+
+  Future writeStorage(DatabaseObject obj) async {
+    _dataAdapter.store(obj);
+  }
+
+  F _getFac<F extends Factory<T, S, F, U>, T extends DatabaseObject<T, S, F, U>,
+      S extends Serializer<T>, U extends Updater<T>>(EntityPaths path) {
+    switch (path) {
+      case EntityPaths.activeaccount:
+        return ActiveAccountFactory(this) as F;
+
+      case EntityPaths.passiveaccount:
+        return PassiveAccountFactory(this) as F;
+      case EntityPaths.category:
+        return CategoryFactory(this) as F;
+      case EntityPaths.transaction:
+        return TransactionsFactory(this) as F;
+      case EntityPaths.recurringtransations:
+        return RecurringTransactionsFactory(this) as F;
+    }
+  }
+
+  Iterable<T> _copyList<T>(Iterable<T> i) {
+    List<T> n = <T>[];
+    n.addAll(i);
+    return n;
   }
 }
