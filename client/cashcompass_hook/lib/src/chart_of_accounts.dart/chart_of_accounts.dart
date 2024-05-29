@@ -1,6 +1,14 @@
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
+
+class CategoryAndTransactions {
+  final Category category;
+  final List<Transaction> soll, haben;
+  CategoryAndTransactions(
+      {required this.category, required this.haben, required this.soll});
+}
 
 class ChartOfAccounts {
   final Accountmanager _accountmanager;
@@ -13,11 +21,13 @@ class ChartOfAccounts {
         .toList();
   }
 
-  List<ActiveAccount> getActiveAccounts(
-      {bool Function(ActiveAccount)? matcher}) {
-    return _accountmanager
-        .getAllActiveAccounts()
-        .where((acc) => matcher != null ? matcher(acc) : true)
-        .toList();
+  List<CategoryAndTransactions> getCategoriesAndTransaktions() {
+    var cates = _accountmanager.getAllCategories();
+    var ret = <CategoryAndTransactions>[];
+    for (Category i in cates) {
+      ret.add(
+          CategoryAndTransactions(category: i, haben: i.habenT, soll: i.sollT));
+    }
+    return ret;
   }
 }
