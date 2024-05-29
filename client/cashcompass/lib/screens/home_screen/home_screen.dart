@@ -49,15 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.creditcard),
+            activeIcon: Icon(CupertinoIcons.creditcard,
+                color: CupertinoColors.activeBlue),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.time),
+            icon: Icon(CupertinoIcons.arrow_up_arrow_down_square),
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.square_grid_2x2),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.person_3),
+            icon: Icon(CupertinoIcons.person_2),
           )
         ],
         onTap: _onItemTapped,
