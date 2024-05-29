@@ -36,6 +36,14 @@ class MockDataAdapter extends DataAdapter {
         "soll": [],
         "haben": []
       },
+      "45": {
+        "id": 45,
+        "isUploaded": true,
+        "name": "active1",
+        "account_number": 45,
+        "soll": [],
+        "haben": []
+      },
     },
     EntityPaths.category.path: {
       "21": {
@@ -73,7 +81,7 @@ class MockDataAdapter extends DataAdapter {
         "icon": "Loans",
         "soll": [],
         "haben": []
-      }
+      },
     },
     EntityPaths.passiveaccount.path: {
       "31": {
