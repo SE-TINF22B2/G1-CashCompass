@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
@@ -42,12 +44,11 @@ class Accountmanager {
     categoriesFac = categoriesFac.map((fac) => fac.secondStep());
     transFac = transFac.map((fac) => fac.secondStep());
     recTransFac = recTransFac.map((fac) => fac.secondStep());
-
-    _data.activeAccounts.addAll(activeFac.map((f) => f.build()));
-    _data.passiveAccounts.addAll(passiveFac.map((f) => f.build()));
-    _data.categories.addAll(categoriesFac.map((f) => f.build()));
-    _data.transactions.addAll(transFac.map((f) => f.build()));
-    _data.recurringTransactions.addAll(recTransFac.map((f) => f.build()));
+    activeFac.forEach((f) => _data.activeAccounts.add(f.build()));
+    passiveFac.forEach((f) => _data.passiveAccounts.add(f.build()));
+    categoriesFac.forEach((f) => _data.categories.add(f.build()));
+    transFac.forEach((f) => _data.transactions.add(f.build()));
+    recTransFac.forEach((f) => _data.recurringTransactions.add(f.build()));
   }
 
   int get nextAccountNumber => _data.getNewAccountNumber();
@@ -86,7 +87,8 @@ class Accountmanager {
   void addCategories(List<Category> categories) {
     _data.categories.addAll(categories);
   }
-    Iterable<Category> getAllCategories() => _copyList(_data.categories);
+
+  Iterable<Category> getAllCategories() => _copyList(_data.categories);
 
   Iterable<ActiveAccount> getAllActiveAccounts() =>
       _copyList(_data.activeAccounts);
@@ -98,7 +100,6 @@ class Accountmanager {
 
   Iterable<RecurringTransactions> getAllRecurringTransactions() =>
       _copyList(_data.recurringTransactions);
-
 
   Future<F> readStorage<
       F extends Factory<T, S, F, U>,
