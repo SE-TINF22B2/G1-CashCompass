@@ -12,41 +12,85 @@ import 'package:cashcompass_hook/src/transactions/transactions/transactions_fact
 class MockDataAdapter extends DataAdapter {
   Map<String, Map<String, dynamic>> db = {
     EntityPaths.activeaccount.path: {
-      "1": {
-        "id": 1,
+      "11": {
+        "id": 11,
         "isUploaded": true,
-        "name": "active1",
-        "account_number": 1,
+        "name": "ING",
+        "account_number": 11,
+        "soll": [],
+        "haben": []
+      },
+      "12": {
+        "id": 12,
+        "isUploaded": true,
+        "name": "Sparkasse",
+        "account_number": 12,
+        "soll": [],
+        "haben": []
+      },
+      "13": {
+        "id": 13,
+        "isUploaded": true,
+        "name": "BAR",
+        "account_number": 13,
         "soll": [],
         "haben": []
       },
     },
     EntityPaths.category.path: {
-      "2": {
-        "id": 2,
+      "21": {
+        "id": 21,
         "isUploaded": true,
-        "name": "cate1",
-        "account_number": 2,
+        "name": "GiftsDonations",
+        "account_number": 21,
+        "icon": "GiftsDonations",
+        "soll": [],
+        "haben": []
+      },
+      "22": {
+        "id": 22,
+        "isUploaded": true,
+        "name": "Groceries",
+        "account_number": 22,
+        "icon": "Groceries",
+        "soll": [],
+        "haben": []
+      },
+      "23": {
+        "id": 23,
+        "isUploaded": true,
+        "name": "Transport",
+        "account_number": 23,
+        "icon": "Transport",
+        "soll": [],
+        "haben": []
+      },
+      "24": {
+        "id": 24,
+        "isUploaded": true,
+        "name": "Loans",
+        "account_number": 24,
+        "icon": "Loans",
         "soll": [],
         "haben": []
       }
     },
     EntityPaths.passiveaccount.path: {
-      "3": {
-        "id": 3,
+      "31": {
+        "id": 31,
         "isUploaded": true,
         "name": "pass1",
-        "account_number": 3,
+        "account_number": 31,
         "soll": [],
         "haben": []
       }
     },
     EntityPaths.recurringtransations.path: {
-      "4": {
-        "id": 4,
+      "41": {
+        "id": 41,
         "isUploaded": true,
-        "soll": 1,
-        "haben": 2,
+        "soll": 11,
+        "haben": 21,
         "amount": 500,
         "start": DateTime.now().toIso8601String(),
         "end": DateTime.now().toIso8601String(),
@@ -54,15 +98,55 @@ class MockDataAdapter extends DataAdapter {
       }
     },
     EntityPaths.transaction.path: {
-      "5": {
-        "id": 5,
+      "51": {
+        "id": 51,
         "isUploaded": true,
-        "soll": 1,
-        "haben": 2,
-        "amount": 500,
+        "soll": 21,
+        "haben": 11,
+        "amount": 100,
         "timestamp": DateTime.now().toIso8601String(),
         "transactionNumber": 1,
-        "label": "TestTransaction1"
+        "label": "Geschenk von Max"
+      },
+      "52": {
+        "id": 52,
+        "isUploaded": true,
+        "soll": 12,
+        "haben": 22,
+        "amount": 6.50,
+        "timestamp": DateTime.now().toIso8601String(),
+        "transactionNumber": 2,
+        "label": "Döner"
+      },
+      "53": {
+        "id": 53,
+        "isUploaded": true,
+        "soll": 11,
+        "haben": 23,
+        "amount": 25,
+        "timestamp": DateTime.now().toIso8601String(),
+        "transactionNumber": 3,
+        "label": "Fahrkosten für Rudi"
+      },
+      "54": {
+        "id": 54,
+        "isUploaded": true,
+        "soll": 24,
+        "haben": 13,
+        "amount": 50,
+        "timestamp": DateTime.now().toIso8601String(),
+        "transactionNumber": 4,
+        "label": "Putzen bei Omi"
+      },
+      "55": {
+        "id": 55,
+        "isUploaded": true,
+        "soll": 24,
+        "haben": 11,
+        "amount": 450,
+        "timestamp": DateTime.now().toIso8601String(),
+        "transactionNumber": 5,
+        "label": "Gehalt"
       }
     }
   };

@@ -1,11 +1,12 @@
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
+import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 
 class MockTransactions {
   static generateTransactions() {
-    Accountmanager manager = Accountmanager();
+    Accountmanager manager = Accountmanager(dataAdapter: MockDataAdapter());
     var fac = TransactionsFactory(manager);
     return [
       fac
