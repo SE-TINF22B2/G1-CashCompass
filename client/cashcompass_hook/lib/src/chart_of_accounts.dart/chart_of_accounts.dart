@@ -73,4 +73,22 @@ class ChartOfAccounts {
             TransactionInfo(TransactionTypes.income, transaction, cate))));
     return ret;
   }
+
+  List<ActiveAccount> getActiveAccounts(
+      {bool Function(ActiveAccount)? matcher}) {
+    return _accountmanager
+        .getAllActiveAccounts()
+        .where((acc) => matcher != null ? matcher(acc) : true)
+        .toList();
+  }
+
+  List<CategoryAndTransactions> getCategoriesAndTransaktions() {
+    var cates = _accountmanager.getAllCategories();
+    var ret = <CategoryAndTransactions>[];
+    for (Category i in cates) {
+      ret.add(
+          CategoryAndTransactions(category: i, haben: i.habenT, soll: i.sollT));
+    }
+    return ret;
+  }
 }
