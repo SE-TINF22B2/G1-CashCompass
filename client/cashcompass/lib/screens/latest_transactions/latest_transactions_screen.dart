@@ -1,7 +1,6 @@
+import 'package:cashcompass/controller/controller.dart';
 import 'package:cashcompass/widgets/transactions_list_widgets/transactions_list.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../widgets/transactions_list_widgets/mock_transaction_list.dart';
 
 class LatestTransactionsScreen extends StatefulWidget {
   const LatestTransactionsScreen({super.key});
@@ -20,8 +19,7 @@ class _LatestTransactionsScreenState extends State<LatestTransactionsScreen> {
       ),
       child: SafeArea(
         child: TransactionsList(
-          transactions: MockTransactions.generateTransactions(),
-        ),
+            transactions: Controller.accountManager.data.transactions),
       ),
     );
   }
