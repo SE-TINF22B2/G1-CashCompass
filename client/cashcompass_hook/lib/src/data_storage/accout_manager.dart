@@ -53,6 +53,9 @@ class Accountmanager {
 
   int get nextAccountNumber => _data.getNewAccountNumber();
   int get nextTransactionNumber => _data.getNewTransactionNumber();
+
+  Datastorage get data => _data; // TODO: remove getter for _data
+
   String get nextUuid => _uuid.v1();
   Bookable? getAccount(int accountNr) {
     // ignore: unnecessary_cast

@@ -10,6 +10,7 @@ import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.da
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
+import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -17,7 +18,6 @@ import 'package:cron/cron.dart';
 import 'package:test/test.dart';
 
 import 'helper.dart';
-import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
 
 void main() {
   group("Chart of Accounts", () {
@@ -52,7 +52,7 @@ void main() {
               ActiveAccountFactory,
               ActiveAccount,
               ActiveAccountSerializer,
-              ActiveAccountUpdater>(EntityPaths.activeaccount, "1"))
+              ActiveAccountUpdater>(EntityPaths.activeaccount, "11"))
           .firstStep()
           .secondStep()
           .build();
