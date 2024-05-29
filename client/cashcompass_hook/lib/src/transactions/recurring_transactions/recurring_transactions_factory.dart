@@ -38,27 +38,24 @@ class RecurringTransactionsFactory extends Factory<
   }
 
   @override
-  deserialise(
+  RecurringTransactionsFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
-    deserialiseDbObj(id, !isRemote);
-    isRemote = isRemote;
+    this.isRemote = isRemote;
     this.id = id;
-    sollId = data["soll"];
-    habenId = data["haben"];
-    amount = data["amount"];
+    sollId = data["soll"].toString();
+    habenId = data["haben"].toString();
+    amount = double.parse(data["amount"].toString());
     start = DateTime.parse(data["start"]);
     end = DateTime.parse(data["end"]);
     interval = data["interval"];
+    return this;
   }
 
   @override
-  firstStep() {
-    // TODO: implement firstStep
-    throw UnimplementedError();
-  }
+  RecurringTransactionsFactory firstStep() => this;
 
   @override
-  secondStep() {
+  RecurringTransactionsFactory secondStep() {
     var soll = accountManager.getAccountById(sollId);
     var haben = accountManager.getAccountById(habenId);
     obj = RecurringTransactions(
@@ -69,5 +66,6 @@ class RecurringTransactionsFactory extends Factory<
         soll: soll,
         haben: haben);
     deserialiseDbObj(id, !isRemote);
+    return this;
   }
 }

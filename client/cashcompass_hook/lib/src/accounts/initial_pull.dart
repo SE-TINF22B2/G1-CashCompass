@@ -1,6 +1,7 @@
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
+import 'package:cashcompass_hook/src/accounts/two_step_factory.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 
@@ -20,5 +21,24 @@ class InitialPullData {
       required this.passiveAccounts,
       required this.transactions,
       required this.categories,
-      required this.lastsync});
+      required this.lastsync}) {
+    for (TwoStepDesserialisationFactory i in [
+      activeAccounts,
+      passiveAccounts,
+      categories,
+      recurringTransactions,
+      transactions
+    ].expand((x) => x)) {
+      i.firstStep();
+    }
+    for (TwoStepDesserialisationFactory i in [
+      activeAccounts,
+      passiveAccounts,
+      categories,
+      recurringTransactions,
+      transactions
+    ].expand((x) => x)) {
+      i.secondStep();
+    }
+  }
 }

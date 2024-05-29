@@ -18,6 +18,9 @@ abstract class Factory<
   T? obj;
   Factory(this.accountManager);
 
+  deserialise(
+      {required Map<String, dynamic> data, bool isRemote = false, String? id});
+
   T build() {
     if (obj == null) {
       throw Exception("Factory must call a creation");
@@ -26,6 +29,10 @@ abstract class Factory<
       obj!.localId = accountManager.nextUuid;
     }
     return obj!;
+  }
+
+  List<String> parseDynamicListToStringList(List<dynamic> l) {
+    return l.map((e) => e.toString()).toList();
   }
 }
 

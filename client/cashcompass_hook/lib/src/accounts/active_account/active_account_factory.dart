@@ -16,19 +16,23 @@ class ActiveAccountFactory extends Factory<ActiveAccount,
   }
 
   @override
-  firstStep() {}
+  ActiveAccountFactory firstStep() {
+    accountManager.addActiveAccounts([obj!]);
+    return this;
+  }
 
   @override
-  secondStep() {
+  ActiveAccountFactory secondStep() {
     appendTransactions(obj!, soll, haben, accountManager);
+    return this;
   }
 
   @override
   ActiveAccountFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = ActiveAccount(data["name"], data["account_number"]);
-    soll = data["soll"];
-    haben = data["haben"];
+    soll = parseDynamicListToStringList(data["soll"]);
+    haben = parseDynamicListToStringList(data["haben"]);
     deserialiseDbObj(id ?? data["id"], !isRemote);
     return this;
   }
