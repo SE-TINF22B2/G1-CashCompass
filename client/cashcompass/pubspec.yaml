@@ -36,8 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   fl_chart: ^0.68.0
   intl: ^0.17.0
+  provider: ^6.1.2
   cashcompass_hook:
     path: "../cashcompass_hook"
+  go_router: ^14.1.4
 
 dev_dependencies:
   flutter_test:
