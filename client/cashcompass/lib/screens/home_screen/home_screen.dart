@@ -1,4 +1,4 @@
-import 'package:cashcompass/screens/categories/categories_screen.dart';
+import 'package:cashcompass/screens/categories_screen/categories_screen.dart';
 import 'package:cashcompass/screens/friends/friends_screen.dart';
 import 'package:cashcompass/screens/latest_transactions/latest_transactions_screen.dart';
 import 'package:cashcompass/screens/profile/profile_screen.dart';
