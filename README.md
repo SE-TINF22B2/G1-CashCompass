@@ -8,8 +8,7 @@ Cash Compass is a financial application designed to empower users to manage thei
 
 ## Onboarding Steps
 - `git clone https://github.com/SE-TINF22B2/G1-CashCompass.git`
-- Onboarding for server-side (CAP): [README](https://github.com/SE-TINF22B2/G1-CashCompass/blob/main/server/README.md)
-- Onboarding for client-side (Flutter): [README](https://github.com/SE-TINF22B2/G1-CashCompass/blob/main/client/cashcompass/README.md)
+- Onboarding for server-side (`CAP`) and client-side (`Flutter`): [Wiki](https://github.com/SE-TINF22B2/G1-CashCompass/wiki/Onboarding-Steps)
 
 
 
