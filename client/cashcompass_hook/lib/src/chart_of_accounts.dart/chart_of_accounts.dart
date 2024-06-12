@@ -1,3 +1,4 @@
+import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/data.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
@@ -71,5 +72,13 @@ class ChartOfAccounts {
         .map((transaction) =>
             TransactionInfo(TransactionTypes.income, transaction, cate))));
     return ret;
+  }
+
+  List<ActiveAccount> getActiveAccounts(
+      {bool Function(ActiveAccount)? matcher}) {
+    return _accountmanager
+        .getAllActiveAccounts()
+        .where((acc) => matcher != null ? matcher(acc) : true)
+        .toList();
   }
 }
