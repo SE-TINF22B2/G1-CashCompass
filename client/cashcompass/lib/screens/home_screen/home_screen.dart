@@ -1,4 +1,4 @@
-import 'package:cashcompass/screens/add_category/add_category_screen.dart';
+import 'package:cashcompass/screens/categories_screen/categories_screen.dart';
 import 'package:cashcompass/screens/friends/friends_screen.dart';
 import 'package:cashcompass/screens/latest_transactions/latest_transactions_screen.dart';
 import 'package:cashcompass/screens/profile/profile_screen.dart';
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileScreen(),
     WalletsScreen(),
     LatestTransactionsScreen(),
-    AddCategoryScreen(),
+    CategoriesScreen(),
     FriendsScreen(),
   ];
 
