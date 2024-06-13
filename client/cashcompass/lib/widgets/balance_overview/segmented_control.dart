@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'selection.dart';
 
+/// Custom Widget that represents the SegmentedControlWidget for selection view [income, balance, expense]
+/// This widget uses CupertinoSlidingSegmentedControl based on Cupertino Design Guidelines
 class SegmentedControlWidget extends StatelessWidget {
+  // Requires the currently selected segment and the callback to handle value changes
   final Selection selectedSegment;
   final ValueChanged<Selection?> onValueChanged;
 
@@ -17,10 +20,12 @@ class SegmentedControlWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10.0),
       child: CupertinoSlidingSegmentedControl<Selection>(
         backgroundColor: CupertinoColors.systemGrey2,
-        thumbColor: selectedSegment.color,
-        groupValue: selectedSegment,
+        thumbColor: selectedSegment
+            .color, // Set the color of the thumb based on the selected segment
+        groupValue: selectedSegment, // currently selected value
         onValueChanged: onValueChanged,
         children: Selection.values.asMap().map(
+              // Create a map of the children widgets for each segment
               (index, selection) => MapEntry(
                 selection,
                 Padding(

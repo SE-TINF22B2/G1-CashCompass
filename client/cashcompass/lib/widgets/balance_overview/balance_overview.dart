@@ -5,12 +5,15 @@ import 'total_display.dart';
 import 'view_option.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'selection.dart';
 import 'package:intl/intl.dart';
 
+/// Custom widget for representing the overview of income, balance and expenses
+/// Uses different custom widgets that are refractored in own files under
+/// balance_overview directory
+///
 class BalanceOverview extends StatefulWidget {
-  //function that return List of all Categories depending on the selectedDate
+  // Widget expects two list of all Categories depending on the selectedDate
   final List<CategoryMock> incomes;
   final List<CategoryMock> expenses;
 
@@ -25,26 +28,27 @@ class BalanceOverview extends StatefulWidget {
 }
 
 class _BalanceOverviewState extends State<BalanceOverview> {
+  /// At the beginning initialise some attributes
   Selection _selectedSegment = Selection.balance;
   ViewOption _viewOption = ViewOption.month;
   DateTime _selectedDate = DateTime.now();
-
-  //angezeigter String auf dem Button
+  // Text which is shown on the center button and displays the value of _selectedDate
   late String buttonText;
 
+  // initState() function that is called once when the widget is started for the first time
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     buttonText = DateFormat.MMMM().format(_selectedDate);
   }
 
-  //Berechnung der total Values für Incomes und Expenses
+  //Calculation of total values for incomes und expenses
   double get totalIncomes =>
       widget.incomes.fold(0, (sum, item) => sum + item.totalValue);
   double get totalExpenses =>
       widget.expenses.fold(0, (sum, item) => sum + item.totalValue);
 
+  // function that returns the total value depening on selected view [income, balance, expenses]
   double get totalValue {
     if (_selectedSegment == Selection.income) {
       return totalIncomes;
@@ -60,22 +64,35 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Custom widget that shows the SegmentedControl
         SegmentedControlWidget(
             selectedSegment: _selectedSegment,
             onValueChanged: (Selection? value) {
               if (value != null) {
                 setState(() {
-                  _selectedSegment = value;
+                  _selectedSegment =
+                      value; // Update the selected segment and rebuild the widget
                 });
               }
             }),
-        const SizedBox(height: 20),
-        TotalDisplay(total: totalValue, selectedSegment: _selectedSegment),
+        const SizedBox(
+          height: 20,
+        ),
+        // Custom widget TotalDisplay that displays totalValue as Text
+        TotalDisplay(
+          total: totalValue,
+          selectedSegment: _selectedSegment,
+        ),
+        // Call a method to build additional content
         _buildContent(),
       ],
     );
   }
 
+  /// Method to build the content based on the selected segment
+  /// Income  -> builds a pie chart with the list of incomes
+  /// Balance -> builds the chart that shows the balance between incomes and expenses
+  /// Expense -> builds a pie chart with the list of expenses
   Widget _buildContent() {
     if (_selectedSegment == Selection.income) {
       return _buildPieChart(widget.incomes);
@@ -86,6 +103,9 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     }
   }
 
+  /// Method to build a pie chart using a list
+  /// Using the PieChart widget from the imported fl_chart package
+  /// PieChart widget needs PieChartData for each section in the pie chart
   Widget _buildPieChart(List<CategoryMock> items) {
     return Container(
       margin: const EdgeInsets.all(20),
@@ -97,7 +117,8 @@ class _BalanceOverviewState extends State<BalanceOverview> {
             child: PieChart(
               PieChartData(
                 sectionsSpace: 0,
-                sections: _generatePieChartSections(items),
+                sections: _generatePieChartSections(
+                    items), // Generate the sections of the pie chart
                 centerSpaceRadius: double.infinity,
               ),
               swapAnimationDuration:
@@ -105,18 +126,20 @@ class _BalanceOverviewState extends State<BalanceOverview> {
               swapAnimationCurve: Curves.linear, // Optional
             ),
           ),
+          // Call a method to the center button
           _buildCenterButton()
         ],
       ),
     );
   }
 
+  /// Method to build the center button that shows the selected date for the pie chart
   Widget _buildCenterButton() {
     return ClipOval(
       child: AspectRatio(
         aspectRatio: 1,
         child: CupertinoButton(
-          onPressed: () => _selectDate(context),
+          onPressed: () => _selectDate(context), // Calls the
           child: FittedBox(
             child: Text(
               buttonText,
@@ -131,6 +154,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     );
   }
 
+  // Method that generate and return a list of PieChartSectionData which are required for PieChart
   List<PieChartSectionData> _generatePieChartSections(
       List<CategoryMock> items) {
     return items.map((item) {
@@ -146,10 +170,13 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     }).toList();
   }
 
+  // Async function that processes the date selection with a modal popup from Cupertino
   Future<void> _selectDate(BuildContext context) async {
+    // Show a Cupertino modal popup to select a date
     DateTime? picked = await showCupertinoModalPopup<DateTime>(
       context: context,
       builder: (BuildContext context) {
+        // Return a custom date selector popup widget
         return DateSelectorPopup(
           initialDate: _selectedDate,
           initialViewOption: _viewOption,
@@ -161,26 +188,33 @@ class _BalanceOverviewState extends State<BalanceOverview> {
       },
     );
 
+    // If a date is picked (not null), update the state
     if (picked != null) {
       setState(() {
         _selectedDate = picked;
 
+        // Update the button text based on the selected view option
         switch (_viewOption) {
           case ViewOption.day:
-            buttonText = DateFormat.yMMMMd().format(picked);
+            buttonText =
+                DateFormat.yMMMMd().format(picked); // Format date as day
             break;
           case ViewOption.month:
-            buttonText = DateFormat.MMMM().format(picked);
+            buttonText =
+                DateFormat.MMMM().format(picked); // Format date as month
             break;
           case ViewOption.year:
-            buttonText = DateFormat.y().format(picked);
+            buttonText = DateFormat.y().format(picked); // Format date as year
             break;
         }
       });
     }
   }
 
+  // Method to build a container displaying the balance information
   Widget _buildBalanceContainer() {
+    // Calculation of the fraction for income and expense
+    // needed to define the size of each container (income/expense)
     double total = totalIncomes + totalExpenses;
     double incomeFraction = totalIncomes / total;
     double expenseFraction = totalExpenses / total;
@@ -193,6 +227,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
         children: [
           Column(
             children: [
+              // Container to display the total incomes
               Container(
                 height: 400 * incomeFraction,
                 decoration: BoxDecoration(
@@ -221,6 +256,7 @@ class _BalanceOverviewState extends State<BalanceOverview> {
                   ),
                 ),
               ),
+              // Container to display the total expenses
               Container(
                 height: 400 * expenseFraction,
                 decoration: BoxDecoration(
@@ -249,12 +285,14 @@ class _BalanceOverviewState extends State<BalanceOverview> {
               ),
             ],
           ),
+          // Call a method to the center button
           _buildBalanceCenterButton()
         ],
       ),
     );
   }
 
+  /// Method to build the center button that shows the selected date for the balance overview
   Widget _buildBalanceCenterButton() {
     return Padding(
       padding: const EdgeInsets.all(70.0),
