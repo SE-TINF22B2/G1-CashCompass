@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
-
 import 'view_option.dart';
 import 'view_segmented_control.dart';
 
+/// Custom Widget for selecting a date with additional options
 class DateSelectorPopup extends StatefulWidget {
+  // Widget required the initial selected date and view
+  // also a callback for when a date is selected
   final DateTime initialDate;
   final ViewOption initialViewOption;
   final void Function(DateTime, ViewOption) onDateSelected;
@@ -46,9 +48,11 @@ class _DateSelectorPopupState extends State<DateSelectorPopup> {
                 selectedSegment: _viewOption,
                 onValueChanged: (ViewOption? value) {
                   if (value != null) {
-                    setState(() {
-                      _viewOption = value;
-                    });
+                    setState(
+                      () {
+                        _viewOption = value;
+                      },
+                    );
                   }
                 },
               )
