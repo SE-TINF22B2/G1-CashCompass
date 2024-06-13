@@ -1,5 +1,6 @@
 import 'package:cashcompass/controller/controller.dart';
 import 'package:cashcompass/screens/add_category/add_category_screen.dart';
+import 'package:cashcompass/screens/categories_detail_screen/categories_detail_screen.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
@@ -57,13 +58,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text("Categories"),
-        trailing: GestureDetector(
-          onTap: handleCreateCategory,
-          child: Icon(
-            CupertinoIcons.add,
-            size: 30.0, //you can adjust the size as needed
-          ),
-        ),
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -135,15 +129,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  void handleAddCategory() {
-    throw UnsupportedError("Not yet implemented");
-  }
-
   void _handleCategoryListTileTapped() {
-    throw UnsupportedError("Not yet implemented");
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => const CategoriesDetailScreen()));
   }
 
-  void handleCreateCategory() {
+  void handleAddCategory() {
     Navigator.of(context).push(
         CupertinoPageRoute(builder: (context) => const AddCategoryScreen()));
   }
