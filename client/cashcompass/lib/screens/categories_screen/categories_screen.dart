@@ -1,12 +1,13 @@
 import 'package:cashcompass/controller/controller.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import '../../widgets/balance_overview/balance_overview.dart';
-import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
-import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
-import '../../widgets/balance_overview/mock_transaction.dart';
+import 'package:cashcompass/screens/add_category/add_category_screen.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../widgets/balance_overview/balance_overview.dart';
+import '../../widgets/balance_overview/mock_transaction.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -54,8 +55,15 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text("Categories"),
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text("Categories"),
+        trailing: GestureDetector(
+          onTap: handleCreateCategory,
+          child: Icon(
+            CupertinoIcons.add,
+            size: 30.0, //you can adjust the size as needed
+          ),
+        ),
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -67,7 +75,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 expenses: c2,
               ),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: list.length + 1,
                 itemBuilder: (context, index) {
@@ -133,6 +141,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   void _handleCategoryListTileTapped() {
     throw UnsupportedError("Not yet implemented");
+  }
+
+  void handleCreateCategory() {
+    Navigator.of(context).push(
+        CupertinoPageRoute(builder: (context) => const AddCategoryScreen()));
   }
 }
 
