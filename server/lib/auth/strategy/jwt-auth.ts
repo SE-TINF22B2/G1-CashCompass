@@ -3,10 +3,25 @@ import { IAuthStrategy } from "./IAuthStrategy";
 import { auth } from '../../../lib';
 import jwt from 'jsonwebtoken';
 
+/**
+ * JWTAuth.
+ *
+ * @implements {IAuthStrategy}
+ */
 export class JWTAuth implements IAuthStrategy {
 
+	/**
+	 * @type {Logger}
+	 */
 	private logger = cds.log("auth");
 
+	/**
+	 * createUser.
+	 * This method decodes the JWT from the request header and creates a CAP user with the username saved in the JWT.
+	 *
+	 * @param {auth.types.AuthRequestType} req
+	 * @returns {User}
+	 */
 	createUser(req: auth.types.AuthRequestType): User {
 		const authHeader = req.headers["authorization"];
 
@@ -43,6 +58,13 @@ export class JWTAuth implements IAuthStrategy {
 	}
 
 
+	/**
+	 * createJWT.
+	 * This method codes the username into the token.
+	 *
+	 * @param {string} userName
+	 * @returns {string} The JWT
+	 */
 	createJWT(userName: string): string {
 		const token = jwt.sign(
 			{ userName: userName },
