@@ -1,6 +1,7 @@
 import 'package:cashcompass_hook/src/connector/error_handler.dart';
 import 'package:http/http.dart' as http;
 
+/// This is our restclient which enables us to encapsulate adding standard headers and this makes it easier in the future to add a feature at this level of requests. 
 class RestClient {
   final String baseUrl;
   final String? port;

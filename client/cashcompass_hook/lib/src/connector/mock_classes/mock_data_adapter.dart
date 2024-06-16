@@ -9,6 +9,8 @@ import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 
+
+/// This is a mock impl. of a DataAdapter for mocking UI data. This is also an example what a dataadapter does.
 class MockDataAdapter extends DataAdapter {
   Map<String, Map<String, dynamic>> db = {
     EntityPaths.activeaccount.path: {

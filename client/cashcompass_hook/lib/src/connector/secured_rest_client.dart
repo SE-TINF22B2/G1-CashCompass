@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/connector/error_handler.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:http/http.dart';
 
+/// This class is a wrapper around [RestClient] for encapsulating all auth related tasks of a rest client.
 class SecuredRestClient extends RestClient {
   SecuredRestClient({required super.baseUrl, super.port});
   String? _jwt;

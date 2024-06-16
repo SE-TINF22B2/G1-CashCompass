@@ -4,6 +4,7 @@ import 'package:cashcompass_hook/src/currency/currency.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
+/// A [Bookable] is an account with a number of transaction which are sorted by 'soll' or 'haben', which together represent the state of an account.
 mixin Bookable {
   final List<Transaction> sollT = [];
   final List<Transaction> habenT = [];

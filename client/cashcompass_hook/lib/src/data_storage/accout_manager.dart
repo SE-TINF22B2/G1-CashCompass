@@ -18,13 +18,18 @@ import 'package:cashcompass_hook/src/transactions/transactions/transactions_fact
 import 'package:uuid/uuid.dart';
 
 class Accountmanager {
-  //final Connector connector;
   final Datastorage _data = Datastorage();
   final Uuid _uuid = const Uuid();
   late final DataAdapter _dataAdapter;
   Accountmanager({required DataAdapter dataAdapter}) {
     _dataAdapter = dataAdapter;
   }
+
+  /// Initializes the Accountmamager via the [Accountmanager._dataAdapter].
+  ///
+  /// First, this function retrives the initialdatapull from the dataadapter and after that the two-step-factories are called.
+  /// The two-step-factories are necessary for connecting all acconts to their transactions.
+  /// After those are connected, the actuall build method is called, which makes the data in this accountManager consistent.
   Future<void> init() async {
     var data = await _dataAdapter.getInitialPull(this);
     Iterable<ActiveAccountFactory> activeFac = data.activeAccounts.map((fac) {
@@ -57,6 +62,7 @@ class Accountmanager {
   Datastorage get data => _data; // TODO: remove getter for _data
 
   String get nextUuid => _uuid.v1();
+
   Bookable? getAccount(int accountNr) {
     // ignore: unnecessary_cast
     Iterable<Bookable?> remote =
@@ -104,25 +110,28 @@ class Accountmanager {
   Iterable<RecurringTransactions> getAllRecurringTransactions() =>
       _copyList(_data.recurringTransactions);
 
+  /// Reads the [_dataAdapter] for an object of type [T] and path [path] with [id] as the id and returns the objects [Factory].
   Future<F> readStorage<
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
       U extends Updater<T>>(EntityPaths path, String id) async {
     return await _dataAdapter.load<F, T, S, U>(
-        path, id, _getFac<F, T, S, U>(path));
+        path, id, _getFactory<F, T, S, U>(path));
   }
 
   Future writeStorage(DatabaseObject obj) async {
     _dataAdapter.store(obj);
   }
 
-  F _getFac<F extends Factory<T, S, F, U>, T extends DatabaseObject<T, S, F, U>,
-      S extends Serializer<T>, U extends Updater<T>>(EntityPaths path) {
+  F _getFactory<
+      F extends Factory<T, S, F, U>,
+      T extends DatabaseObject<T, S, F, U>,
+      S extends Serializer<T>,
+      U extends Updater<T>>(EntityPaths path) {
     switch (path) {
       case EntityPaths.activeaccount:
         return ActiveAccountFactory(this) as F;
-
       case EntityPaths.passiveaccount:
         return PassiveAccountFactory(this) as F;
       case EntityPaths.category:

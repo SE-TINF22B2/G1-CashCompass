@@ -7,6 +7,8 @@ import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.da
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
+/// This class stores all dataclasses of the client for basically caching them on the device in the app.
+/// This enables calles which are not asynchronous for accessing the data.
 class Datastorage {
   final List<PassiveAccount> passiveAccounts = [];
   final List<ActiveAccount> activeAccounts = [];

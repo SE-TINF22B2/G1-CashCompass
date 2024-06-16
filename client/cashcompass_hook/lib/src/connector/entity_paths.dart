@@ -1,3 +1,4 @@
+/// These are the supported entities.
 enum EntityPaths {
   activeaccount("active_account"),
   passiveaccount("passive_account"),

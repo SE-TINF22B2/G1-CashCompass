@@ -1,4 +1,3 @@
-// one connector reprents the connection to one User's data.
 // ignore_for_file: unused_field
 
 import 'dart:developer';
@@ -11,9 +10,15 @@ import 'package:cashcompass_hook/src/connector/secured_rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
-/*
-This class is basically responsible for distributing the data to the local storage as well as the remote storage.
-*/
+/// This class is basically responsible for distributing the data to the local storage as well as the remote storage.
+///
+/// Distributing writes to the data is done by simply creating the [Future]s for both storages and enqueuing them into [_lastingFutures].
+/// This way, we achieve a seamless write for the UI.
+///
+/// And reading values if done by calling read on both, the local and remote storage, and we prioritize values returned from the local storage.
+///
+/// Objects of this call are supposed to be closed by calling close() for writing all futures to the storages
+
 class SyncController implements DataAdapter {
   late LocaleStorage _localStorage;
   late RemoteStorage _remoteStorage;
@@ -24,10 +29,15 @@ class SyncController implements DataAdapter {
     _remoteStorage = RemoteStorage(httpClient);
   }
 
+  /// Returns the latest [InitialPullData] from the remote or local storage.
+  ///
+  /// Fetches both [InitialPullData] and compares their [InitialPullData.lastsync].
+  /// The newer one is chosen as the source of truth and gets returned.
   @override
   Future<InitialPullData> getInitialPull(Accountmanager accountmanager) async {
-    var remote =
-        _remoteStorage.getInitialPull(accountmanager).timeout(const Duration(seconds: 5));
+    var remote = _remoteStorage
+        .getInitialPull(accountmanager)
+        .timeout(const Duration(seconds: 5));
     var local = _localStorage.getInitialPull(accountmanager);
     InitialPullData? localData, remoteData;
     try {
@@ -62,13 +72,13 @@ class SyncController implements DataAdapter {
     return data;
   }
 
+  /// Loads specific [T] from storage. [_localStorage] gets prefered. Throws an Exception if this object does not exist.
   @override
   Future<F> load<
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,
       S extends Serializer<T>,
       U extends Updater<T>>(EntityPaths path, String id, F factory) async {
-    // for now lafter the initial load happens only from the local storage because it is faster
     F? ret;
     var storages = [_localStorage, _remoteStorage];
     var i = 0;
@@ -88,6 +98,7 @@ class SyncController implements DataAdapter {
     }
   }
 
+  /// Stores the overgiven object in the given object in both storages. It is identified by the obj.getPath() and obj.id.
   @override
   Future store(DatabaseObject obj) {
     var local = _localStorage.store(obj);
@@ -120,9 +131,6 @@ abstract class DataAdapter {
   */
   Future store(DatabaseObject obj);
 
-  /*
-    Loads a 
-  */
   Future<F> load<
       F extends Factory<T, S, F, U>,
       T extends DatabaseObject<T, S, F, U>,

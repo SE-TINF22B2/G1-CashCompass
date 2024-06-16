@@ -1,8 +1,10 @@
-// Two step factory is used for the creation of accounts and transactions. The trick is to first create every transaction AND account and after that linking them together.
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
 
+/// The [TwoStepDesserialisationFactory] is supposed to add the principle of a initialization of the account_manager in two steps. First, adding all accounts and after that lining them all through transactions.
+///
+/// See [Accountmanager] for an example.
 abstract class TwoStepDesserialisationFactory extends Deserializer {
   // This should enable us to create all accounts into the account Manager with the first step and in the second step, every transaction should be injected.
   firstStep();
@@ -14,6 +16,7 @@ abstract class Deserializer {
       {required Map<String, dynamic> data, bool isRemote = false, String? id});
 }
 
+/// Collection of deserialization methods for [Bookable] .
 mixin BaseAccountTwoSetDeserialiserFactory<
     T extends DatabaseObject<T, S, F, U>,
     S extends Serializer<T>,
@@ -31,6 +34,7 @@ mixin BaseAccountTwoSetDeserialiserFactory<
   }
 }
 
+/// Collection of deserialization methods for [DatabaseObject].
 mixin DataclassDeserialiser<
     T extends DatabaseObject<T, S, F, U>,
     S extends Serializer<T>,
