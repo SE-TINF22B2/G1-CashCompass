@@ -7,9 +7,10 @@ using {
 namespace dhbw.caco.schema;
 
 aspect BaseAccount : cuid, managed {
-        accountType : Integer; //0=active, 1=passive
-        name        : String;
-        user        : Association to one Users;
+        accountType    : Integer; //0=active, 1=passive
+        name           : String;
+        user           : Association to one Users;
+        account_number : Integer;
 }
 
 //category is nen account
