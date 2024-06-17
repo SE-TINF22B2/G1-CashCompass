@@ -1,7 +1,21 @@
 {
   "requires": {
+    "[production]": {
+      "auth": {
+        "impl": "srv/auth-service/custom-auth.js" 
+      }
+    },
     "auth": {
       "impl": "srv/auth-service/custom-auth.ts" 
+    },
+    "db": {
+      "kind": "sqlite",
+     "credentials": {
+          "database": ":memory:"
+     }
     }
+  },
+  "features": {
+    "in_memory_db": true
   }
 }
