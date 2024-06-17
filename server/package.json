@@ -7,19 +7,28 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^7",
+    "@sap/xssec": "^3",
     "argon2": "^0.40.1",
     "express": "^4",
+    "glob": "^10.4.1",
     "jsonwebtoken": "^9.0.2",
-    "passport-jwt": "^4.0.1"
+    "passport": "^0",
+    "passport-jwt": "^4.0.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/passport-jwt": "^4.0.1",
     "cds-swagger-ui-express": "^0.8.0"
   },
   "scripts": {
-    "start": "cds-ts watch",
-    "generate-types": "npx cds2types --cds ./db/index.cds --output ./lib/types/ -d"
+    "start": "cds-serve",
+    "start:dev": "cds-ts watch",
+    "generate-types": "npx cds2types --cds ./db/index.cds --output ./lib/types/ -d",
+    "build": "npm run build:cds && npm run build:ts",
+    "build:cds": "cds build --production",
+    "build:ts": "tsc --p tsconfig-deploy.json"
   }
 }
