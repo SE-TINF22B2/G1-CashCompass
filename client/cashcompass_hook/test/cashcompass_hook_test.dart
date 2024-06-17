@@ -6,11 +6,14 @@ import 'package:cashcompass_hook/src/accounts/active_account/active_account_seri
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_updater.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
+import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
+import 'package:cashcompass_hook/src/connector/remote_storage.dart';
+import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -250,6 +253,26 @@ void main() {
       data.removeWhere((key, value) => key == "id");
       expect(() => CategoryFactory(manager).deserialise(data: data).build(),
           throwsA(const TypeMatcher<Exception>()));
+    });
+  });
+
+  group("RemoteStorage", () {
+    RestClient restClient = RestClient(
+        baseUrl:
+            "https://9c632b52trial-dev-backend-cap-srv.cfapps.us10-001.hana.ondemand.com/odata/v4");
+
+    Accountmanager accManager =
+        Accountmanager(dataAdapter: RemoteStorage(restClient));
+    late ChartOfAccounts chart;
+    setUp(() async {
+      await accManager.init();
+      chart = ChartOfAccounts(accManager);
+    });
+
+    test("Get All Categories", () {
+      print(chart.getCategories());
+      // expect(chart.getCategories().isNotEmpty, true);
+      // expect(chart.getCategories(matcher: (p0) => false).isEmpty, true);
     });
   });
 }
