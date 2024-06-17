@@ -1,0 +1,24 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "module": "commonjs",
+        "target": "ES6",
+        "alwaysStrict": true,
+        "declaration": false,
+        "sourceMap": false,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./gen/srv/",
+        "rootDir": "./",
+        "skipLibCheck": true
+    },
+    "include": [
+        "./lib/**/*",
+        "./srv/**/*.ts",
+    ],
+    "exclude": [
+        "./node_modules/"
+    ]
+}
