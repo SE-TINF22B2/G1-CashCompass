@@ -13,6 +13,7 @@ InterpretedTransaction interpretTransaction(Transaction transaction) {
   late ActiveAccount wallet;
   late Category category;
   late IconData signIcon;
+  late bool isExpense;
 
   if (soll is Category && haben is Category) {
     throw UnsupportedError("Transaction of two PassiveAccounts not managed!");
@@ -22,18 +23,20 @@ InterpretedTransaction interpretTransaction(Transaction transaction) {
     category = haben;
     wallet = soll;
     signIcon = CupertinoIcons.minus;
+    isExpense = true;
   } else if (soll is Category && haben is ActiveAccount) {
     category = soll;
     wallet = haben;
     signIcon = CupertinoIcons.plus;
+    isExpense = false;
   } else {
     throw UnsupportedError("Unsupported Account Types!");
   }
   return InterpretedTransaction(
-    walletName: wallet.name,
-    categoryIcon: CategoryIcons.fromName(category.iconString).icon,
-    signIcon: signIcon,
-  );
+      walletName: wallet.name,
+      categoryIcon: CategoryIcons.fromName(category.iconString).icon,
+      signIcon: signIcon,
+      isExpense: isExpense);
 }
 
 class TransactionsList extends StatefulWidget {

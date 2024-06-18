@@ -20,7 +20,7 @@ class TransactionsDetailScreen extends StatefulWidget {
 }
 
 class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
-  Selection? selectedValue = Selection.income;
+  Selection? selectedValue;
   late TextEditingController _amountController;
   late TextEditingController _walletController;
   late TextEditingController _titleController;
@@ -43,6 +43,9 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
       _amountController.text = widget.transaction!.amount.toString();
       _walletController.text = interpretedTransaction!.walletName;
       _titleController.text = widget.transaction!.label;
+      selectedValue = interpretedTransaction!.isExpense
+          ? Selection.expense
+          : Selection.income;
 
       // Set initial date from interpretedTransaction
       DateTime transactionDate =
