@@ -84,15 +84,16 @@ class ChartOfAccounts {
         .toList();
   }
 
-  Future<void> createTransaction(
-    Bookable aktive,
-    Bookable passive,
-    String lable,
-    double amount,
-  ) {
+  Future<void> createTransaction(Bookable aktive, Bookable passive,
+      String lable, double amount, DateTime timestamp) {
     return _accountmanager.appendTransaction(
         TransactionsFactory(_accountmanager)
-            .create(amount: amount, soll: aktive, haben: passive, label: lable)
+            .create(
+                amount: amount,
+                soll: aktive,
+                haben: passive,
+                label: lable,
+                timestamp: timestamp)
             .build());
   }
 }

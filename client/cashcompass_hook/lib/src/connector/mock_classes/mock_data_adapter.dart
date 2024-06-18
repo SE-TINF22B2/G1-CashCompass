@@ -52,6 +52,7 @@ class MockDataAdapter extends DataAdapter {
         "name": "GiftsDonations",
         "account_number": 21,
         "icon": "GiftsDonations",
+        "color": "#ff6961",
         "soll": [],
         "haben": []
       },
@@ -61,6 +62,7 @@ class MockDataAdapter extends DataAdapter {
         "name": "Groceries",
         "account_number": 22,
         "icon": "Groceries",
+        "color": "#ffb340",
         "soll": [],
         "haben": []
       },
@@ -70,6 +72,7 @@ class MockDataAdapter extends DataAdapter {
         "name": "Transport",
         "account_number": 23,
         "icon": "Transport",
+        "color": "#409cff",
         "soll": [],
         "haben": []
       },
@@ -79,6 +82,7 @@ class MockDataAdapter extends DataAdapter {
         "name": "Loans",
         "account_number": 24,
         "icon": "Loans",
+        "color": "#a05b00",
         "soll": [],
         "haben": []
       },

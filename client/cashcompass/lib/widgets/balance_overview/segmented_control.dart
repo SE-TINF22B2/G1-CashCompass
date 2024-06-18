@@ -19,7 +19,6 @@ class SegmentedControlWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10.0),
       child: CupertinoSlidingSegmentedControl<Selection>(
-        backgroundColor: CupertinoColors.systemGrey2,
         thumbColor: selectedSegment
             .color, // Set the color of the thumb based on the selected segment
         groupValue: selectedSegment, // currently selected value
@@ -29,11 +28,12 @@ class SegmentedControlWidget extends StatelessWidget {
               (index, selection) => MapEntry(
                 selection,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    selection.title,
-                    style: const TextStyle(color: CupertinoColors.white),
-                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(selection.title,
+                      style: TextStyle(
+                          color: selection == selectedSegment
+                              ? CupertinoColors.white
+                              : CupertinoColors.black)),
                 ),
               ),
             ),
