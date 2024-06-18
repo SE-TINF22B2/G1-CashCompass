@@ -1,12 +1,10 @@
 import 'dart:developer';
-
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_serializer.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_updater.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
-import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';

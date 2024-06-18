@@ -1,4 +1,3 @@
-import 'package:cashcompass_hook/cashcompass_hook.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
@@ -26,22 +25,9 @@ class RemoteStorage implements DataAdapter {
       throw Error();
     }
 
-    // Map<String, Map<String, dynamic>>
-
     final Map<String, dynamic> responseBody = json.decode(response.body);
 
     final Map<String, dynamic> data = responseBody["value"];
-    // final List<dynamic> activeAccounts = data["active_account"];
-    // print(activeAccounts);
-
-    // final Map<String, List<Map<String, dynamic>>> data =
-    //     json.decode(responseBody["value"]);
-
-    // Map<String, List<Map<String, dynamic>>> d =
-    //     json.decode(responseBody["value"]);
-    // print(d);
-    //
-    // print(data["active_account"]);
 
     List<Map<String, dynamic>> activeAccounts =
         data[EntityPaths.activeaccount.path]
@@ -81,11 +67,6 @@ class RemoteStorage implements DataAdapter {
                 CategoryFactory(accountManager).deserialise(data: object))
             .toList(),
         lastsync: DateTime.now());
-
-    print(pullData.activeAccounts);
-    print(pullData.passiveAccounts);
-    print(pullData.transactions);
-    print(pullData.categories);
 
     return pullData;
   }
