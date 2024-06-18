@@ -1,6 +1,7 @@
-import { ApplicationService } from "@sap/cds";
+import cds, { ApplicationService } from "@sap/cds";
 import { SanitizedEntity } from "../../lib/types/dhbw.caco.schema";
 import { Request } from "@sap/cds";
+import { Accounts } from "../../lib/types/dhbw.caco.schema";
 
 
 /**
@@ -20,7 +21,36 @@ export class DataService extends ApplicationService {
   async init() {
     this.before("CREATE", SanitizedEntity.Accounts, this.handleBeforeAccountCreate);
 
+    this.on("getInitalPullData", this.handleGetInitialPullData);
+
     await super.init();
+  }
+
+  /**
+   * handleGetInitialPullData.
+   * This method is calles by the app to get all data needed for an inital app start
+   *
+   * @param {Request} req
+   */
+  async handleGetInitialPullData(req: Request) {
+    const db = await cds.connect.to('db');
+
+    const [accounts, categories, friendAccounts, transactions, recurringTransactions] = await Promise.all([
+      db.read('dhbw.caco.schema.Accounts'),
+      db.read('dhbw.caco.schema.Categories'),
+      db.read('dhbw.caco.schema.FriendAccounts'),
+      db.read('dhbw.caco.schema.Transactions'),
+      db.read('dhbw.caco.schema.RecurringTransactions')
+    ]);
+
+    return {
+      active_account: accounts.filter(account => account.accountType === 0),
+      passive_account: categories.filter(account => account.accountType === 1),
+      category: friendAccounts,
+      transaction: transactions,
+      recurring_transactions: recurringTransactions
+    };
+
   }
 
   /**
