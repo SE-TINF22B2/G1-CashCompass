@@ -336,5 +336,6 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
         _titleController.text,
         double.parse(_amountController.text),
         _timestamp ?? DateTime.now());
+    Navigator.of(context).pop();
   }
 }
