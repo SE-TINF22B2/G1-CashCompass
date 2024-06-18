@@ -238,8 +238,13 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     // Calculation of the fraction for income and expense
     // needed to define the size of each container (income/expense)
     double total = totalIncomes + totalExpenses;
-    double incomeFraction = totalIncomes / total;
-    double expenseFraction = totalExpenses / total;
+    double incomeFraction = total > 0 ? totalIncomes / total : 0;
+    double expenseFraction = total > 0 ? totalExpenses / total : 0;
+
+    if (incomeFraction == 0 && expenseFraction == 0) {
+      incomeFraction = 0.5;
+      expenseFraction = 0.5;
+    }
 
     return Container(
       margin: const EdgeInsets.all(20),

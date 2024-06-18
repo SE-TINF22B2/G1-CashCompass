@@ -112,7 +112,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         interpretedCategory.categoryIcon,
                         color: CupertinoColors.black,
                       ),
-                      onTap: _handleCategoryListTileTapped,
+                      onTap: () => _handleCategoryListTileTapped(category),
                     );
                   }
                 },
@@ -130,9 +130,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  void _handleCategoryListTileTapped() {
+  void _handleCategoryListTileTapped(Category category) {
     Navigator.of(context).push(CupertinoPageRoute(
-        builder: (context) => const CategoriesDetailScreen()));
+        builder: (context) => CategoriesDetailScreen(category)));
   }
 
   void handleAddCategory() {
