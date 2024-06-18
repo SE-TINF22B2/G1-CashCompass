@@ -1,6 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
-import 'package:flutter/cupertino.dart';
 
 class Income {
   final Transaction transaction;
