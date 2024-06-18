@@ -43,6 +43,12 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
       _amountController.text = widget.transaction!.amount.toString();
       _walletController.text = interpretedTransaction!.walletName;
       _titleController.text = widget.transaction!.label;
+
+      // Set initial date from interpretedTransaction
+      DateTime transactionDate =
+          widget.transaction!.timestamp; // Assuming date format is yyyy-MM-dd
+      _selectedDate =
+          "${transactionDate.year}-${transactionDate.month.toString().padLeft(2, '0')}-${transactionDate.day.toString().padLeft(2, '0')}";
     }
   }
 
