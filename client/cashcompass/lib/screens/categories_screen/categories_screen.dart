@@ -6,9 +6,9 @@ import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/data.dart';
 
 import '../../widgets/balance_overview/balance_overview.dart';
-import '../../widgets/balance_overview/mock_transaction.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -19,38 +19,39 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   late final ChartOfAccounts chart;
-  late List<Category> d1;
-  late List<Category> d2;
-  late List<Category> list;
-  late List<CategoryMock> c1;
-  late List<CategoryMock> c2;
+
+  late List<Category> allCategories;
+  late Map<Category, Iterable<Income>> incomesCategories;
+  late Map<Category, Iterable<Expense>> expenseCategories;
+
+  List<Income> incomes = List.empty();
+  List<Expense> expenses = List.empty();
 
   @override
   void initState() {
     super.initState();
     chart = ChartOfAccounts(Controller.accountManager);
-    d1 = chart.getCategories().where((category) {
-      return category.close() >= 0;
-    }).toList(); //get incomes
-    d2 = chart.getCategories().where((category) {
-      return category.close() < 0;
-    }).toList(); //get expenses
-    list = chart.getCategories(); //get all
 
-    c1 = d1
-        .map((Category c1) => CategoryMock(
-            name: c1.name,
-            icon: Icons.abc,
-            color: Colors.black,
-            totalValue: 1.1))
-        .toList();
-    c2 = d2
-        .map((Category c2) => CategoryMock(
-            name: c2.name,
-            icon: Icons.baby_changing_station,
-            color: Colors.red,
-            totalValue: 2.0))
-        .toList();
+    // Get all categories from FAIL
+    allCategories = chart.getCategories();
+
+    // Get all categories from FAIL which are incomes
+    incomesCategories = chart.getIncomePerCategory(null);
+
+    incomesCategories.forEach((key, value) {
+      for (var element in value) {
+        incomes.add(element);
+      }
+    });
+
+    // Get  all categories from FAIL which are expenses
+    expenseCategories = chart.getExpencesPerCategory(null);
+
+    expenseCategories.forEach((key, value) {
+      for (var element in value) {
+        expenses.add(element);
+      }
+    });
   }
 
   @override
@@ -65,13 +66,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               BalanceOverview(
-                incomes: c1,
-                expenses: c2,
+                incomes: incomes,
+                expenses: expenses,
               ),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: list.length + 1,
+                itemCount: allCategories.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return CupertinoListTile(
@@ -83,7 +84,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       ),
                     );
                   } else {
-                    Category category = list[index - 1];
+                    Category category = allCategories[index - 1];
                     InterpretedCategory interpretedCategory =
                         _interpretCategory(category);
 
