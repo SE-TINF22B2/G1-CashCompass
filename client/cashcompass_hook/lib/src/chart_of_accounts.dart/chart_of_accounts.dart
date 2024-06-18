@@ -1,8 +1,10 @@
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
+import 'package:cashcompass_hook/src/accounts/bookable.dart';
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/data.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 
 class CategoryAndTransactions {
   final Category category;
@@ -54,7 +56,7 @@ class ChartOfAccounts {
         .where((cate) => category == null ? true : cate == category);
 
     for (var category in categories) {
-      var e = category.sollT.map((elem) => Income(elem, category));
+      var e = category.habenT.map((elem) => Income(elem, category));
       if (e.isNotEmpty) {
         ret[category] = e;
       }
@@ -80,5 +82,17 @@ class ChartOfAccounts {
         .getAllActiveAccounts()
         .where((acc) => matcher != null ? matcher(acc) : true)
         .toList();
+  }
+
+  Future<void> createTransaction(
+    Bookable aktive,
+    Bookable passive,
+    String lable,
+    double amount,
+  ) {
+    return _accountmanager.appendTransaction(
+        TransactionsFactory(_accountmanager)
+            .create(amount: amount, soll: aktive, haben: passive, label: lable)
+            .build());
   }
 }
