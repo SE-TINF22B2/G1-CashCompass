@@ -17,6 +17,7 @@ aspect BaseAccount : cuid, managed {
 entity Accounts : BaseAccount {}
 
 entity Categories : BaseAccount {
+        icon   : String;
         color  : String;
         budget : Double;
 }
@@ -27,11 +28,11 @@ entity FriendAccounts : BaseAccount {
 }
 
 aspect BaseTransaction : cuid, managed {
-        activeAccount  : Association to one Accounts;
-        passiveAccount : Association to one Accounts;
-        amount         : Double;
-        label          : String;
-        transactionsNr : Integer;
+        activeAccount     : Association to one Accounts;
+        passiveAccount    : Association to one Accounts;
+        amount            : Double;
+        label             : String;
+        transactionNumber : Integer;
 }
 
 
