@@ -14,6 +14,6 @@ mixin BaseBookableSerializer {
 
 mixin BaseDatabaseObjSerialiser {
   void serialiseDbObj(Map<String, dynamic> map, DatabaseObject obj) {
-    map.addAll({"id": obj.id, "isUploaded": obj.isUploaded});
+    map.addAll({"ID": obj.id, "isUploaded": obj.isUploaded});
   }
 }

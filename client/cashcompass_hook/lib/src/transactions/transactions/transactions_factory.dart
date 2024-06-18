@@ -33,12 +33,12 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
   @override
   TransactionsFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
-    sollNr = data["soll"];
-    habenNr = data["haben"];
+    sollNr = data["soll"] ?? 0;
+    habenNr = data["haben"] ?? 0;
     amount = 1.0 * data["amount"];
     label = data["label"];
     transactionNr = data["transactionNumber"];
-    this.id = id;
+    this.id = id ?? data["ID"];
     this.isRemote = isRemote;
     return this;
   }

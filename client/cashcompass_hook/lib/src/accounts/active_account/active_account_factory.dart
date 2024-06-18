@@ -31,9 +31,9 @@ class ActiveAccountFactory extends Factory<ActiveAccount,
   ActiveAccountFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = ActiveAccount(data["name"], data["account_number"]);
-    soll = parseDynamicListToStringList(data["soll"]);
-    haben = parseDynamicListToStringList(data["haben"]);
-    deserialiseDbObj(id ?? data["id"], !isRemote);
+    soll = parseDynamicListToStringList(data["soll"] ?? []);
+    haben = parseDynamicListToStringList(data["haben"] ?? []);
+    deserialiseDbObj(id ?? data["ID"], !isRemote);
     return this;
   }
 }

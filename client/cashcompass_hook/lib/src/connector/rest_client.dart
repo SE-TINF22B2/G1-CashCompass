@@ -1,6 +1,9 @@
 import 'package:cashcompass_hook/src/connector/error_handler.dart';
 import 'package:http/http.dart' as http;
 
+const defaultServerBaseUrl =
+    "https://9c632b52trial-dev-backend-cap-srv.cfapps.us10-001.hana.ondemand.com/odata/v4";
+
 class RestClient {
   final String baseUrl;
   final String? port;
@@ -18,11 +21,9 @@ class RestClient {
 
   Future<http.Response> post(String path, String body,
       {Map<String, String>? headers, ErrorHandler? errorHandler}) async {
-    final response = await http.post(
-      Uri.parse('$_basetUrl$path'),
-      body: body,
-      headers: headers,
-    );
+    final response = await http.post(Uri.parse('$_basetUrl$path'),
+        body: body,
+        headers: {"content-type": "application/json", ...headers ?? {}});
     (errorHandler ?? const ErrorHandler()).handle(response);
     return response;
   }

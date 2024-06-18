@@ -7,15 +7,17 @@ using {
 namespace dhbw.caco.schema;
 
 aspect BaseAccount : cuid, managed {
-        accountType : Integer; //0=active, 1=passive
-        name        : String;
-        user        : Association to one Users;
+        accountType    : Integer; //0=active, 1=passive
+        name           : String;
+        user           : Association to one Users;
+        account_number : Integer;
 }
 
 //category is nen account
 entity Accounts : BaseAccount {}
 
 entity Categories : BaseAccount {
+        icon   : String;
         color  : String;
         budget : Double;
 }
@@ -26,10 +28,13 @@ entity FriendAccounts : BaseAccount {
 }
 
 aspect BaseTransaction : cuid, managed {
-        activeAccount  : Association to one Accounts;
-        passiveAccount : Association to one Accounts;
-        amount         : Double;
+        activeAccount     : Association to one Accounts;
+        passiveAccount    : Association to one Accounts;
+        amount            : Double;
+        label             : String;
+        transactionNumber : Integer;
 }
+
 
 entity Transactions : BaseTransaction {
         timestamp : Timestamp;

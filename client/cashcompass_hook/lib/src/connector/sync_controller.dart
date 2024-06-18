@@ -26,8 +26,9 @@ class SyncController implements DataAdapter {
 
   @override
   Future<InitialPullData> getInitialPull(Accountmanager accountmanager) async {
-    var remote =
-        _remoteStorage.getInitialPull(accountmanager).timeout(const Duration(seconds: 5));
+    var remote = _remoteStorage
+        .getInitialPull(accountmanager)
+        .timeout(const Duration(seconds: 5));
     var local = _localStorage.getInitialPull(accountmanager);
     InitialPullData? localData, remoteData;
     try {
