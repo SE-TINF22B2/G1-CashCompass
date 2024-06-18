@@ -21,9 +21,6 @@ class RemoteStorage implements DataAdapter {
       "/data/getInitalPullData",
       "",
     );
-    if (response.statusCode != 200) {
-      throw Error();
-    }
 
     final Map<String, dynamic> responseBody = json.decode(response.body);
 
@@ -58,13 +55,13 @@ class RemoteStorage implements DataAdapter {
             .map((object) =>
                 PassiveAccountFactory(accountManager).deserialise(data: object))
             .toList(),
-        transactions: transactions
-            .map((object) =>
-                TransactionsFactory(accountManager).deserialise(data: object))
-            .toList(),
         categories: categories
             .map((object) =>
                 CategoryFactory(accountManager).deserialise(data: object))
+            .toList(),
+        transactions: transactions
+            .map((object) =>
+                TransactionsFactory(accountManager).deserialise(data: object))
             .toList(),
         lastsync: DateTime.now());
 
@@ -82,8 +79,12 @@ class RemoteStorage implements DataAdapter {
   }
 
   @override
-  Future store(DatabaseObject obj) {
-    // TODO: implement store
-    throw UnimplementedError();
+  Future store(DatabaseObject obj) async {
+    print("Moin");
+    print(obj.getSerialiser().toJson());
+    http.Response response = await _client.post(
+        "/data/${obj.getPath()}", jsonEncode(obj.getSerialiser().toJson()));
+
+    print(response);
   }
 }

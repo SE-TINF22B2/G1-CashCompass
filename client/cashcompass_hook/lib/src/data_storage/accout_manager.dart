@@ -114,7 +114,7 @@ class Accountmanager {
   }
 
   Future writeStorage(DatabaseObject obj) async {
-    _dataAdapter.store(obj);
+    await _dataAdapter.store(obj);
   }
 
   F _getFac<F extends Factory<T, S, F, U>, T extends DatabaseObject<T, S, F, U>,

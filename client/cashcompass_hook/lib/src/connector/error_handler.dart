@@ -9,6 +9,7 @@ class ErrorHandler {
     if (expectedCode == response.statusCode) {
       return;
     }
+
     switch (response.statusCode) {
       case (401):
         throw ApiException.unauthorized();

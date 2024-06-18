@@ -273,5 +273,28 @@ void main() {
     test("Get All active Accounts", () {
       expect(accountChart.getActiveAccounts().isNotEmpty, true);
     });
+
+    // test("Create Transactions", () async {
+    //   var acc = CategoryFactory(accManager)
+    //       .create("test1", "#666666", "StopSign")
+    //       .build();
+    //   var acc2 = CategoryFactory(accManager)
+    //       .create("test2", "#666666", "StopSign")
+    //       .build();
+    //
+    //   var tr = TransactionsFactory(accManager)
+    //       .create(
+    //           amount: 566.0, soll: acc, haben: acc2, label: "Test Transaction")
+    //       .build();
+    //
+    //   final int transactionsCount = accountChart.getActiveAccounts().length;
+    //
+    //   expect(tr.isUploaded, false);
+    //
+    //   await accManager.writeStorage(tr);
+    //
+    //   expect(tr.isUploaded, true);
+    //   expect(accountChart.getActiveAccounts().length, transactionsCount + 1);
+    // });
   });
 }
