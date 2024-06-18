@@ -43,11 +43,11 @@ export class DataService extends ApplicationService {
     ]);
 
     return {
-      active_account: accounts.filter(account => account.accountType === 0),
-      passive_account: accounts.filter(account => account.accountType === 1),
-      category: categories,
-      transaction: transactions,
-      recurring_transactions: recurringTransactions
+      ActiveAccounts: accounts.filter(account => account.accountType === 0),
+      PassiveAccounts: accounts.filter(account => account.accountType === 1),
+      Categories: categories,
+      Transactions: transactions,
+      RecurrintTransactions: recurringTransactions
     };
 
   }
