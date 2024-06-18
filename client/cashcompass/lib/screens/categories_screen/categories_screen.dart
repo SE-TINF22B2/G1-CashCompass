@@ -24,8 +24,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   late Map<Category, Iterable<Income>> incomesCategories;
   late Map<Category, Iterable<Expense>> expenseCategories;
 
-  List<Income> incomes = List.empty();
-  List<Expense> expenses = List.empty();
+  List<Income> incomes = List.empty(growable: true);
+  List<Expense> expenses = List.empty(growable: true);
 
   @override
   void initState() {
