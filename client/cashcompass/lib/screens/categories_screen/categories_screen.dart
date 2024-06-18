@@ -56,8 +56,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text("Categories"),
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("Categories"),
       ),
       child: SafeArea(
         child: SingleChildScrollView(

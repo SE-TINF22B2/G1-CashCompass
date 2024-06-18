@@ -176,7 +176,6 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     );
   }
 
-  //einzeln machen
   // Method that generate and return a list of PieChartSectionData which are required for PieChart
   List<PieChartSectionData> _generatePieChartSections(
       List<_Transaction> items) {
