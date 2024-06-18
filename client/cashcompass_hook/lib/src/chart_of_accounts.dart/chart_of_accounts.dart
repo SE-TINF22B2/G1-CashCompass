@@ -1,4 +1,5 @@
 import 'package:cashcompass_hook/src/accounts/category/category.dart';
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/data.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 
@@ -26,6 +27,36 @@ class ChartOfAccounts {
     for (Category i in cates) {
       ret.add(
           CategoryAndTransactions(category: i, haben: i.habenT, soll: i.sollT));
+    }
+    return ret;
+  }
+
+  Map<Category, Iterable<Expense>> getExpencesPerCategory(Category? category) {
+    Map<Category, Iterable<Expense>> ret = {};
+    Iterable<Category> categories = _accountmanager
+        .getAllCategories()
+        .where((cate) => category == null ? true : cate == category);
+
+    for (var category in categories) {
+      var e = category.sollT.map((elem) => Expense(elem, category));
+      if (e.isNotEmpty) {
+        ret[category] = e;
+      }
+    }
+    return ret;
+  }
+
+  Map<Category, Iterable<Income>> getIncomePerCategory(Category? category) {
+    Map<Category, Iterable<Income>> ret = {};
+    Iterable<Category> categories = _accountmanager
+        .getAllCategories()
+        .where((cate) => category == null ? true : cate == category);
+
+    for (var category in categories) {
+      var e = category.sollT.map((elem) => Income(elem, category));
+      if (e.isNotEmpty) {
+        ret[category] = e;
+      }
     }
     return ret;
   }
