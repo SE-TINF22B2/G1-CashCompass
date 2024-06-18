@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
-
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
@@ -26,29 +24,39 @@ class Accountmanager {
     _dataAdapter = dataAdapter;
   }
   Future<void> init() async {
-    var data = await _dataAdapter.getInitialPull(this);
-    Iterable<ActiveAccountFactory> activeFac = data.activeAccounts.map((fac) {
-      return fac.firstStep();
-    });
-    Iterable<PassiveAccountFactory> passiveFac =
-        data.passiveAccounts.map((fac) => fac.firstStep());
-    Iterable<CategoryFactory> categoriesFac =
-        data.categories.map((fac) => fac.firstStep());
-    Iterable<TransactionsFactory> transFac =
-        data.transactions.map((fac) => fac.firstStep());
-    Iterable<RecurringTransactionsFactory> recTransFac =
-        data.recurringTransactions.map((fac) => fac.firstStep());
+    var initialData = await _dataAdapter.getInitialPull(this);
+    // Iterable<ActiveAccountFactory> activeFac = initialData.activeAccounts.map((fac) {
+    //   return fac.firstStep();
+    // });
+    // Iterable<PassiveAccountFactory> passiveFac =
+    //     initialData.passiveAccounts.map((fac) => fac.firstStep());
+    // Iterable<CategoryFactory> categoriesFac =
+    //     initialData.categories.map((fac) => fac.firstStep());
+    // Iterable<TransactionsFactory> transFac =
+    //     initialData.transactions.map((fac) => fac.firstStep());
+    // Iterable<RecurringTransactionsFactory> recTransFac =
+    //     initialData.recurringTransactions.map((fac) => fac.firstStep());
 
-    activeFac = activeFac.map((fac) => fac.secondStep());
-    passiveFac = passiveFac.map((fac) => fac.secondStep());
-    categoriesFac = categoriesFac.map((fac) => fac.secondStep());
-    transFac = transFac.map((fac) => fac.secondStep());
-    recTransFac = recTransFac.map((fac) => fac.secondStep());
-    activeFac.forEach((f) => _data.activeAccounts.add(f.build()));
-    passiveFac.forEach((f) => _data.passiveAccounts.add(f.build()));
-    categoriesFac.forEach((f) => _data.categories.add(f.build()));
-    transFac.forEach((f) => _data.transactions.add(f.build()));
-    recTransFac.forEach((f) => _data.recurringTransactions.add(f.build()));
+    // activeFac = activeFac.map((fac) => fac.secondStep());
+    // passiveFac = passiveFac.map((fac) => fac.secondStep());
+    // categoriesFac = categoriesFac.map((fac) => fac.secondStep());
+    // transFac = transFac.map((fac) => fac.secondStep());
+    // recTransFac = recTransFac.map((fac) => fac.secondStep());
+    for (var f in initialData.activeAccounts) {
+      f.build();
+    }
+    for (var f in initialData.passiveAccounts) {
+      f.build();
+    }
+    for (var f in initialData.categories) {
+      f.build();
+    }
+    for (var f in initialData.transactions) {
+      f.build();
+    }
+    for (var f in initialData.recurringTransactions) {
+      f.build();
+    }
   }
 
   int get nextAccountNumber => _data.getNewAccountNumber();
@@ -138,5 +146,12 @@ class Accountmanager {
     List<T> n = <T>[];
     n.addAll(i);
     return n;
+  }
+
+  Future<void> appendTransaction(Transaction transaction) {
+    _data.transactions.add(transaction);
+    transaction.soll.appendTransaction(transaction);
+    transaction.haben.appendTransaction(transaction);
+    return _dataAdapter.store(transaction);
   }
 }
