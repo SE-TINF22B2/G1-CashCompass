@@ -1,3 +1,4 @@
+import 'package:cashcompass/screens/transactions_detail_screen/transactions_detail_screen.dart';
 import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/bookable.dart';
@@ -126,9 +127,13 @@ class _TransactionsListState extends State<TransactionsList> {
     );
   }
 
-  void handleAddTransaction() {}
+  void handleAddTransaction() {
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => TransactionsDetailScreen(editMode: true)));
+  }
 
   void _handleTransactionListTileTapped() {
-    throw UnsupportedError("Not yet implemented");
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => TransactionsDetailScreen(editMode: false)));
   }
 }
