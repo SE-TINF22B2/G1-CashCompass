@@ -1,5 +1,4 @@
 import 'date_selector.dart';
-import 'mock_transaction.dart';
 import 'segmented_control.dart';
 import 'total_display.dart';
 import 'view_option.dart';
@@ -7,6 +6,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'selection.dart';
 import 'package:intl/intl.dart';
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/data.dart';
+import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
+import 'package:cashcompass/utils/hex_color.dart';
 
 /// Custom widget for representing the overview of income, balance and expenses
 /// Uses different custom widgets that are refractored in own files under
@@ -14,8 +16,8 @@ import 'package:intl/intl.dart';
 ///
 class BalanceOverview extends StatefulWidget {
   // Widget expects two list of all Categories depending on the selectedDate
-  final List<CategoryMock> incomes;
-  final List<CategoryMock> expenses;
+  final List<Income> incomes;
+  final List<Expense> expenses;
 
   const BalanceOverview({
     super.key,
@@ -44,9 +46,9 @@ class _BalanceOverviewState extends State<BalanceOverview> {
 
   //Calculation of total values for incomes und expenses
   double get totalIncomes =>
-      widget.incomes.fold(0, (sum, item) => sum + item.totalValue);
+      widget.incomes.fold(0, (sum, item) => sum + item.transaction.amount);
   double get totalExpenses =>
-      widget.expenses.fold(0, (sum, item) => sum + item.totalValue);
+      widget.expenses.fold(0, (sum, item) => sum + item.transaction.amount);
 
   // function that returns the total value depening on selected view [income, balance, expenses]
   double get totalValue {
@@ -95,9 +97,28 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   /// Expense -> builds a pie chart with the list of expenses
   Widget _buildContent() {
     if (_selectedSegment == Selection.income) {
-      return _buildPieChart(widget.incomes);
+      return _buildPieChart(
+        widget.incomes
+            .map(
+              (e) => _Transaction(
+                icon: CategoryIcons.fromName(e.category.iconString).icon,
+                color: HexColor.fromHex(e.category.colorString),
+                totalValue: e.transaction.amount,
+              ),
+            )
+            .toList(),
+      );
     } else if (_selectedSegment == Selection.expense) {
-      return _buildPieChart(widget.expenses);
+      return _buildPieChart(
+        widget.expenses
+            .map(
+              (e) => _Transaction(
+                  icon: CategoryIcons.fromName(e.category.iconString).icon,
+                  color: HexColor.fromHex(e.category.colorString),
+                  totalValue: e.transaction.amount),
+            )
+            .toList(),
+      );
     } else {
       return _buildBalanceContainer();
     }
@@ -106,7 +127,8 @@ class _BalanceOverviewState extends State<BalanceOverview> {
   /// Method to build a pie chart using a list
   /// Using the PieChart widget from the imported fl_chart package
   /// PieChart widget needs PieChartData for each section in the pie chart
-  Widget _buildPieChart(List<CategoryMock> items) {
+  /// Icon, Color, Amount
+  Widget _buildPieChart(List<_Transaction> items) {
     return Container(
       margin: const EdgeInsets.all(20),
       child: Stack(
@@ -154,9 +176,10 @@ class _BalanceOverviewState extends State<BalanceOverview> {
     );
   }
 
+  //einzeln machen
   // Method that generate and return a list of PieChartSectionData which are required for PieChart
   List<PieChartSectionData> _generatePieChartSections(
-      List<CategoryMock> items) {
+      List<_Transaction> items) {
     return items.map((item) {
       return PieChartSectionData(
           color: item.color,
@@ -316,4 +339,16 @@ class _BalanceOverviewState extends State<BalanceOverview> {
       ),
     );
   }
+}
+
+class _Transaction {
+  final IconData icon;
+  final Color color;
+  final double totalValue;
+
+  _Transaction({
+    required this.icon,
+    required this.color,
+    required this.totalValue,
+  });
 }
