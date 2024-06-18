@@ -33,11 +33,13 @@ aspect BaseTransaction : cuid, managed {
         amount            : Double;
         label             : String;
         transactionNumber : Integer;
+        soll              : Integer;
+        haben             : Integer;
 }
 
 
 entity Transactions : BaseTransaction {
-        timestamp : Timestamp;
+        timestamp : String;
 }
 
 entity RecurringTransactions : BaseTransaction {
