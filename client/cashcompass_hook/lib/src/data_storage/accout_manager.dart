@@ -99,8 +99,8 @@ class Accountmanager {
     _data.categories.addAll(categories);
   }
 
-  void addTransaction(List<Transaction> trs) {
-    _data.transactions.addAll(trs);
+  void addTransaction(List<Transaction> transactions) {
+    _data.transactions.addAll(transactions);
   }
 
   Iterable<Category> getAllCategories() => _copyList(_data.categories);
@@ -126,7 +126,7 @@ class Accountmanager {
   }
 
   Future writeStorage(DatabaseObject obj) async {
-    _dataAdapter.store(obj);
+    await _dataAdapter.store(obj);
   }
 
   F _getFac<F extends Factory<T, S, F, U>, T extends DatabaseObject<T, S, F, U>,

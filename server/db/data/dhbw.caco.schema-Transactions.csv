@@ -1,2 +1,2 @@
-ID;timestamp;createdBy;activeAccount_ID;passiveAccount_ID;amount;label;transactionNumber;
-cd3f2329-026d-4d36-bb7a-5eea1b241288;2017-04-13T15:51:04.000Z;Simi;b2b97b50-a0ed-4884-a3b3-5603f660b86f;d688110f-ecbe-4e57-a134-7f86cae77a18;2.71;Essen;0;
+ID;timestamp;createdBy;activeAccount_ID;passiveAccount_ID;amount;label;transactionNumber;soll;haben;
+cd3f2329-026d-4d36-bb7a-5eea1b241288;2017-04-13T15:51:04.000Z;Simi;b2b97b50-a0ed-4884-a3b3-5603f660b86f;d688110f-ecbe-4e57-a134-7f86cae77a18;2.71;Essen;0;0;1;

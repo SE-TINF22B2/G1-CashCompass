@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/active_account/active_account_fact
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
+import 'package:cashcompass_hook/src/connector/error_handler.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
@@ -21,9 +22,6 @@ class RemoteStorage implements DataAdapter {
       "/data/getInitalPullData",
       "",
     );
-    if (response.statusCode != 200) {
-      throw Error();
-    }
 
     final Map<String, dynamic> responseBody = json.decode(response.body);
 
@@ -58,13 +56,13 @@ class RemoteStorage implements DataAdapter {
             .map((object) =>
                 PassiveAccountFactory(accountManager).deserialise(data: object))
             .toList(),
-        transactions: transactions
-            .map((object) =>
-                TransactionsFactory(accountManager).deserialise(data: object))
-            .toList(),
         categories: categories
             .map((object) =>
                 CategoryFactory(accountManager).deserialise(data: object))
+            .toList(),
+        transactions: transactions
+            .map((object) =>
+                TransactionsFactory(accountManager).deserialise(data: object))
             .toList(),
         lastsync: DateTime.now());
 
@@ -82,8 +80,11 @@ class RemoteStorage implements DataAdapter {
   }
 
   @override
-  Future store(DatabaseObject obj) {
-    // TODO: implement store
-    throw UnimplementedError();
+  Future store(DatabaseObject obj) async {
+    Map<String, dynamic> object = obj.getSerialiser().toJson();
+    object.remove("isUploaded");
+    http.Response response = await _client.post(
+        "/data/${obj.getPath()}", jsonEncode(object),
+        errorHandler: ErrorHandler(expectedCode: 201));
   }
 }

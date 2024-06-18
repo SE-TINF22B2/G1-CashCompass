@@ -33,17 +33,6 @@ void main() {
       expect(chart.getCategories().isNotEmpty, true);
       expect(chart.getCategories(matcher: (p0) => false).isEmpty, true);
     });
-
-    test("Append Transcation", () {
-      var cate = chart.getCategories().first;
-      var incomePerCategory = chart.getIncomePerCategory(cate);
-      var nrTransactions = incomePerCategory.containsKey(cate)
-          ? incomePerCategory[cate]!.length
-          : 0;
-      chart.createTransaction(cate, cate, "test", 200, DateTime.now());
-      expect(chart.getIncomePerCategory(cate)[cate]!.length,
-          greaterThan(nrTransactions));
-    });
   });
 
   group("Hook startup", () {
@@ -283,6 +272,29 @@ void main() {
 
     test("Get All active Accounts", () {
       expect(accountChart.getActiveAccounts().isNotEmpty, true);
+    });
+
+    test("Create Transactions", () async {
+      var tr = TransactionsFactory(accManager)
+          .create(
+              amount: 566.0,
+              soll: accManager.getAllActiveAccounts().first,
+              haben: accManager.getAllCategories().first,
+              label: "Test Transaction")
+          .build();
+      print(accManager.getAllActiveAccounts());
+
+      final int transactionsCount = accountChart.getActiveAccounts().length;
+
+      expect(tr.isUploaded, false);
+
+      await accountChart.createTransaction(
+          accManager.getAllActiveAccounts().first,
+          accManager.getAllCategories().first,
+          "Test tx",
+          42);
+
+      expect(accountChart.getActiveAccounts().length, transactionsCount + 1);
     });
   });
 }

@@ -1,9 +1,9 @@
 enum EntityPaths {
-  activeaccount("active_account"),
-  passiveaccount("passive_account"),
-  category("category"),
-  transaction("transaction"),
-  recurringtransations("recurring_transactions");
+  activeaccount("ActiveAccounts"),
+  passiveaccount("PassiveAccounts"),
+  category("Categories"),
+  transaction("Transactions"),
+  recurringtransations("RecurrintTransactions");
 
   const EntityPaths(this.path);
   final String path;
