@@ -36,11 +36,16 @@ mixin Bookable {
   }
 
   void appendTransaction(Transaction transaction) {
+    int v = 0;
     if (transaction.soll == this) {
       sollT.add(transaction);
-    } else if (transaction.haben == this) {
+      v++;
+    }
+    if (transaction.haben == this) {
       habenT.add(transaction);
-    } else {
+      v++;
+    }
+    if (v == 0) {
       log("$transaction does not include $name($this)");
     }
   }
