@@ -6,9 +6,26 @@ import * as argon2 from "argon2";
 
 const CUSTOM_SALT = process.env.CUSTOM_SALT;
 
+/**
+ * PasswordValidator.
+ * This is the password implemenation of a validator. 
+ * It does the validation with usernames and passwords.
+ *
+ * @implements {IAuthValidator}
+ */
 export class PasswordValidator implements IAuthValidator {
+	/**
+	 * @type {}
+	 */
 	private logger = cds.log("pwValid");
 
+	/**
+	 * login.
+	 * This is the method for logging in. It checks the login data und returns a jwt if successful.
+	 *
+	 * @param {LoginParameters} data
+	 * @returns {Promise<LoginReturn>}
+	 */
 	async login(data: LoginParameters): Promise<LoginReturn> {
 		const user: Users = await SELECT.one(Entity.Users).where({ email: data.email });
 
@@ -28,6 +45,13 @@ export class PasswordValidator implements IAuthValidator {
 		};
 
 	}
+	/**
+	 * signup.
+	 * This is the method for signin up. It checks the login data und returns a jwt if successful.
+	 *
+	 * @param {SignupParameters} data
+	 * @returns {Promise<SignupReturn>}
+	 */
 	async signup(data: SignupParameters): Promise<SignupReturn> {
 		const passwordHash = await argon2.hash(data.password + CUSTOM_SALT);
 

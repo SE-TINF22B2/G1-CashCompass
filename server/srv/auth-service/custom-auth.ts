@@ -2,6 +2,16 @@ import { Response, NextFunction } from "express";
 import { auth } from '../../lib';
 import cds from "@sap/cds";
 
+/**
+ * custom_auth.
+ * This function implements a custom auth for CAP.
+ * Custom, in this case, means to create the CAP user object from the incoming request and saving it in the request for the following handlers.
+ * This is done by using the custom JWT strategy.
+ *
+ * @param {auth.types.AuthRequestType} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export default function custom_auth(
   req: auth.types.AuthRequestType,
   res: Response,
