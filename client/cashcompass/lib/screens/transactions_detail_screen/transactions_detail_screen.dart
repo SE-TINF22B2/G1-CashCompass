@@ -1,12 +1,17 @@
+import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/transactions_list_widgets/transactions_list.dart';
 
 enum Selection { income, expense }
 
 class TransactionsDetailScreen extends StatefulWidget {
   bool editMode;
-  TransactionsDetailScreen({Key? key, required this.editMode})
+  final Transaction? transaction;
+  TransactionsDetailScreen({Key? key, required this.editMode, this.transaction})
       : super(key: key);
 
   @override
@@ -23,6 +28,8 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   String _selectedDate = "";
   CategoryIcons selectedIcon = CategoryIcons.values.first;
 
+  InterpretedTransaction? interpretedTransaction;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +37,13 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
     _walletController = TextEditingController();
     _titleController = TextEditingController();
     _noteController = TextEditingController();
+
+    if (widget.transaction != null) {
+      interpretedTransaction = interpretTransaction(widget.transaction!);
+      _amountController.text = widget.transaction!.amount.toString();
+      _walletController.text = interpretedTransaction!.walletName;
+      _titleController.text = widget.transaction!.label;
+    }
   }
 
   @override
