@@ -1,10 +1,14 @@
+import 'package:cashcompass_hook/cashcompass_hook.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
+import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
+import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/data_storage/database_object.dart';
+import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -14,42 +18,74 @@ class RemoteStorage implements DataAdapter {
   RemoteStorage(this._client);
   @override
   Future<InitialPullData> getInitialPull(Accountmanager accountManager) async {
-    http.Response response = await _client.get("/data/Accounts");
+    http.Response response = await _client.post(
+      "/data/getInitalPullData",
+      "",
+    );
     if (response.statusCode != 200) {
       throw Error();
     }
 
-    var responseBody = json.decode(response.body);
+    // Map<String, Map<String, dynamic>>
 
-    List<Map<String, dynamic>> data = responseBody["value"]
+    final Map<String, dynamic> responseBody = json.decode(response.body);
+
+    final Map<String, dynamic> data = responseBody["value"];
+    // final List<dynamic> activeAccounts = data["active_account"];
+    // print(activeAccounts);
+
+    // final Map<String, List<Map<String, dynamic>>> data =
+    //     json.decode(responseBody["value"]);
+
+    // Map<String, List<Map<String, dynamic>>> d =
+    //     json.decode(responseBody["value"]);
+    // print(d);
+    //
+    // print(data["active_account"]);
+
+    List<Map<String, dynamic>> activeAccounts =
+        data[EntityPaths.activeaccount.path]
+            .map<Map<String, dynamic>>((entry) => entry as Map<String, dynamic>)
+            .toList();
+
+    List<Map<String, dynamic>> passiveAccounts =
+        data[EntityPaths.passiveaccount.path]
+            .map<Map<String, dynamic>>((entry) => entry as Map<String, dynamic>)
+            .toList();
+
+    List<Map<String, dynamic>> transactions = data[EntityPaths.transaction.path]
         .map<Map<String, dynamic>>((entry) => entry as Map<String, dynamic>)
         .toList();
 
-    print(data);
+    List<Map<String, dynamic>> categories = data[EntityPaths.category.path]
+        .map<Map<String, dynamic>>((entry) => entry as Map<String, dynamic>)
+        .toList();
 
     var pullData = InitialPullData(
         recurringTransactions: [],
-        activeAccounts: data
-            .map((object) => ActiveAccountFactory(accountManager)
-                .deserialise(data: object, id: object["ID"]))
+        // activeAccounts: [],
+        activeAccounts: activeAccounts
+            .map((object) =>
+                ActiveAccountFactory(accountManager).deserialise(data: object))
             .toList(),
-        // activeAccounts: data
-        //     .map(
-        //       (key, value) {
-        //         return MapEntry(
-        //             key,
-        //             ActiveAccountFactory(accountManager)
-        //                 .deserialise(data: value, id: key));
-        //       },
-        //     )
-        //     .values
-        //     .toList(),
-        passiveAccounts: [],
-        transactions: [],
-        categories: [],
+        passiveAccounts: passiveAccounts
+            .map((object) =>
+                PassiveAccountFactory(accountManager).deserialise(data: object))
+            .toList(),
+        transactions: transactions
+            .map((object) =>
+                TransactionsFactory(accountManager).deserialise(data: object))
+            .toList(),
+        categories: categories
+            .map((object) =>
+                CategoryFactory(accountManager).deserialise(data: object))
+            .toList(),
         lastsync: DateTime.now());
 
     print(pullData.activeAccounts);
+    print(pullData.passiveAccounts);
+    print(pullData.transactions);
+    print(pullData.categories);
 
     return pullData;
   }
