@@ -60,4 +60,16 @@ class ChartOfAccounts {
     }
     return ret;
   }
+
+  List<TransactionInfo> getAllTransactionsRealtedToCategories() {
+    List<TransactionInfo> ret = [];
+    ret.addAll(_accountmanager.getAllCategories().expand((cate) => cate.habenT
+        .map((transaction) =>
+            TransactionInfo(TransactionTypes.expense, transaction, cate))));
+
+    ret.addAll(_accountmanager.getAllCategories().expand((cate) => cate.sollT
+        .map((transaction) =>
+            TransactionInfo(TransactionTypes.income, transaction, cate))));
+    return ret;
+  }
 }
