@@ -1,6 +1,6 @@
+import 'package:cashcompass/screens/auth/auth_screen.dart';
 import 'package:cashcompass/screens/home_screen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cashcompass/screens/auth/auth_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatelessWidget {
@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
     return CupertinoApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
+      theme: CupertinoThemeData(
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Color.fromRGBO(242, 242, 247, 1)),
     );
   }
 }
