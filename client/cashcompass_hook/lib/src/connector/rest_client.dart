@@ -18,11 +18,9 @@ class RestClient {
 
   Future<http.Response> post(String path, String body,
       {Map<String, String>? headers, ErrorHandler? errorHandler}) async {
-    final response = await http.post(
-      Uri.parse('$_basetUrl$path'),
-      body: body,
-      headers: headers,
-    );
+    final response = await http.post(Uri.parse('$_basetUrl$path'),
+        body: body,
+        headers: {"content-type": "application/json", ...headers ?? {}});
     (errorHandler ?? const ErrorHandler()).handle(response);
     return response;
   }

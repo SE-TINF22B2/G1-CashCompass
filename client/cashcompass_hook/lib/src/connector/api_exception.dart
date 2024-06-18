@@ -1,10 +1,11 @@
 class ApiException implements Exception {
   final String msg;
   final int? statusCode;
-  ApiException(this.msg, this.statusCode);
+  final String? body;
+  ApiException(this.msg, this.statusCode, {this.body});
 
-  factory ApiException.badRequest() {
-    return ApiException("Bad Request", 400);
+  factory ApiException.badRequest(String body) {
+    return ApiException("Bad Request", 400, body: body);
   }
 
   factory ApiException.unauthorized() {
@@ -21,5 +22,11 @@ class ApiException implements Exception {
 
   factory ApiException.internalServerError() {
     return ApiException("Internal Server Error", 500);
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "${statusCode}: ${msg} ${body ?? ""}";
   }
 }
