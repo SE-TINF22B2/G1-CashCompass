@@ -36,8 +36,9 @@ void main() {
     test("Append Transcation", () {
       var cate = chart.getCategories().first;
       var incomePerCategory = chart.getIncomePerCategory(cate);
-      var nrTransactions =
-          incomePerCategory[chart.getCategories().first]!.length;
+      var nrTransactions = incomePerCategory.containsKey(cate)
+          ? incomePerCategory[cate]!.length
+          : 0;
       chart.createTransaction(cate, cate, "test", 200);
       expect(chart.getIncomePerCategory(cate)[cate]!.length,
           greaterThan(nrTransactions));
