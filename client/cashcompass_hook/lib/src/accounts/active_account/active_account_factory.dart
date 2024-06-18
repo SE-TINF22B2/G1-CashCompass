@@ -33,7 +33,7 @@ class ActiveAccountFactory extends Factory<ActiveAccount,
     obj = ActiveAccount(data["name"], data["account_number"]);
     soll = parseDynamicListToStringList(data["soll"] ?? []);
     haben = parseDynamicListToStringList(data["haben"] ?? []);
-    deserialiseDbObj(id ?? data["id"], !isRemote);
+    deserialiseDbObj(id ?? data["ID"], !isRemote);
     return this;
   }
 }
