@@ -156,7 +156,9 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: CupertinoSlidingSegmentedControl<Selection>(
-                      onValueChanged: handleExpenseIncomeChanged,
+                      onValueChanged: widget.editMode
+                          ? handleExpenseIncomeChanged
+                          : (Selection? selection) {},
                       children: {
                         Selection.income: Padding(
                           padding: EdgeInsets.all(10),
