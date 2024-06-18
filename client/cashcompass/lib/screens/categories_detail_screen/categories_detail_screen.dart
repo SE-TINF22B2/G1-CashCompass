@@ -17,32 +17,32 @@ class CategoriesDetailScreen extends StatefulWidget {
 
 class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
   late final ChartOfAccounts chart;
-  late List<Category> d1;
-  late List<Category> d2;
-  late List<Category> list;
-  late List<CategoryMock> c1;
-  late List<CategoryMock> c2;
+  late List<Category> categoryList1;
+  late List<Category> categoryList2;
+  late List<Category> completeList;
+  late List<CategoryMock> mockedCategories1;
+  late List<CategoryMock> mockedCategories2;
 
   @override
   void initState() {
     super.initState();
     chart = ChartOfAccounts(Controller.accountManager);
-    d1 = chart.getCategories().where((category) {
+    categoryList1 = chart.getCategories().where((category) {
       return category.close() >= 0;
     }).toList(); //get incomes
-    d2 = chart.getCategories().where((category) {
+    categoryList2 = chart.getCategories().where((category) {
       return category.close() < 0;
     }).toList(); //get expenses
-    list = chart.getCategories(); //get all
+    completeList = chart.getCategories(); //get all
 
-    c1 = d1
+    mockedCategories1 = categoryList1
         .map((Category c1) => CategoryMock(
             name: c1.name,
             icon: Icons.abc,
             color: Colors.black,
             totalValue: 1.1))
         .toList();
-    c2 = d2
+    mockedCategories2 = categoryList2
         .map((Category c2) => CategoryMock(
             name: c2.name,
             icon: Icons.baby_changing_station,
@@ -62,8 +62,8 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
           child: Column(
             children: [
               BalanceOverview(
-                incomes: c1,
-                expenses: c2,
+                incomes: mockedCategories1,
+                expenses: mockedCategories2,
               ),
               TransactionsList(
                 transactions: Controller.accountManager.data.transactions,
