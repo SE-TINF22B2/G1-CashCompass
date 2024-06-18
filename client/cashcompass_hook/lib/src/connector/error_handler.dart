@@ -3,9 +3,9 @@ import 'package:http/http.dart';
 
 /// This class is supposed to handle http error codes or unexpected codes by converting the to Exceptions.
 class ErrorHandler {
-  const ErrorHandler();
-  handle(Response response,
-      {int expectedCode = 200, Function(int)? customhandler}) {
+  final expectedCode;
+  const ErrorHandler({this.expectedCode = 200});
+  handle(Response response, {Function(int)? customhandler}) {
     if (expectedCode == response.statusCode) {
       return;
     }

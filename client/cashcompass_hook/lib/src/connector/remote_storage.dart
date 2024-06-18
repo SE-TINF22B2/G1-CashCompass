@@ -2,6 +2,7 @@ import 'package:cashcompass_hook/src/accounts/active_account/active_account_fact
 import 'package:cashcompass_hook/src/accounts/category/category_factory.dart';
 import 'package:cashcompass_hook/src/accounts/initial_pull.dart';
 import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_factory.dart';
+import 'package:cashcompass_hook/src/connector/error_handler.dart';
 import 'package:cashcompass_hook/src/connector/sync_controller.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/rest_client.dart';
@@ -80,11 +81,10 @@ class RemoteStorage implements DataAdapter {
 
   @override
   Future store(DatabaseObject obj) async {
-    print("Moin");
-    print(obj.getSerialiser().toJson());
+    Map<String, dynamic> object = obj.getSerialiser().toJson();
+    object.remove("isUploaded");
     http.Response response = await _client.post(
-        "/data/${obj.getPath()}", jsonEncode(obj.getSerialiser().toJson()));
-
-    print(response);
+        "/data/${obj.getPath()}", jsonEncode(object),
+        errorHandler: ErrorHandler(expectedCode: 201));
   }
 }
