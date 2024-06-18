@@ -257,22 +257,23 @@ void main() {
   });
 
   group("RemoteStorage", () {
-    RestClient restClient = RestClient(
-        baseUrl:
-            "https://9c632b52trial-dev-backend-cap-srv.cfapps.us10-001.hana.ondemand.com/odata/v4");
+    RestClient restClient = RestClient(baseUrl: defaultServerBaseUrl);
 
     Accountmanager accManager =
         Accountmanager(dataAdapter: RemoteStorage(restClient));
-    late ChartOfAccounts chart;
+    late ChartOfAccounts accountChart;
     setUp(() async {
       await accManager.init();
-      chart = ChartOfAccounts(accManager);
+      accountChart = ChartOfAccounts(accManager);
     });
 
     test("Get All Categories", () {
-      print(chart.getCategories());
-      // expect(chart.getCategories().isNotEmpty, true);
+      expect(accountChart.getCategories().isNotEmpty, true);
       // expect(chart.getCategories(matcher: (p0) => false).isEmpty, true);
+    });
+
+    test("Get All active Accounts", () {
+      expect(accountChart.getActiveAccounts().isNotEmpty, true);
     });
   });
 }
