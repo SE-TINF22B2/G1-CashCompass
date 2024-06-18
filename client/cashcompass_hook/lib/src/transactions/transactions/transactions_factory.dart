@@ -58,6 +58,7 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
         label: label);
     soll.appendTransaction(obj!);
     haben.appendTransaction(obj!);
+    accountManager.addTransaction([obj!]);
     deserialiseDbObj(id, !isRemote);
     return this;
   }
