@@ -32,9 +32,9 @@ class CategoryFactory extends Factory<Category, CategorySerializer,
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = Category(
         data["name"], data["account_number"], data["color"], data["icon"]);
-    soll = parseDynamicListToStringList(data["soll"]);
-    haben = parseDynamicListToStringList(data["haben"]);
-    deserialiseDbObj(id ?? data["id"], !isRemote);
+    soll = parseDynamicListToStringList(data["soll"] ?? []);
+    haben = parseDynamicListToStringList(data["haben"] ?? []);
+    deserialiseDbObj(id ?? data["ID"], !isRemote);
     return this;
   }
 }

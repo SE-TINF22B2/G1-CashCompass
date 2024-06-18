@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_factory.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account_serializer.dart';
@@ -11,6 +10,8 @@ import 'package:cashcompass_hook/src/accounts/passive_account/passive_account_fa
 import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
 import 'package:cashcompass_hook/src/connector/entity_paths.dart';
 import 'package:cashcompass_hook/src/connector/mock_classes/mock_data_adapter.dart';
+import 'package:cashcompass_hook/src/connector/remote_storage.dart';
+import 'package:cashcompass_hook/src/connector/rest_client.dart';
 import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import 'package:cashcompass_hook/src/transactions/recurring_transactions/recurring_transactions_factory.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transactions_factory.dart';
@@ -75,14 +76,14 @@ void main() {
       var acc = ActiveAccountFactory(manager).create("test1").build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields(
-          ["id", "isUploaded", "soll", "haben", "name", "account_number"],
+          ["ID", "isUploaded", "soll", "haben", "name", "account_number"],
           map));
     });
     test('Passive Account', () {
       var acc = PassiveAccountFactory(manager).create("test1").build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields(
-          ["id", "isUploaded", "soll", "haben", "name", "account_number"],
+          ["ID", "isUploaded", "soll", "haben", "name", "account_number"],
           map));
       assert(map.keys.length == 6);
     });
@@ -93,7 +94,7 @@ void main() {
           .build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -118,7 +119,7 @@ void main() {
           .build();
       var map = tr.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -147,7 +148,7 @@ void main() {
           .build();
       var map = tr.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -247,9 +248,30 @@ void main() {
       var fac = CategoryFactory(manager);
       var f = fac.create("TestAccount", "#666666", "StopSign").build();
       var data = f.getSerialiser().toJson();
-      data.removeWhere((key, value) => key == "id");
+      data.removeWhere((key, value) => key == "ID");
       expect(() => CategoryFactory(manager).deserialise(data: data).build(),
           throwsA(const TypeMatcher<Exception>()));
+    });
+  });
+
+  group("RemoteStorage", () {
+    RestClient restClient = RestClient(baseUrl: defaultServerBaseUrl);
+
+    Accountmanager accManager =
+        Accountmanager(dataAdapter: RemoteStorage(restClient));
+    late ChartOfAccounts accountChart;
+    setUp(() async {
+      await accManager.init();
+      accountChart = ChartOfAccounts(accManager);
+    });
+
+    test("Get All Categories", () {
+      expect(accountChart.getCategories().isNotEmpty, true);
+      // expect(chart.getCategories(matcher: (p0) => false).isEmpty, true);
+    });
+
+    test("Get All active Accounts", () {
+      expect(accountChart.getActiveAccounts().isNotEmpty, true);
     });
   });
 }

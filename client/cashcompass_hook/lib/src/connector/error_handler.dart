@@ -13,7 +13,7 @@ class ErrorHandler {
       case (401):
         throw ApiException.unauthorized();
       case (400):
-        throw ApiException.badRequest();
+        throw ApiException.badRequest(response.body);
       case (500):
         throw ApiException.internalServerError();
       case (403):

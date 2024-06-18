@@ -31,9 +31,9 @@ class PassiveAccountFactory extends Factory<PassiveAccount,
   PassiveAccountFactory deserialise(
       {required Map<String, dynamic> data, bool isRemote = false, String? id}) {
     obj = PassiveAccount(data["name"], data["account_number"]);
-    soll = parseDynamicListToStringList(data["soll"]);
-    haben = parseDynamicListToStringList(data["haben"]);
-    deserialiseDbObj(id ?? data["id"], !isRemote);
+    soll = parseDynamicListToStringList(data["soll"] ?? []);
+    haben = parseDynamicListToStringList(data["haben"] ?? []);
+    deserialiseDbObj(id ?? data["ID"], !isRemote);
     return this;
   }
 }
