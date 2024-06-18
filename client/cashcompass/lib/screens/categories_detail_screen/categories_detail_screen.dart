@@ -65,9 +65,7 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                 incomes: mockedCategories1,
                 expenses: mockedCategories2,
               ),
-              TransactionsList(
-                transactions: Controller.accountManager.data.transactions,
-              )
+              TransactionsList()
             ],
           ),
         ),

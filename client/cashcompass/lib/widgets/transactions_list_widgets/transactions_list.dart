@@ -1,3 +1,4 @@
+import 'package:cashcompass/controller/controller.dart';
 import 'package:cashcompass/screens/transactions_detail_screen/transactions_detail_screen.dart';
 import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/active_account/active_account.dart';
@@ -40,14 +41,20 @@ InterpretedTransaction interpretTransaction(Transaction transaction) {
 }
 
 class TransactionsList extends StatefulWidget {
-  final List<Transaction> transactions;
-  const TransactionsList({super.key, required this.transactions});
+  const TransactionsList({super.key});
 
   @override
   State<TransactionsList> createState() => _TransactionsListState();
 }
 
 class _TransactionsListState extends State<TransactionsList> {
+  List<Transaction> transactions = [];
+  @override
+  void initState() {
+    super.initState();
+    transactions = Controller.accountManager.data.transactions;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +94,7 @@ class _TransactionsListState extends State<TransactionsList> {
                 ),
               ),
             ),
-            ...widget.transactions.map((transaction) {
+            ...transactions.map((transaction) {
               InterpretedTransaction interpretedTransaction =
                   interpretTransaction(transaction);
               return CupertinoListTile(
@@ -131,8 +138,14 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   void handleAddTransaction() {
-    Navigator.of(context).push(CupertinoPageRoute(
-        builder: (context) => TransactionsDetailScreen(editMode: true)));
+    Navigator.of(context)
+        .push(CupertinoPageRoute(
+            builder: (context) => TransactionsDetailScreen(editMode: true)))
+        .then((v) {
+      setState(() {
+        transactions = Controller.accountManager.data.transactions;
+      });
+    });
   }
 
   void _handleTransactionListTileTapped(Transaction transaction) {

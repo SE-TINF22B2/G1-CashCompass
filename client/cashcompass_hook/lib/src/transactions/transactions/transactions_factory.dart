@@ -20,13 +20,15 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
       {required double amount,
       required Bookable soll,
       required Bookable haben,
-      required String label}) {
+      required String label,
+      DateTime? timestamp}) {
     obj = Transaction(
         transactionNumber: accountManager.nextTransactionNumber,
         soll: soll,
         haben: haben,
         amount: amount,
-        label: label);
+        label: label,
+        timestamp: timestamp);
     return this;
   }
 
@@ -58,6 +60,7 @@ class TransactionsFactory extends Factory<Transaction, TransactionsSerializer,
         label: label);
     soll.appendTransaction(obj!);
     haben.appendTransaction(obj!);
+    accountManager.addTransaction([obj!]);
     deserialiseDbObj(id, !isRemote);
     return this;
   }

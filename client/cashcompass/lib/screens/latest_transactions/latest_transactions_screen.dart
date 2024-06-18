@@ -21,8 +21,7 @@ class _LatestTransactionsScreenState extends State<LatestTransactionsScreen> {
         middle: Text("Latest Transactions"),
       ),
       child: SafeArea(
-        child: TransactionsList(
-            transactions: Controller.accountManager.data.transactions),
+        child: TransactionsList(),
       ),
     );
   }

@@ -99,6 +99,10 @@ class Accountmanager {
     _data.categories.addAll(categories);
   }
 
+  void addTransaction(List<Transaction> trs) {
+    _data.transactions.addAll(trs);
+  }
+
   Iterable<Category> getAllCategories() => _copyList(_data.categories);
 
   Iterable<ActiveAccount> getAllActiveAccounts() =>

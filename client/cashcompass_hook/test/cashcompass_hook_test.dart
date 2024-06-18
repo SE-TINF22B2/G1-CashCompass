@@ -40,7 +40,7 @@ void main() {
       var nrTransactions = incomePerCategory.containsKey(cate)
           ? incomePerCategory[cate]!.length
           : 0;
-      chart.createTransaction(cate, cate, "test", 200);
+      chart.createTransaction(cate, cate, "test", 200, DateTime.now());
       expect(chart.getIncomePerCategory(cate)[cate]!.length,
           greaterThan(nrTransactions));
     });

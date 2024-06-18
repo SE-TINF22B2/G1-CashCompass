@@ -1,9 +1,13 @@
+import 'package:cashcompass/controller/controller.dart';
 import 'package:cashcompass/widgets/transactions_list_widgets/InterpretedTransaction.dart';
 import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:cashcompass_hook/src/transactions/transactions/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cashcompass_hook/src/chart_of_accounts.dart/chart_of_accounts.dart';
+
+import 'package:cashcompass_hook/src/data_storage/accout_manager.dart';
 import '../../widgets/transactions_list_widgets/transactions_list.dart';
 
 enum Selection { income, expense }
@@ -25,6 +29,7 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   late TextEditingController _walletController;
   late TextEditingController _titleController;
   late TextEditingController _noteController;
+  DateTime? _timestamp;
   String _selectedDate = "";
   CategoryIcons selectedIcon = CategoryIcons.values.first;
 
@@ -65,7 +70,7 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showCupertinoModalPopup<DateTime>(
+    _timestamp = await showCupertinoModalPopup<DateTime>(
       context: context,
       builder: (BuildContext context) {
         return Container(
@@ -324,6 +329,12 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   }
 
   void handleDeleteTransaction() {
-    // Handle delete transaction functionality
+    var chart = ChartOfAccounts(Controller.accountManager);
+    chart.createTransaction(
+        Controller.accountManager.getAccount(22)!,
+        Controller.accountManager.getAccount(11)!,
+        _titleController.text,
+        double.parse(_amountController.text),
+        _timestamp ?? DateTime.now());
   }
 }
