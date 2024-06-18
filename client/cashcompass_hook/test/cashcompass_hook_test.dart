@@ -76,14 +76,14 @@ void main() {
       var acc = ActiveAccountFactory(manager).create("test1").build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields(
-          ["id", "isUploaded", "soll", "haben", "name", "account_number"],
+          ["ID", "isUploaded", "soll", "haben", "name", "account_number"],
           map));
     });
     test('Passive Account', () {
       var acc = PassiveAccountFactory(manager).create("test1").build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields(
-          ["id", "isUploaded", "soll", "haben", "name", "account_number"],
+          ["ID", "isUploaded", "soll", "haben", "name", "account_number"],
           map));
       assert(map.keys.length == 6);
     });
@@ -94,7 +94,7 @@ void main() {
           .build();
       var map = acc.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -119,7 +119,7 @@ void main() {
           .build();
       var map = tr.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -148,7 +148,7 @@ void main() {
           .build();
       var map = tr.getSerialiser().toJson();
       assert(TestHelper.checkFields([
-        "id",
+        "ID",
         "isUploaded",
         "soll",
         "haben",
@@ -248,7 +248,7 @@ void main() {
       var fac = CategoryFactory(manager);
       var f = fac.create("TestAccount", "#666666", "StopSign").build();
       var data = f.getSerialiser().toJson();
-      data.removeWhere((key, value) => key == "id");
+      data.removeWhere((key, value) => key == "ID");
       expect(() => CategoryFactory(manager).deserialise(data: data).build(),
           throwsA(const TypeMatcher<Exception>()));
     });

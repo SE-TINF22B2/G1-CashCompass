@@ -13,7 +13,7 @@ class MockDataAdapter extends DataAdapter {
   Map<String, Map<String, dynamic>> db = {
     EntityPaths.activeaccount.path: {
       "11": {
-        "id": 11,
+        "ID": 11,
         "isUploaded": true,
         "name": "ING",
         "account_number": 11,
@@ -21,7 +21,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "12": {
-        "id": 12,
+        "ID": 12,
         "isUploaded": true,
         "name": "Sparkasse",
         "account_number": 12,
@@ -29,7 +29,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "13": {
-        "id": 13,
+        "ID": 13,
         "isUploaded": true,
         "name": "BAR",
         "account_number": 13,
@@ -37,7 +37,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "45": {
-        "id": 45,
+        "ID": 45,
         "isUploaded": true,
         "name": "active1",
         "account_number": 45,
@@ -47,7 +47,7 @@ class MockDataAdapter extends DataAdapter {
     },
     EntityPaths.category.path: {
       "21": {
-        "id": 21,
+        "ID": 21,
         "isUploaded": true,
         "name": "GiftsDonations",
         "account_number": 21,
@@ -56,7 +56,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "22": {
-        "id": 22,
+        "ID": 22,
         "isUploaded": true,
         "name": "Groceries",
         "account_number": 22,
@@ -65,7 +65,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "23": {
-        "id": 23,
+        "ID": 23,
         "isUploaded": true,
         "name": "Transport",
         "account_number": 23,
@@ -74,7 +74,7 @@ class MockDataAdapter extends DataAdapter {
         "haben": []
       },
       "24": {
-        "id": 24,
+        "ID": 24,
         "isUploaded": true,
         "name": "Loans",
         "account_number": 24,
@@ -85,7 +85,7 @@ class MockDataAdapter extends DataAdapter {
     },
     EntityPaths.passiveaccount.path: {
       "31": {
-        "id": 31,
+        "ID": 31,
         "isUploaded": true,
         "name": "pass1",
         "account_number": 31,
