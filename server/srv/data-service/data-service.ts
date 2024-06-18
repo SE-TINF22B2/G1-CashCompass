@@ -35,18 +35,17 @@ export class DataService extends ApplicationService {
   async handleGetInitialPullData(req: Request) {
     const db = await cds.connect.to('db');
 
-    const [accounts, categories, friendAccounts, transactions, recurringTransactions] = await Promise.all([
+    const [accounts, categories, transactions, recurringTransactions] = await Promise.all([
       db.read('dhbw.caco.schema.Accounts'),
       db.read('dhbw.caco.schema.Categories'),
-      db.read('dhbw.caco.schema.FriendAccounts'),
       db.read('dhbw.caco.schema.Transactions'),
       db.read('dhbw.caco.schema.RecurringTransactions')
     ]);
 
     return {
       active_account: accounts.filter(account => account.accountType === 0),
-      passive_account: categories.filter(account => account.accountType === 1),
-      category: friendAccounts,
+      passive_account: accounts.filter(account => account.accountType === 1),
+      category: categories,
       transaction: transactions,
       recurring_transactions: recurringTransactions
     };
