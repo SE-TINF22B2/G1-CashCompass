@@ -1,3 +1,4 @@
+import 'package:cashcompass_hook/src/accounts/category/category_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,17 +18,16 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   Selection? selectedValue = Selection.income;
   late TextEditingController _amountController;
   late TextEditingController _walletController;
-  late TextEditingController _categoryController;
   late TextEditingController _titleController;
   late TextEditingController _noteController;
   String _selectedDate = "";
+  CategoryIcons selectedIcon = CategoryIcons.values.first;
 
   @override
   void initState() {
     super.initState();
     _amountController = TextEditingController();
     _walletController = TextEditingController();
-    _categoryController = TextEditingController();
     _titleController = TextEditingController();
     _noteController = TextEditingController();
   }
@@ -36,7 +36,6 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
   void dispose() {
     _amountController.dispose();
     _walletController.dispose();
-    _categoryController.dispose();
     _titleController.dispose();
     _noteController.dispose();
     super.dispose();
@@ -73,6 +72,36 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
                 ),
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _showPicker() async {
+    await showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          padding: EdgeInsets.all(8.0),
+          color: CupertinoColors.white,
+          child: CupertinoPicker(
+            itemExtent: 35,
+            onSelectedItemChanged: (index) {
+              setState(() {
+                selectedIcon = CategoryIcons.values[index];
+              });
+            },
+            children: CategoryIcons.values
+                .map((icon) => Row(
+                      children: [
+                        Icon(icon.icon),
+                        SizedBox(width: 10),
+                        Text(icon.name),
+                      ],
+                    ))
+                .toList(),
           ),
         );
       },
@@ -168,12 +197,16 @@ class _TransactionsDetailScreenState extends State<TransactionsDetailScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text('Category'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CupertinoTextField(
-                              controller: _categoryController,
-                              readOnly: !widget.editMode,
+                          CupertinoButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(selectedIcon.icon),
+                                SizedBox(width: 10),
+                                Text(selectedIcon.name),
+                              ],
                             ),
+                            onPressed: widget.editMode ? _showPicker : null,
                           ),
                         ],
                       ),
