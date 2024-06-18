@@ -30,7 +30,10 @@ aspect BaseTransaction : cuid, managed {
         activeAccount  : Association to one Accounts;
         passiveAccount : Association to one Accounts;
         amount         : Double;
+        label          : String;
+        transactionsNr : Integer;
 }
+
 
 entity Transactions : BaseTransaction {
         timestamp : Timestamp;
